@@ -452,12 +452,6 @@ public:
   //! \return An integer that indicates an error code (0 = no error, >0 indicates an error).
   int SetExtrinsic(int i, int j, double k);
 
-  //!Write the current set of folding constraints to disk in a plain text file.
-
-  //!This function does not write SHAPE pseudo energies.
-  //!\param filename is a c string that is the file name to be written.
-  //!\return An integer that indicates an error code (0 = no error). Currently, this function does not generate errors, but the return is provided to add error handling in the future.
-  int WriteConstraints(const char filename[]);
   //****************************************
   //Functions that write output information:
   //****************************************
@@ -491,19 +485,6 @@ public:
   //Functions that return information about structures:
   //*******************************************************
 
-  //!Break any pseudoknots that might be in a structure.
-
-  //! This function uses the method of Smit et al. to break pseudoknots by running a dynamic programming algorithm that cannot predict pseudoknots while only allowing the pairs that already exist in the structure.
-  //! When minimum_energy = true (the default), this function predicts the lowest free energy structure that has no pseudoknots.
-  //! Note that when minimum_energy = true, this function might additionally break pairs that are not pseudoknotted if the pairs increase the folding free energy change or are forbidden (as in an isolated pair).
-  //! Also note that when minum_energy=true, this function uses the GenerateAllSuboptimalStructures methodology behind the scenes, so large internal loops in the input would lead to a loss of pairs.
-  //! When minumum_energy is set to false, this function maximizes the number of base pairs in the pseudoknot free structure.
-  //!	Return 0 if no error and non-zero errors can be parsed by GetErrorMessage() or GetErrorMessageString().
-  //!\param minimum_energy is a bool thgat indicates where the structure should be minimum in free energy (true) or maximize pairs (false).
-  //!\param structurenumber is an int that indicates a specific structure for which to break pseudoknots (indexed from 1).  The default value, 0, indicates that all structures should have pseudoknots broken.
-  //!\return an int that provides an error code.  0 = no error.
-  int BreakPseudoknot(const bool minimum_energy = true, const int structurenumber = 0);
-
   //! Report if there are any pseudoknots in a structure.
 
   //! This method checks for any "crossing pairs," i.e. i-j and i'-j' s.t. i < i' < j < jp.
@@ -513,17 +494,7 @@ public:
   //!\param structurenumber is an int that indicates the structure number to check.  Note that indexing of structures starts with structure #1.
   //!\return A bool that indicates whether there is a pseudoknot.
   bool ContainsPseudoknot(const int structurenumber);
-  //!Get the ensemble folding free energy change.
 
-  //! Returns the ensemble folding free energy change as determined by the partition function.
-  //! This is a handy way of getting the size of the partition function Q, which itself is too large to fit in a double for all but the shortest sequences.
-  //! The ensemble folding free energy change = -RT ln (Q).
-  //!	Function requires that the partition function data be present either because PartitionFunction()
-  //! has been called or the constructor that reads a partition function save was used.
-  //! This function generates internal error codes that can be accessed by GetErrorCode() after the constructor is called: 0 = no error, nonzero = error.
-  //! The errorcode can be resolved to a c string using GetErrorMessage.
-  //!\return A double that is the ensemble folding free energy change in kcal/mol.
-  double GetEnsembleEnergy();
   //!Get the folding free energy change for a predicted structure.
 
   //! Returns the folding free energy change of structure i as determined by a previous folding calculation.
@@ -544,28 +515,6 @@ public:
   //!\return An int that indicates the other nucleotide in pair, where 0 is no paired.
   int GetPair(const int i, const int structurenumber = 1);
 
-  //! Get the lowest folding free energy possible for a structure containing pair i-j.
-
-  //! Returns a folding free energy change in kcal/mol for use in energy dot plots.
-  //! This function requires that the RNA constructor be called with a save file (.sav) name.  (That is, for historical resaons, this cannot be called after FoldSingleStrand without writing the data to disk.)
-  //! This function generates internal error codes that can be accessed by GetErrorCode() after the constructor is called: 0 = no error, nonzero = error.
-  //! The errorcode can be resolved to a c string using GetErrorMessage.
-  //!	param i and j are ints that provide indexes the 5' and 3' nucleotides, respectively, in a pair.
-  //! return A double that is the folding free energy change in kcal/mol.
-  double GetPairEnergy(const int i, const int j);
-
-  //! Get a base pair probability.
-
-  //! Returns the base pair probability for the pair between i and j.
-  //!	Function requires that the partition function data be present either because PartitionFunction()
-  //! has been called or the constructor that reads a partition function save was used.
-  //! This function generates internal error codes that can be accessed by GetErrorCode(): 0 = no error, nonzero = error.
-  //! The errorcode can be resolved to a c string using GetErrorMessage.
-  //!\param i provides the 5' nucleotide in a pair.
-  //!\param j provides the 3' nucleotides in a pair.
-  //!\return A double that is the base pair probability.  If i and j cannot pair, 0.0 is returned.  If an error occurs, 0.0 is returned.
-  double GetPairProbability(const int i, const int j);
-
   //!Get the total number of specified or predicted structures.
 
   //!\return An integer specify the total number of structures.
@@ -577,25 +526,6 @@ public:
   //param j provides the 3' nucleotides in a pair.
   //void SetExperimentalBonus(const int i, const int j, const double bonus);
 
-  //*******************************************************
-  //Functions that provide drawing coordinates:
-  //*******************************************************
-
-  //! Determine the coordinates for drawing a secondary structure.
-
-  //! This function determines drawing coordinates for all nucleotides in structure number structurenumber.
-  //! User must specify the height and width of a character (use the largest of nucleotides).
-  //! The coordinates are in an abstract palette; the user must determine the minimum and maximum coordinate in both the x and y direction.
-  //! The actual coordinates are fetched using GetNucleotideXCoordinate(int i) and GetNucleotideYCoordinate(int i).
-  //! This function returns are error code, where 0=no error and other messages can be resolved to a c string using GetErrorMessage.
-  //! The structure to be drawn must be free of pseudoknots.
-
-  //!\param height is an integer that refers to the height of a nucleotide.
-  //!\param width is an integer that refers to the width of a nucleotide, where the largest nucleotide should be provided or a non-proportional font should be used.
-  //!\param structurenumber is an integer that refers to the structure to be drawn.
-  //!\return An int that provides an error code, 0 = no error and other errors can be resolved to a c string using GetErrorMessage.
-  int DetermineDrawingCoordinates(const int height, const int width, const int structurenumber = 1);
-
   //! Provide the comment from the ct file as a string.
 
   //! This function provides the comment from the CT file for a structure as a string.
@@ -604,55 +534,7 @@ public:
   //!\param structurenumber is the structure for which the comment is to be provided.
   //!\return A string that provides the comment.
   std::string GetCommentString(const int structurenumber = 1);
-  //! Get the X coordinate for nucleotide i for drawing a structure.
 
-  //! This function gets the X coordinate for placing the nucleotide specified by i.
-  //! The user needs to have determined the coordinates for a complete structure using DetermineDrawingCoordinates prior to making this call.
-  //! This function generates internal error codes that can be accessed by GetErrorCode(): 0 = no error, nonzero = error.
-  //! The errorcode can be resolved to a c string using GetErrorMessage.
-  //! Zero is returned in case of error, but note that zero is also a valid coordinate.
-
-  //!\param i is an integer refering to the nucleotide to be drawn.
-  //!\return An int that gives the X coordinate.
-  int GetNucleotideXCoordinate(const int i);
-
-  //! Get the Y coordinate for nucleotide i for drawing a structure.
-
-  //! This function gets the Y coordinate for placing the nucleotide specified by i.
-  //! The user needs to have determined the coordinates for a complete structure using DetermineDrawingCoordinates prior to making this call.
-  //! This function generates internal error codes that can be accessed by GetErrorCode(): 0 = no error, nonzero = error.
-  //! The errorcode can be resolved to a c string using GetErrorMessage.
-  //! Zero is returned in case of error, but note that zero is also a valid coordinate.
-
-  //!\param i is an integer refering to the nucleotide to be drawn.
-  //!\return An int that gives the Y coordinate.
-  int GetNucleotideYCoordinate(const int i);
-
-  //! Get the X coordinate for placing the nucleotide index label specified by i.
-
-  //! This function gets the X coordinate for placing the nucleotide index label specified by i.
-  //! The user needs to have determined the coordinates for a complete structure using DetermineDrawingCoordinates prior to making this call.
-  //! This function generates internal error codes that can be accessed by GetErrorCode(): 0 = no error, nonzero = error.
-  //! The errorcode can be resolved to a c string using GetErrorMessage.
-  //! Zero is returned in case of error, but note that zero is also a valid coordinate.
-  //! One additiona caveat: Labels that are placed at 0,0 are lables that would have overlapped nucleotides.  These labels should not be drawn.
-
-  //!\param i is an integer refering to the label to be drawn.  This needs to be a multiple of 10.
-  //!\return An int that gives the X coordinate.
-  int GetLabelXCoordinate(const int i);
-
-  //! Get the Y coordinate for placing the nucleotide index label specified by i.
-
-  //! This function gets the Y coordinate for placing the nucleotide index label specified by i.
-  //! The user needs to have determined the coordinates for a complete structure using DetermineDrawingCoordinates prior to making this call.
-  //! This function generates internal error codes that can be accessed by GetErrorCode(): 0 = no error, nonzero = error.
-  //! The errorcode can be resolved to a c string using GetErrorMessage.
-  //! Zero is returned in case of error, but note that zero is also a valid coordinate.
-  //! One additiona caveat: Labels that are placed at 0,0 are lables that would have overlapped nucleotides.  These labels should not be drawn.
-
-  //!\param i is an integer refering to the label to be drawn.  This needs to be a multiple of 10.
-  //!\return An int that gives the Y coordinate.
-  int GetLabelYCoordinate(const int i);
   //*****************************************************
   //Functions that return information about the sequence:
   //*****************************************************
