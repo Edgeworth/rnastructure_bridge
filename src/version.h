@@ -1,0 +1,2 @@
+#define RNASTR_BUILD_VERSION "5.8"
+#define RNASTR_BUILD_DATE "December 1, 2015"

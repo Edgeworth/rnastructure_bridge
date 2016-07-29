@@ -1,0 +1,5 @@
+*.o
+*.obj
+cmake/
+.idea/
+exe/*
