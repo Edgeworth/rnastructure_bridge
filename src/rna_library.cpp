@@ -1,11 +1,4 @@
-
-#ifdef _WINDOWS_GUI
-#include "../RNAstructure_windows_interface/platform.h"
-#else
-
 #include "platform.h"
-
-#endif //_WINDOWS
 
 #include "rna_library.h"
 #include <cmath>

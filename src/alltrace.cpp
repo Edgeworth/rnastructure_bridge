@@ -5,11 +5,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#ifndef _WINDOWS_GUI
-
 #include "platform.h"
-
-#endif
 
 using namespace std;
 #undef pfdebugmode  //flag to indicate debugging

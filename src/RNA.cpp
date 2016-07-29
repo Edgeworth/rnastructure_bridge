@@ -9,7 +9,6 @@
 #include "stackstruct.h"
 #include "algorithm.h"
 #include "outputconstraints.h"
-#include "boltzmann.h"
 #include "alltrace.h"
 #include <iostream>
 
@@ -661,12 +660,6 @@ int RNA::SetExtrinsic(int i, int j, double k) {
     ct->allocateconstant();
   }
   ct->constant[localj][locali] = k;
-  return 0;
-}
-
-//Write the set of folding constraints to disk.
-int RNA::WriteConstraints(const char filename[]) {
-  outputconstraints(filename, ct);
   return 0;
 }
 

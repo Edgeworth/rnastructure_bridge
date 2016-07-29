@@ -15,24 +15,12 @@
 #include "structure.h"
 #include "algorithm.h"
 
-#ifdef _WINDOWS_GUI
-#include "../RNAstructure_windows_interface/platform.h"
-#else
-
 #include "platform.h"
-
-#endif //_WINDOWS
 
 #include <cstring>
 #include <cmath>
 #include <cstdlib>
 
-#ifdef _CUDA_CALC_
-                                                                                                                        #include "../fold-smp/frna.h"
-#include "../fold-smp/fparam.h"
-#include "../partition-smp/base.h"
-#include "../partition-smp/util.h"
-#endif
 using namespace std;
 //#define maxfil 250    //maximum length of file names
 

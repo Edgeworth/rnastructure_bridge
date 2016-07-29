@@ -27,10 +27,8 @@ RNA_FILES = \
 	${ROOTPATH}/src/algorithm.o \
 	${ROOTPATH}/src/alltrace.o \
 	${ROOTPATH}/src/arrayclass.o \
-	${ROOTPATH}/src/extended_double.o \
 	${ROOTPATH}/src/forceclass.o \
 	${ROOTPATH}/src/outputconstraints.o \
-	${ROOTPATH}/src/random.o \
 	${ROOTPATH}/src/rna_library.o \
 	${ROOTPATH}/src/stackclass.o \
 	${ROOTPATH}/src/stackstruct.o \
@@ -57,7 +55,6 @@ ${ROOTPATH}/src/RNA.o: \
 	${ROOTPATH}/src/defines.h \
 	${ROOTPATH}/src/forceclass.h \
 	${ROOTPATH}/src/platform.h \
-	${ROOTPATH}/src/random.h \
 	${ROOTPATH}/src/rna_library.h \
 	${ROOTPATH}/src/stackclass.h \
 	${ROOTPATH}/src/stackstruct.h \
@@ -83,9 +80,6 @@ ${ROOTPATH}/src/arrayclass.o: \
 	${ROOTPATH}/src/arrayclass.cpp ${ROOTPATH}/src/arrayclass.h \
 	${ROOTPATH}/src/defines.h
 
-${ROOTPATH}/src/configfile.o: \
-	${ROOTPATH}/src/configfile.cpp ${ROOTPATH}/src/configfile.h
-
 ${ROOTPATH}/src/ParseCommandLine.o: \
 	${ROOTPATH}/src/ParseCommandLine.cpp ${ROOTPATH}/src/ParseCommandLine.h ${ROOTPATH}/src/version.h
 
@@ -94,9 +88,6 @@ ${ROOTPATH}/src/rna_library.o: \
 	${ROOTPATH}/src/platform.h \
 	${ROOTPATH}/src/rna_library.cpp ${ROOTPATH}/src/rna_library.h \
 	${ROOTPATH}/src/structure.h
-
-${ROOTPATH}/src/basepair.o: \
-	${ROOTPATH}/src/basepair.cpp ${ROOTPATH}/src/basepair.h
 
 ${ROOTPATH}/src/stackclass.o: \
 	${ROOTPATH}/src/defines.h \
@@ -109,11 +100,3 @@ ${ROOTPATH}/src/structure.o: \
 	${ROOTPATH}/src/defines.h \
 	${ROOTPATH}/src/platform.h \
 	${ROOTPATH}/src/structure.cpp ${ROOTPATH}/src/structure.h
-
-${ROOTPATH}/src/thermo.o: \
-	${ROOTPATH}/src/thermo.cpp ${ROOTPATH}/src/thermo.h
-
-${ROOTPATH}/src/varray.o: \
-	${ROOTPATH}/src/defines.h \
-	${ROOTPATH}/src/dynalign.h \
-	${ROOTPATH}/src/varray.cpp ${ROOTPATH}/src/varray.h
