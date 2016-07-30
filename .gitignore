@@ -2,6 +2,7 @@
 *.obj
 .idea/
 exe/*
+build/
 
 ### CMake ###
 CMakeCache.txt

@@ -1,5 +1,7 @@
 This is E's modified version of RNAstructure.
 
+Below follows the original readme text of RNAstructure.
+
 ----
 
 This is the source code for RNAstructure, which includes tools for
