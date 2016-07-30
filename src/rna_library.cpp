@@ -1790,9 +1790,8 @@ integersize ergcoaxflushbases(int i, int j, int ip, int jp, datatable* data) {
 integersize ergcoaxinterbases1(int i, int j, int ip, int jp, int k, int l, datatable* data) {
 
   //coaxial stacking with an intervening mismatch
-
   return data->tstackcoax[j][i][l][k] +
-         data->coaxstack[l][k][ip][jp];
+         data->coaxstack[jp][ip][l][k];
 }
 //this function calculates the free energy for coaxial stacking of pair i-j onto ip-jp
 //	require that the backbone continues directly between j and ip without a nucleotide in
@@ -1956,6 +1955,7 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
         energy[i][i + 2] = min(energy[i][i + 1], energy[i + 1][i + 2]);
         if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10) {
           //consider mismatch stack ono helix:
+
           energy[i][i + 2] = min(energy[i][i + 2],
                                  data->tstkm[decon2(element[i + 1])][decon1(element[i + 1])]
                                  [element[i + 2]][element[i]]);
@@ -1971,7 +1971,6 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
         //now the fragment is big enough for coaxial stacking with
         //	an intervening mismatch:
         if (element[i] > 10 && element[i + 1] < 10 && element[i + 2] > 10 && element[i + 3] < 10) {
-
           energy[i][i + 3] = min(energy[i][i + 3],
                                  ergcoaxinterbases2(decon1(element[i]), decon2(element[i]),
                                                     decon1(element[i + 2]), decon2(element[i + 2]),
@@ -1979,7 +1978,6 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
         }
         else if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10 &&
                  element[i + 3] > 10) {
-
           energy[i][i + 3] = min(energy[i][i + 3],
                                  ergcoaxinterbases1(decon1(element[i + 1]), decon2(element[i + 1]),
                                                     decon1(element[i + 3]), decon2(element[i + 3]),
@@ -2002,6 +2000,7 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
   minimum = min(energy[0][count - 1], energy[1][count]);
   minimum = min(minimum, energy[2][count + 1]);
   minimum = min(minimum, energy[3][count + 2]);
+
   //deallocate memory use:
 
   for (i = 0; i < count + 3; i++) delete[] energy[i];
