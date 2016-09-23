@@ -26,7 +26,9 @@ datatable::datatable() {
               iloop11[a][b][c][d][e][f] = INFINITE_ENERGY;
               for (g = 0; g <= 5; g++) {
                 iloop21[a][b][c][d][e][f][g] = INFINITE_ENERGY;
-                for (h = 0; h <= 5; h++) { iloop22[a][b][c][d][e][f][g][h] = INFINITE_ENERGY; }
+                for (h = 0; h <= 5; h++) {
+                  iloop22[a][b][c][d][e][f][g][h] = INFINITE_ENERGY;
+                }
               }
             }
           }
@@ -184,20 +186,23 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // the key sequence "-->" now indicates a record
 
   ml1 >> lineoftext;
-  while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+  while (strcmp(lineoftext, "-->"))
+    ml1 >> lineoftext;
 
   ml1 >> (data->prelog);
 
   data->prelog = (data->prelog) * conversionfactor;
 
   ml1 >> lineoftext;
-  while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+  while (strcmp(lineoftext, "-->"))
+    ml1 >> lineoftext;
 
   ml1 >> temp;
   data->maxpen = (int)round(temp * conversionfactor);
 
   ml1 >> lineoftext;
-  while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+  while (strcmp(lineoftext, "-->"))
+    ml1 >> lineoftext;
 
   for (count = 1; count <= 4; count++) {
     ml1 >> temp;
@@ -207,7 +212,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // 	them int and assigns them into
   //		array poppen
   ml1 >> lineoftext;
-  while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+  while (strcmp(lineoftext, "-->"))
+    ml1 >> lineoftext;
 
   data->eparam[1] = 0;  // assign some variables that are
   data->eparam[2] = 0;  //	"hard-wired" into code
@@ -225,7 +231,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   ml1 >> temp;
   data->eparam[10] = (short)round(temp * conversionfactor);
   ml1 >> lineoftext;
-  while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+  while (strcmp(lineoftext, "-->"))
+    ml1 >> lineoftext;
 
   ml1 >> temp;
 
@@ -256,51 +263,59 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
     data->efn2c = (short)round(temp * conversionfactor);
 
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
     ml1 >> temp;
     data->mlasym = (short)round(temp * conversionfactor);
 
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
     ml1 >> temp;
     data->strain = (short)round(temp * conversionfactor);
 
     // now read the terminal AU penalty:
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
     ml1 >> temp;
 
     data->auend = (short)round(temp * conversionfactor);
 
     // now read the GGG hairpin bonus:
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
 
     ml1 >> temp;
     data->gubonus = (short)round(temp * conversionfactor);
 
     // now read the poly c hairpin penalty slope:
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
 
     ml1 >> temp;
     data->cslope = (short)round(temp * conversionfactor);
 
     // now read the poly c hairpin penalty intercept:
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
 
     ml1 >> temp;
     data->cint = (short)round(temp * conversionfactor);
 
     // now read the poly c penalty for a loop of 3:
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
 
     ml1 >> temp;
     data->c3 = (short)round(temp * conversionfactor);
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
 
     ml1 >> temp;
     data->init = (short)round(temp * conversionfactor);
@@ -314,7 +329,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
 
     // now read the single C bulge bonus
     ml1 >> lineoftext;
-    while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+    while (strcmp(lineoftext, "-->"))
+      ml1 >> lineoftext;
 
     ml1 >> temp;
     data->singlecbulge = (short)round(temp * conversionfactor);
@@ -325,7 +341,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   for (l = 1; l <= 2; l++) {
     for (i = 0; i <= 5; i++) {
       if ((i != 0) && (i != 5))
-        for (count = 1; count <= 60; count++) da1 >> lineoftext;
+        for (count = 1; count <= 60; count++)
+          da1 >> lineoftext;
       for (j = 0; j <= 5; j++) {
         for (k = 0; k <= 5; k++) {
           if ((i == 0) || (j == 0) || (k == 0)) {
@@ -349,7 +366,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
 
   /*	read info from loop for internal loops, hairpin loops, and bulge loops */
 
-  for (count = 1; count <= 26; count++) lo1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 26; count++)
+    lo1 >> lineoftext;  // get past text in file
   for (i = 1; i <= 30; i++) {
     lo1 >> lineoftext;  // get past the size column in table
     lo1 >> lineoftext;
@@ -378,10 +396,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   /* Read info from stack */
   // add to the stack table the case where X (represented as 0) is looked up:
 
-  for (count = 1; count <= 42; count++) st1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 42; count++)
+    st1 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5))
-      for (count = 1; count <= 60; count++) st1 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        st1 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -404,10 +424,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   /* Read info from tstackh */
   // add to the tstackh table the case where X (represented as 0) is looked up:
 
-  for (count = 1; count <= 46; count++) th1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    th1 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5))
-      for (count = 1; count <= 60; count++) th1 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        th1 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -434,10 +456,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   /* Read info from tstacki */
   // add to the tstacki table the case where X (represented as 0) is looked up:
 
-  for (count = 1; count <= 46; count++) ti1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    ti1 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5))
-      for (count = 1; count <= 60; count++) ti1 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        ti1 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -472,10 +496,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   /* Read info from tstacki23 */
   // add to the tstacki table the case where X (represented as 0) is looked up:
 
-  for (count = 1; count <= 46; count++) t23 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    t23 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5))
-      for (count = 1; count <= 60; count++) t23 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        t23 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -510,10 +536,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   /* Read info from tstacki1n */
   // add to the tstacki table the case where X (represented as 0) is looked up:
 
-  for (count = 1; count <= 46; count++) t1n >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    t1n >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5))
-      for (count = 1; count <= 60; count++) t1n >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        t1n >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -546,7 +574,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   }
 
   /*	Read info from tloops */
-  for (count = 1; count <= 3; count++) tl1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 3; count++)
+    tl1 >> lineoftext;  // get past text in file
   data->numoftloops = 0;
   tl1 >> lineoftext;
 
@@ -600,14 +629,17 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // a j l b
   // c k m d
 
-  for (count = 1; count <= 340; count++) in1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 340; count++)
+    in1 >> lineoftext;  // get past text in file
 
-  for (i = 1; i <= 36; i++) {                     // read each of 36 tables
-    for (j = 1; j <= 39; j++) in1 >> lineoftext;  // get past text in file
+  for (i = 1; i <= 36; i++) {  // read each of 36 tables
+    for (j = 1; j <= 39; j++)
+      in1 >> lineoftext;  // get past text in file
     strcpy(base, lineoftext);
     strcpy(base + 1, "\0");
     a = tonumi(base);
-    for (j = 1; j <= 3; j++) in1 >> lineoftext;
+    for (j = 1; j <= 3; j++)
+      in1 >> lineoftext;
     strcpy(base, lineoftext);
     strcpy(base + 1, "\0");
     b = tonumi(base);
@@ -615,11 +647,13 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
     strcpy(base, lineoftext);
     strcpy(base + 1, "\0");
     c = tonumi(base);
-    for (j = 1; j <= 3; j++) in1 >> lineoftext;
+    for (j = 1; j <= 3; j++)
+      in1 >> lineoftext;
     strcpy(base, lineoftext);
     strcpy(base + 1, "\0");
     d = tonumi(base);
-    for (j = 1; j <= 3; j++) in1 >> lineoftext;  // get past text in file
+    for (j = 1; j <= 3; j++)
+      in1 >> lineoftext;  // get past text in file
     for (j = 1; j <= 4; j++) {
       for (k = 1; k <= 4; k++) {
         for (l = 1; l <= 4; l++) {
@@ -643,20 +677,24 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   }
 
   // Read the 2x1 internal loop data
-  for (i = 1; i <= 58; i++) in2 >> lineoftext;  // get past text at top of file
-  for (i = 1; i <= 6; i++) {                    // read each row of tables
+  for (i = 1; i <= 58; i++)
+    in2 >> lineoftext;        // get past text at top of file
+  for (i = 1; i <= 6; i++) {  // read each row of tables
     for (e = 1; e <= 4; e++) {
-      for (j = 1; j <= 66; j++) in2 >> lineoftext;  // get past text in file
+      for (j = 1; j <= 66; j++)
+        in2 >> lineoftext;  // get past text in file
       in2 >> lineoftext;
       strcpy(base, lineoftext);
       strcpy(base + 1, "\0");
       a = tonumi(base);
-      for (j = 1; j <= 11; j++) in2 >> lineoftext;  // get past text in file
+      for (j = 1; j <= 11; j++)
+        in2 >> lineoftext;  // get past text in file
       in2 >> lineoftext;
       strcpy(base, lineoftext);
       strcpy(base + 1, "\0");
       b = tonumi(base);
-      for (j = 1; j <= 35; j++) in2 >> lineoftext;  // get past text in file
+      for (j = 1; j <= 35; j++)
+        in2 >> lineoftext;  // get past text in file
       for (c = 1; c <= 4; c++) {
         for (j = 1; j <= 6; j++) {
           switch (j) {
@@ -700,7 +738,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
     }
   }
   /*	Read info from triloops */
-  for (count = 1; count <= 3; count++) tri >> lineoftext;  // get past text in file
+  for (count = 1; count <= 3; count++)
+    tri >> lineoftext;  // get past text in file
   data->numoftriloops = 0;
   tri >> lineoftext;
 
@@ -738,7 +777,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   }
 
   /*	Read info from hexaloops */
-  for (count = 1; count <= 3; count++) hl1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 3; count++)
+    hl1 >> lineoftext;  // get past text in file
   data->numofhexaloops = 0;
   hl1 >> lineoftext;
 
@@ -794,10 +834,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // 3'a d5'
   // this means the helix backbone is continuous between nucs b and c
 
-  for (count = 1; count <= 42; count++) co1 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 42; count++)
+    co1 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5))
-      for (count = 1; count <= 60; count++) co1 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        co1 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -832,10 +874,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // 3'b-d -> strand does not continue to stack
   // pair between a-b, c-d is a mismatch
 
-  for (count = 1; count <= 46; count++) co2 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    co2 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if (!(i == 0 || i == 5))
-      for (count = 1; count <= 60; count++) co2 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        co2 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -862,10 +906,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // pair between a-b, mismatch between c-d
   // backbone is discontinuous between b and d
 
-  for (count = 1; count <= 46; count++) co3 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    co3 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if (!(i == 0 || i == 5))
-      for (count = 1; count <= 60; count++) co3 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        co3 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -890,10 +936,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // also add the case where 5 (the intermolecular linker) is looked up,
   // this is actually a dangling end, not a terminal mismatch.
 
-  for (count = 1; count <= 46; count++) st2 >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    st2 >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5))
-      for (count = 1; count <= 60; count++) st2 >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        st2 >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -930,10 +978,12 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   /* Read info from tstackm */
   // add to the tstackm table the case where X (represented as 0) is looked up:
 
-  for (count = 1; count <= 46; count++) tsm >> lineoftext;  // get past text in file
+  for (count = 1; count <= 46; count++)
+    tsm >> lineoftext;  // get past text in file
   for (i = 0; i <= 5; i++) {
     if (i != 0)
-      for (count = 1; count <= 60; count++) tsm >> lineoftext;
+      for (count = 1; count <= 60; count++)
+        tsm >> lineoftext;
     for (k = 0; k <= 5; k++) {
       for (j = 0; j <= 5; j++) {
         for (l = 0; l <= 5; l++) {
@@ -974,8 +1024,9 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
   // Read the 1x1 internal loop data
   // encode the data like:  abc
   //                       def where b-e is a mismatch
-  for (i = 1; i <= 58; i++) i11 >> lineoftext;  // get past text at top of file
-  for (i = 1; i <= 6; i++) {                    // read each row of table
+  for (i = 1; i <= 58; i++)
+    i11 >> lineoftext;        // get past text at top of file
+  for (i = 1; i <= 6; i++) {  // read each row of table
     if (i == 1) {
       a = 1;
       d = 4;
@@ -995,7 +1046,8 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
       a = 4;
       d = 3;
     }
-    for (j = 1; j <= 114; j++) i11 >> lineoftext;  // get past text
+    for (j = 1; j <= 114; j++)
+      i11 >> lineoftext;  // get past text
     for (b = 1; b <= 4; b++) {
       for (j = 1; j <= 6; j++) {
         if (j == 1) {
@@ -1817,7 +1869,8 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
   energy = new short int*[count + 3];
   for (i = 0; i < count + 3; i++) {
     energy[i] = new short int[count + 3];
-    for (j = 0; j < count + 3; j++) energy[i][j] = 0;
+    for (j = 0; j < count + 3; j++)
+      energy[i][j] = 0;
   }
   biggest = 0;
   average = 0;
@@ -1962,7 +2015,8 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
 
   // deallocate memory use:
 
-  for (i = 0; i < count + 3; i++) delete[] energy[i];
+  for (i = 0; i < count + 3; i++)
+    delete[] energy[i];
   delete[] energy;
   delete[] element;
 
@@ -2040,7 +2094,8 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
   energy = new short int*[count];
   for (i = 0; i < count; i++) {
     energy[i] = new short int[count];
-    for (j = 0; j < count; j++) energy[i][j] = 0;
+    for (j = 0; j < count; j++)
+      energy[i][j] = 0;
   }
 
   au = 0;  // keep track of the number of terminal AU/GU pairs
@@ -2150,7 +2205,8 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
   if (intermolecular) minimum = minimum + data->init;
   // deallocate memory use:
 
-  for (i = 0; i < count; i++) delete[] energy[i];
+  for (i = 0; i < count; i++)
+    delete[] energy[i];
   delete[] energy;
   delete[] element;
 
@@ -2163,7 +2219,9 @@ void de_allocate(int** v, int i) {  // this function deallocates the memory used
   // in an array
   int a;
 
-  for (a = 0; a < i; a++) { delete[] v[a]; }
+  for (a = 0; a < i; a++) {
+    delete[] v[a];
+  }
   delete[] v;
 }
 
@@ -2171,7 +2229,9 @@ void de_allocate(short int** v, int i) {  // this function deallocates the memor
   // in an array
   int a;
 
-  for (a = 0; a < i; a++) { delete[] v[a]; }
+  for (a = 0; a < i; a++) {
+    delete[] v[a];
+  }
   delete[] v;
 }
 
@@ -2179,7 +2239,9 @@ void de_allocate(bool** v, int i) {  // this function deallocates the memory use
   // in an array
   int a;
 
-  for (a = 0; a < i; a++) { delete[] v[a]; }
+  for (a = 0; a < i; a++) {
+    delete[] v[a];
+  }
   delete[] v;
 }
 
@@ -2290,10 +2352,12 @@ void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg) {
   for (a = 1; a <= data.numofhexaloops; a++)
     (dg.hexaloop[a][1]) = Tscale(T, data.hexaloop[a][1], dhdata.hexaloop[a][1]);
 
-  for (a = 1; a < 5; a++) dg.poppen[a] = Tscale(T, data.poppen[a], dhdata.poppen[a]);
+  for (a = 1; a < 5; a++)
+    dg.poppen[a] = Tscale(T, data.poppen[a], dhdata.poppen[a]);
 
   dg.maxpen = Tscale(T, data.maxpen, dhdata.maxpen);
-  for (a = 1; a < 7; a++) dg.eparam[a] = Tscale(T, data.eparam[a], dhdata.eparam[a]);
+  for (a = 1; a < 7; a++)
+    dg.eparam[a] = Tscale(T, data.eparam[a], dhdata.eparam[a]);
   dg.eparam[10] = Tscale(T, data.eparam[10], dhdata.eparam[10]);
 
   for (a = 1; a < 31; a++) {
@@ -2373,7 +2437,9 @@ void writestructuresave(ofstream* sav, structure* ct1) {
     sav->write(&(ct1->nucs[i]), 1);
   }
 
-  for (i = 0; i <= 2 * ct1->GetSequenceLength(); i++) { write(sav, &(ct1->numseq[i])); }
+  for (i = 0; i <= 2 * ct1->GetSequenceLength(); i++) {
+    write(sav, &(ct1->numseq[i]));
+  }
 
   local = ct1->GetNumberofDoubles();
   write(sav, &(local));
@@ -2384,7 +2450,9 @@ void writestructuresave(ofstream* sav, structure* ct1) {
 
   write(sav, &(ct1->intermolecular));
   if (ct1->intermolecular) {
-    for (i = 0; i < 3; i++) { write(sav, &(ct1->inter[i])); }
+    for (i = 0; i < 3; i++) {
+      write(sav, &(ct1->inter[i]));
+    }
   }
 
   local = ct1->GetNumberofSingles();
@@ -2414,7 +2482,9 @@ void writestructuresave(ofstream* sav, structure* ct1) {
   write(sav, &(ct1->templated));
   if (ct1->templated) {
     for (i = 0; i <= ct1->GetSequenceLength(); i++) {
-      for (j = 0; j <= i; j++) { write(sav, &(ct1->tem[i][j])); }
+      for (j = 0; j <= i; j++) {
+        write(sav, &(ct1->tem[i][j]));
+      }
     }
   }
 }
@@ -2441,7 +2511,8 @@ void openstructuresave(ifstream* sav, structure* ct1) {
   }
 
   // read the numseq info
-  for (i = 0; i <= 2 * ct1->GetSequenceLength(); i++) read(sav, &(ct1->numseq[i]));
+  for (i = 0; i <= 2 * ct1->GetSequenceLength(); i++)
+    read(sav, &(ct1->numseq[i]));
 
   // Read the constrainst for double-stranded
   read(sav, &(local));
@@ -2453,7 +2524,8 @@ void openstructuresave(ifstream* sav, structure* ct1) {
   // read the intermolecular array
   read(sav, &(ct1->intermolecular));
   if (ct1->intermolecular) {
-    for (i = 0; i < 3; i++) read(sav, &(ct1->inter[i]));
+    for (i = 0; i < 3; i++)
+      read(sav, &(ct1->inter[i]));
   }
 
   // Read the unpaired constraints
@@ -2487,7 +2559,9 @@ void openstructuresave(ifstream* sav, structure* ct1) {
   if (ct1->templated) {
     ct1->allocatetem();
     for (i = 0; i <= ct1->GetSequenceLength(); i++) {
-      for (j = 0; j <= i; j++) { read(sav, &(ct1->tem[i][j])); }
+      for (j = 0; j <= i; j++) {
+        read(sav, &(ct1->tem[i][j]));
+      }
     }
   }
 }

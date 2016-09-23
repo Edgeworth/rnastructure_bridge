@@ -14,7 +14,8 @@ void stackclass::allocate_stack() {
 
   stackenergy = new integersize[maximum];
   stack = new short int*[maximum];
-  for (i = 0; i < maximum; i++) stack[i] = new short int[4];
+  for (i = 0; i < maximum; i++)
+    stack[i] = new short int[4];
 }
 
 stackclass::stackclass(short int stacksize) {
@@ -70,7 +71,9 @@ void stackclass::push(
 }
 
 void stackclass::delete_array() {
-  for (short i = 0; i < maximum; i++) { delete[] stack[i]; }
+  for (short i = 0; i < maximum; i++) {
+    delete[] stack[i];
+  }
   delete[] stack;
   delete[] stackenergy;
 }

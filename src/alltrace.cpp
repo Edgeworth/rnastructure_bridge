@@ -333,7 +333,7 @@ void alltracestructurestack::nstack(short i, short j, short k, short l) {
 // loops will be tracked
 //	On the stack, a flush coaxial stack (eg i-j on j+1 k) is stacked as i on k and k on i.
 //	Also on the stack, an intervening stack (eg i-j with j+2 k and k+1 intervening) is stacked as i
-//on k+1 and k+1 on k.
+// on k+1 and k+1 on k.
 // If ctname is set (to other than null), the structures will be written to a ct file as they are
 // produced.  This is
 // helpful for long
@@ -368,7 +368,9 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
 
     *out << ct->GetCtLabel(1).c_str();
 
-    for (i = 1; i <= ct->GetSequenceLength(); i++) { *out << ct->numseq[i] << "\n"; }
+    for (i = 1; i <= ct->GetSequenceLength(); i++) {
+      *out << ct->numseq[i] << "\n";
+    }
   }
 
   stack.pushtorefinement(1, ct->GetSequenceLength(), 1, w5[ct->GetSequenceLength()], 0);
@@ -2018,7 +2020,9 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
       if (ct->GetNumberofStructures() == 1) {
 
         *out << ct->GetEnergy(1) << "\n";
-        for (kp = 1; kp <= ct->GetSequenceLength(); j++) { *out << ct->GetPair(kp) << "\n"; }
+        for (kp = 1; kp <= ct->GetSequenceLength(); j++) {
+          *out << ct->GetPair(kp) << "\n";
+        }
         // Now remove the structure so that they do not accumulate:
         ct->RemoveLastStructure();
       }
@@ -2115,7 +2119,9 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
 
   w5[0] = 0;
 
-  for (i = 0; i <= number; i++) { wca[i] = 0; }
+  for (i = 0; i <= number; i++) {
+    wca[i] = 0;
+  }
 
   force(ct, &fce, lfce);
 
@@ -3022,7 +3028,8 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
       << "\t"
       << "w5[i]"
       << "\n";
-  for (i = 0; i <= number; i++) foo << i << "\t" << w5[i] << "\n";
+  for (i = 0; i <= number; i++)
+    foo << i << "\t" << w5[i] << "\n";
 
   foo.close();
 
@@ -3059,7 +3066,8 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
       sav.write(&(ct->nucs[i]), 1);
     }
 
-    for (i = 0; i <= 2 * ct->GetSequenceLength(); i++) write(&sav, &(ct->numseq[i]));
+    for (i = 0; i <= 2 * ct->GetSequenceLength(); i++)
+      write(&sav, &(ct->numseq[i]));
 
     numberofconstraints = ct->GetNumberofDoubles();
     write(&sav, &(numberofconstraints));
@@ -3069,7 +3077,8 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
     }
 
     if (ct->intermolecular) {
-      for (i = 0; i < 3; i++) write(&sav, &(ct->inter[i]));
+      for (i = 0; i < 3; i++)
+        write(&sav, &(ct->inter[i]));
     }
 
     numberofconstraints = ct->GetNumberofSingles();
@@ -3103,7 +3112,8 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
     write(&sav, &(ct->templated));
     if (ct->templated) {
       for (i = 0; i <= ct->GetSequenceLength(); i++) {
-        for (j = 0; j <= i; j++) write(&sav, &(ct->tem[i][j]));
+        for (j = 0; j <= i; j++)
+          write(&sav, &(ct->tem[i][j]));
       }
     }
 
@@ -3135,9 +3145,11 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
     }
 
     // now write the thermodynamic data:
-    for (i = 0; i < 5; i++) write(&sav, &(data->poppen[i]));
+    for (i = 0; i < 5; i++)
+      write(&sav, &(data->poppen[i]));
     write(&sav, &(data->maxpen));
-    for (i = 0; i < 11; i++) write(&sav, &(data->eparam[i]));
+    for (i = 0; i < 11; i++)
+      write(&sav, &(data->eparam[i]));
     for (i = 0; i < 31; i++) {
       write(&sav, &(data->inter[i]));
       write(&sav, &(data->bulge[i]));
@@ -3146,7 +3158,9 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
     for (i = 0; i < 6; i++) {
       for (j = 0; j < 6; j++) {
         for (k = 0; k < 6; k++) {
-          for (l = 0; l < 3; l++) { write(&sav, &(data->dangle[i][j][k][l])); }
+          for (l = 0; l < 3; l++) {
+            write(&sav, &(data->dangle[i][j][k][l]));
+          }
           for (l = 0; l < 6; l++) {
             write(&sav, &(data->stack[i][j][k][l]));
             write(&sav, &(data->tstkh[i][j][k][l]));
@@ -3176,15 +3190,18 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
     }
     write(&sav, &(data->numoftloops));
     for (i = 0; i <= data->numoftloops; i++) {
-      for (j = 0; j < 2; j++) write(&sav, &(data->tloop[i][j]));
+      for (j = 0; j < 2; j++)
+        write(&sav, &(data->tloop[i][j]));
     }
     write(&sav, &(data->numoftriloops));
     for (i = 0; i <= data->numoftriloops; i++) {
-      for (j = 0; j < 2; j++) write(&sav, &(data->triloop[i][j]));
+      for (j = 0; j < 2; j++)
+        write(&sav, &(data->triloop[i][j]));
     }
     write(&sav, &(data->numofhexaloops));
     for (i = 0; i <= data->numofhexaloops; i++) {
-      for (j = 0; j < 2; j++) write(&sav, &(data->hexaloop[i][j]));
+      for (j = 0; j < 2; j++)
+        write(&sav, &(data->hexaloop[i][j]));
     }
     write(&sav, &(data->auend));
     write(&sav, &(data->gubonus));
@@ -3257,7 +3274,8 @@ void readalltrace(char* filename, structure* ct, short* w5, atarrayclass* v, ata
     sav.read(&(ct->nucs[i]), 1);
   }
 
-  for (i = 0; i <= 2 * ct->GetSequenceLength(); i++) read(&sav, &(ct->numseq[i]));
+  for (i = 0; i <= 2 * ct->GetSequenceLength(); i++)
+    read(&sav, &(ct->numseq[i]));
 
   read(&sav, &(numberofconstraints));
   for (i = 0; i < numberofconstraints; i++) {
@@ -3268,7 +3286,8 @@ void readalltrace(char* filename, structure* ct, short* w5, atarrayclass* v, ata
   }
 
   if (ct->intermolecular) {
-    for (i = 0; i < 3; i++) read(&sav, &(ct->inter[i]));
+    for (i = 0; i < 3; i++)
+      read(&sav, &(ct->inter[i]));
   }
 
   read(&sav, &(numberofconstraints));
@@ -3302,7 +3321,8 @@ void readalltrace(char* filename, structure* ct, short* w5, atarrayclass* v, ata
   read(&sav, &(ct->templated));
   if (ct->templated) {
     for (i = 0; i <= ct->GetSequenceLength(); i++) {
-      for (j = 0; j <= i; j++) read(&sav, &(ct->tem[i][j]));
+      for (j = 0; j <= i; j++)
+        read(&sav, &(ct->tem[i][j]));
     }
   }
 
@@ -3334,9 +3354,11 @@ void readalltrace(char* filename, structure* ct, short* w5, atarrayclass* v, ata
   }
 
   // now write the thermodynamic data:
-  for (i = 0; i < 5; i++) read(&sav, &(data->poppen[i]));
+  for (i = 0; i < 5; i++)
+    read(&sav, &(data->poppen[i]));
   read(&sav, &(data->maxpen));
-  for (i = 0; i < 11; i++) read(&sav, &(data->eparam[i]));
+  for (i = 0; i < 11; i++)
+    read(&sav, &(data->eparam[i]));
   for (i = 0; i < 31; i++) {
     read(&sav, &(data->inter[i]));
     read(&sav, &(data->bulge[i]));
@@ -3345,7 +3367,9 @@ void readalltrace(char* filename, structure* ct, short* w5, atarrayclass* v, ata
   for (i = 0; i < 6; i++) {
     for (j = 0; j < 6; j++) {
       for (k = 0; k < 6; k++) {
-        for (l = 0; l < 3; l++) { read(&sav, &(data->dangle[i][j][k][l])); }
+        for (l = 0; l < 3; l++) {
+          read(&sav, &(data->dangle[i][j][k][l]));
+        }
         for (l = 0; l < 6; l++) {
           read(&sav, &(data->stack[i][j][k][l]));
           read(&sav, &(data->tstkh[i][j][k][l]));
@@ -3380,15 +3404,18 @@ void readalltrace(char* filename, structure* ct, short* w5, atarrayclass* v, ata
   }
   read(&sav, &(data->numoftloops));
   for (i = 0; i <= data->numoftloops; i++) {
-    for (j = 0; j < 2; j++) read(&sav, &(data->tloop[i][j]));
+    for (j = 0; j < 2; j++)
+      read(&sav, &(data->tloop[i][j]));
   }
   read(&sav, &(data->numoftriloops));
   for (i = 0; i <= data->numoftriloops; i++) {
-    for (j = 0; j < 2; j++) read(&sav, &(data->triloop[i][j]));
+    for (j = 0; j < 2; j++)
+      read(&sav, &(data->triloop[i][j]));
   }
   read(&sav, &(data->numofhexaloops));
   for (i = 0; i <= data->numofhexaloops; i++) {
-    for (j = 0; j < 2; j++) read(&sav, &(data->hexaloop[i][j]));
+    for (j = 0; j < 2; j++)
+      read(&sav, &(data->hexaloop[i][j]));
   }
   read(&sav, &(data->auend));
   read(&sav, &(data->gubonus));
@@ -3429,9 +3456,13 @@ void atarrayclass::allocate(int size) {
   register int i, j;
   dg = new integersize*[size + 1];
 
-  for (i = 0; i <= (size); i++) { dg[i] = new integersize[size + 1]; }
+  for (i = 0; i <= (size); i++) {
+    dg[i] = new integersize[size + 1];
+  }
   for (i = 0; i <= size; i++) {
-    for (j = 0; j < size + 1; j++) { dg[i][j] = INFINITE_ENERGY; }
+    for (j = 0; j < size + 1; j++) {
+      dg[i][j] = INFINITE_ENERGY;
+    }
   }
 }
 
@@ -3441,7 +3472,9 @@ atarrayclass::~atarrayclass() {
   int i;
   if (allocated) {
 
-    for (i = 0; i <= Size; i++) { delete[] dg[i]; }
+    for (i = 0; i <= Size; i++) {
+      delete[] dg[i];
+    }
     delete[] dg;
   }
 }

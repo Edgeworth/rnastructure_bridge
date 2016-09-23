@@ -65,7 +65,8 @@ structure::structure(int structures) {
   SHAPEslope = 0;
   SHAPEintercept = 0;
 
-  for (i = 0; i < maxregions; i++) rnneighbors[i] = 0;
+  for (i = 0; i < maxregions; i++)
+    rnneighbors[i] = 0;
   // for (i = 0; i < 100;i++) {
   //	for ( j = 0; j < 25; j++) {
   //		neighbors[i][j]=0;
@@ -176,12 +177,16 @@ void structure::allocatetem() {
   // deallocate the space
 
   tem = new bool*[numofbases + 1];
-  for (i = 0; i <= numofbases; i++) { tem[i] = new bool[i + 1]; }
+  for (i = 0; i <= numofbases; i++) {
+    tem[i] = new bool[i + 1];
+  }
   templated = true;
 
   // initialize all positions to true:
   for (i = 0; i <= numofbases; i++) {
-    for (j = i; j <= numofbases; j++) { tem[j][i] = true; }
+    for (j = i; j <= numofbases; j++) {
+      tem[j][i] = true;
+    }
   }
 }
 
@@ -923,7 +928,9 @@ void structure::writedotbracket(const char* filename) {
   for (i = 1; i <= GetNumberofStructures(); i++) {
 
     out << "> " << GetCtLabel(i).c_str() << "\n";
-    for (j = 1; j <= numofbases; j++) { out << nucs[j]; }
+    for (j = 1; j <= numofbases; j++) {
+      out << nucs[j];
+    }
     out << "\n";
     for (j = 1; j <= numofbases; j++) {
       if (GetPair(j, i) > j)
@@ -952,7 +959,8 @@ void structure::AddStructure() {
 void structure::CleanStructure(int structurenumber) {
   int i;
 
-  for (i = 1; i <= numofbases; ++i) arrayofstructures[structurenumber - 1].basepr[i] = 0;
+  for (i = 1; i <= numofbases; ++i)
+    arrayofstructures[structurenumber - 1].basepr[i] = 0;
 }
 
 // Remove the last structure:
@@ -1020,7 +1028,9 @@ structure::~structure() {
     delete[] nucs;
   }
   if (templated) {
-    for (i = 0; i <= numofbases; i++) { delete[] tem[i]; }
+    for (i = 0; i <= numofbases; i++) {
+      delete[] tem[i];
+    }
 
     delete[] tem;
   }
@@ -1029,14 +1039,18 @@ structure::~structure() {
     // delete ss shape array
     delete[] SHAPEss;
     if (SHAPEss_region != NULL) {
-      for (int i = 1; i <= numofbases; i++) { delete[] SHAPEss_region[i]; }
+      for (int i = 1; i <= numofbases; i++) {
+        delete[] SHAPEss_region[i];
+      }
       delete[] SHAPEss_region;
     }
   }
   if (experimentalPairBonusExists) { delete[] EX; }
   if (constant != NULL) {
     // delete the equilibrium constants
-    for (i = 0; i <= numofbases; i++) { delete[] constant[i]; }
+    for (i = 0; i <= numofbases; i++) {
+      delete[] constant[i];
+    }
 
     delete[] constant;
   }
@@ -1069,11 +1083,15 @@ void structure::allocateconstant() {
   // deallocate the space
 
   constant = new double*[numofbases + 1];
-  for (i = 0; i <= numofbases; i++) { constant[i] = new double[i + 1]; }
+  for (i = 0; i <= numofbases; i++) {
+    constant[i] = new double[i + 1];
+  }
 
   // initialize all positions to true:
   for (i = 0; i <= numofbases; i++) {
-    for (j = i; j <= numofbases; j++) { constant[j][i] = 1.0; }
+    for (j = i; j <= numofbases; j++) {
+      constant[j][i] = 1.0;
+    }
   }
 }
 
@@ -1306,7 +1324,8 @@ void structure::ReadSHAPE(const char* filename, std::string modifier, bool calcu
   // useful for bootstrapping -- keep count of how many times the data for a given position is
   // specified.
   int* num_data_points = new int[numofbases + 1];
-  for (position = 0; position <= numofbases; position++) num_data_points[position] = 0;
+  for (position = 0; position <= numofbases; position++)
+    num_data_points[position] = 0;
 
   //		in >> position;
   //	in >> data;
@@ -1321,7 +1340,7 @@ void structure::ReadSHAPE(const char* filename, std::string modifier, bool calcu
   //	}
 
   //	//Add the new SHAPE data to existing -- This change was made so that differential SHAPE can
-  //be added to existing
+  // be added to existing
   // SHAPE data.
   //	for (position=1;position<=numofbases;position++) {
   //		SHAPE[position+numofbases]=SHAPE[position];
@@ -1335,7 +1354,9 @@ void structure::ReadSHAPE(const char* filename, std::string modifier, bool calcu
     SHAPEnew[position] = 0.0;
     SHAPEssnew[position] = 0.0;
   }
-  for (position = 0; position <= numofbases; position++) { counts[position] = 0; }
+  for (position = 0; position <= numofbases; position++) {
+    counts[position] = 0;
+  }
 
   in >> position;
   in >> data;
@@ -1416,7 +1437,8 @@ void structure::ReadSHAPE(const char* filename, std::string modifier, bool calcu
   // location, 2nd index
   // is starting location
   SHAPEss_region = new short int*[numofbases + 1];
-  for (int i = 1; i <= numofbases; i++) SHAPEss_region[i] = new short int[i];
+  for (int i = 1; i <= numofbases; i++)
+    SHAPEss_region[i] = new short int[i];
 
   // fills 2-d array with pseudo energy terms for loops from i-j using ss SHAPE parameters
   for (int j = 2; j <= numofbases; j++) {
@@ -1460,7 +1482,8 @@ void structure::ReadOffset(const char* SSOffset, const char* DSOffset) {
 
     // also initialize the ssSHAPE lookup table for regions
     SHAPEss_region = new short int*[numofbases + 1];
-    for (int i = 1; i <= numofbases; i++) SHAPEss_region[i] = new short int[i];
+    for (int i = 1; i <= numofbases; i++)
+      SHAPEss_region[i] = new short int[i];
 
     shaped = true;
   }
@@ -1608,9 +1631,11 @@ void structure::ReadExperimentalPairBonus(
   ifstream in(filename);
 
   EX = new double*[2 * numofbases + 1];
-  for (int i = 0; i < 2 * numofbases + 1; i++) EX[i] = new double[2 * numofbases + 1];
   for (int i = 0; i < 2 * numofbases + 1; i++)
-    for (int j = 0; j < 2 * numofbases + 1; j++) EX[i][j] = 0.0;
+    EX[i] = new double[2 * numofbases + 1];
+  for (int i = 0; i < 2 * numofbases + 1; i++)
+    for (int j = 0; j < 2 * numofbases + 1; j++)
+      EX[i][j] = 0.0;
 
   for (int i = 1; i <= 2 * numofbases; i++)
     for (int j = 1; j <= 2 * numofbases; j++)

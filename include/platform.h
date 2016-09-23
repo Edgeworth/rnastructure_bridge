@@ -17,7 +17,9 @@ inline int max(int i, int j) { return i < j ? j : i; }
 inline int pow10(int n) {
   int j = 1;
 
-  for (int i = 0; i < n; i++) { j *= 10; }
+  for (int i = 0; i < n; i++) {
+    j *= 10;
+  }
 
   return j;
 }

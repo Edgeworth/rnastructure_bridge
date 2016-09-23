@@ -194,7 +194,7 @@ public:
 
   //! Constructor.
   //!	\param sructures is an int that specifies how many structures should be anticipated.  This
-  //!sets up an initial memory allocation, but this can expand as needed.
+  //! sets up an initial memory allocation, but this can expand as needed.
   structure(int structures = maxstructures + 1);
 
   //! Destructor.
@@ -454,7 +454,7 @@ public:
   //! Write a ct file to disk.
 
   //!	if append is set to true, the ct information is appended to an existing file, if the file
-  //!exists.
+  //! exists.
   //! \param ctoutfile is a const char pointer to a Null-terminated cstring that provides a
   //! filename.
   //! \param append is a bool that indicates if these structures should be appended to the end of
@@ -603,7 +603,7 @@ private:
   int numofbases;      // number of nucleotides in sequence
   bool limitdistance;  // toggle to indicate that there is a limit on the maximum distance between
                        // nucs in base pairs
-  int maxdistance;  // maximum distance between nucs in base pairs
+  int maxdistance;     // maximum distance between nucs in base pairs
 
   std::vector<singlestructure> arrayofstructures;  // This holds an array of structures, i.e. base
                                                    // pairing information and comments

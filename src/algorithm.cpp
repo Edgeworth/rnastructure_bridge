@@ -102,7 +102,9 @@ void efn2(
   stack.sp = 0;  // set stack counter
 
   if (ct->intermolecular) {  // this indicates an intermolecular folding
-    for (i = 0; i < 3; i++) { forceinterefn(ct->inter[i], ct, &fce); }
+    for (i = 0; i < 3; i++) {
+      forceinterefn(ct->inter[i], ct, &fce);
+    }
   }
   if (structnum != 0) {
     start = structnum;
@@ -249,7 +251,8 @@ void efn2(
           sum++;  // total helixes = sum + 1
           i++;
           for (k = 1; k < sum; k++) {
-            while (ct->GetPair(i, count) == 0) i++;
+            while (ct->GetPair(i, count) == 0)
+              i++;
             push(&stack, i, ct->GetPair(i, count), 1, 0);
             i = ct->GetPair(i, count) + 1;
           }
@@ -2550,14 +2553,17 @@ int traceback(structure* ct, datatable* data, arrayclass* v, arrayclass* w, arra
 
   // dynamically allocate space for mark:
   mark = new bool*[number + 1];
-  for (i = 0; i <= (number); i++) mark[i] = new bool[number + 1];
+  for (i = 0; i <= (number); i++)
+    mark[i] = new bool[number + 1];
 
   // This is the traceback portion of the dynamic algorithm
 
   flag = true;
 
   for (count = 1; count <= (number); count++) {
-    for (count2 = 1; count2 <= (number); count2++) { mark[count][count2] = false; }
+    for (count2 = 1; count2 <= (number); count2++) {
+      mark[count][count2] = false;
+    }
   }
 
   if (cntrl8 > 0)
@@ -2871,7 +2877,9 @@ void force(structure* ct, forceclass* fce, bool* lfce) {
     // for (i=0;i<=3;i++) {
     // 	forcesingle(ct->inter[i])//don't allow the intermolecular indicators to pair
     //}
-    for (i = 0; i < 3; i++) { forceinter(ct->inter[i], ct, fce); }
+    for (i = 0; i < 3; i++) {
+      forceinter(ct->inter[i], ct, fce);
+    }
 
     fce->f(ct->inter[1], ct->inter[1]) = fce->f(ct->inter[1], ct->inter[1]) | INTER;
   }
@@ -2889,7 +2897,9 @@ void force(structure* ct, forceclass* fce, bool* lfce) {
   }
 
   // Double up the sequence
-  for (i = 1; i <= number; i++) { ct->numseq[(number) + i] = ct->numseq[i]; }
+  for (i = 1; i <= number; i++) {
+    ct->numseq[(number) + i] = ct->numseq[i];
+  }
 
   // The next section handles the case where base pairs are not
   // not allowed to form between nucs more distant
@@ -3100,7 +3110,9 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
   // copy the sequence, correcting for 1-indexing
   const int len = ct->GetSequenceLength();
   char* buf = new char[len + 1];
-  for (int i = 0; i < len; i++) { buf[i] = ct->nucs[i + 1]; }
+  for (int i = 0; i < len; i++) {
+    buf[i] = ct->nucs[i + 1];
+  }
   buf[len] = '\0';  // make it null-terminated
 
   // do fill routine
@@ -3172,7 +3184,8 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
       sav.write(&(ct->nucs[i]), 1);
     }
 
-    for (i = 0; i <= 2 * ct->GetSequenceLength(); i++) write(&sav, &(ct->numseq[i]));
+    for (i = 0; i <= 2 * ct->GetSequenceLength(); i++)
+      write(&sav, &(ct->numseq[i]));
 
     int doubles = ct->GetNumberofDoubles();
     write(&sav, &(doubles));
@@ -3182,7 +3195,8 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
     }
 
     if (ct->intermolecular) {
-      for (i = 0; i < 3; i++) write(&sav, &(ct->inter[i]));
+      for (i = 0; i < 3; i++)
+        write(&sav, &(ct->inter[i]));
     }
 
     int singles = ct->GetNumberofSingles();
@@ -3213,14 +3227,16 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
     write(&sav, &(ct->templated));
     if (ct->templated) {
       for (i = 0; i <= ct->GetSequenceLength(); i++) {
-        for (j = 0; j <= i; j++) write(&sav, &(ct->tem[i][j]));
+        for (j = 0; j <= i; j++)
+          write(&sav, &(ct->tem[i][j]));
       }
     }
 
     // write the SHAPE data (for pseudo-free energy constraints)
     write(&sav, &(ct->shaped));
     if (ct->shaped) {
-      for (i = 0; i <= 2 * ct->GetSequenceLength(); i++) write(&sav, &(ct->SHAPE[i]));
+      for (i = 0; i <= 2 * ct->GetSequenceLength(); i++)
+        write(&sav, &(ct->SHAPE[i]));
     }
 
     // now write the array class data for v, w, and wmb:
@@ -3249,9 +3265,11 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
     write(&sav, &vmin);
 
     // now write the thermodynamic data:
-    for (i = 0; i < 5; i++) write(&sav, &(data->poppen[i]));
+    for (i = 0; i < 5; i++)
+      write(&sav, &(data->poppen[i]));
     write(&sav, &(data->maxpen));
-    for (i = 0; i < 11; i++) write(&sav, &(data->eparam[i]));
+    for (i = 0; i < 11; i++)
+      write(&sav, &(data->eparam[i]));
     for (i = 0; i < 31; i++) {
       write(&sav, &(data->inter[i]));
       write(&sav, &(data->bulge[i]));
@@ -3260,7 +3278,9 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
     for (i = 0; i < 6; i++) {
       for (j = 0; j < 6; j++) {
         for (k = 0; k < 6; k++) {
-          for (l = 0; l < 3; l++) { write(&sav, &(data->dangle[i][j][k][l])); }
+          for (l = 0; l < 3; l++) {
+            write(&sav, &(data->dangle[i][j][k][l]));
+          }
           for (l = 0; l < 6; l++) {
             write(&sav, &(data->stack[i][j][k][l]));
             write(&sav, &(data->tstkh[i][j][k][l]));
@@ -3290,15 +3310,18 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
     }
     write(&sav, &(data->numoftloops));
     for (i = 0; i <= data->numoftloops; i++) {
-      for (j = 0; j < 2; j++) write(&sav, &(data->tloop[i][j]));
+      for (j = 0; j < 2; j++)
+        write(&sav, &(data->tloop[i][j]));
     }
     write(&sav, &(data->numoftriloops));
     for (i = 0; i <= data->numoftriloops; i++) {
-      for (j = 0; j < 2; j++) write(&sav, &(data->triloop[i][j]));
+      for (j = 0; j < 2; j++)
+        write(&sav, &(data->triloop[i][j]));
     }
     write(&sav, &(data->numofhexaloops));
     for (i = 0; i <= data->numofhexaloops; i++) {
-      for (j = 0; j < 2; j++) write(&sav, &(data->hexaloop[i][j]));
+      for (j = 0; j < 2; j++)
+        write(&sav, &(data->hexaloop[i][j]));
     }
     write(&sav, &(data->auend));
     write(&sav, &(data->gubonus));
@@ -3340,7 +3363,7 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
 //	}
 
 //	else tracebackerror=traceback(ct, data, &v, &w, &wmb, w2, wmb2,w3, w5, &fce, lfce, vmin, cntrl6,
-//cntrl8,
+// cntrl8,
 // cntrl9,mod);
 
 //======
@@ -3492,7 +3515,9 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
     for (int locali = 0; locali <= number; locali++) {
       wca[locali] = new integersize[number + 1];
 
-      for (int localj = 0; localj <= number; localj++) { wca[locali][localj] = INFINITE_ENERGY; }
+      for (int localj = 0; localj <= number; localj++) {
+        wca[locali][localj] = INFINITE_ENERGY;
+      }
     }
   }
 
@@ -3840,7 +3865,8 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
 #endif  // END INSTRUMENTED
 
       if (((j - i - 1) >= (2 * minloop + 4)) || (j > (number))) {
-        for (ii = 1; ii <= 4; ii++) e[ii] = INFINITE_ENERGY;
+        for (ii = 1; ii <= 4; ii++)
+          e[ii] = INFINITE_ENERGY;
 
         // consider the exterior loop closed by i,j
         if (j > number) {
@@ -4319,7 +4345,8 @@ d = j - i;
         goto sub3;
       }
 
-      for (ii = 1; ii <= 5; ii++) e[ii] = INFINITE_ENERGY;
+      for (ii = 1; ii <= 5; ii++)
+        e[ii] = INFINITE_ENERGY;
 
       if (i != number) {
         // calculate the energy of i stacked onto the pair of i+1,j
@@ -4409,7 +4436,8 @@ d = j - i;
 
         // wmb2[i][j%3] = INFINITE_ENERGY;
         // keep track of w2:
-        for (ii = 1; ii <= 5; ii++) e[ii] = 2 * INFINITE_ENERGY;
+        for (ii = 1; ii <= 5; ii++)
+          e[ii] = 2 * INFINITE_ENERGY;
 
         if (i != number) {
           // calculate the energy of i stacked onto the pair of i+1,j
@@ -4509,7 +4537,9 @@ d = j - i;
         // to avoid the overhead of the conditions in f
         int end = min(number, j);
         int tmp = wmb.f(i, j);
-        for (k = i; k < end; ++k) { tmp = min(tmp, w.dg[i][k] + wT.dg[j][k + 1]); }
+        for (k = i; k < end; ++k) {
+          tmp = min(tmp, w.dg[i][k] + wT.dg[j][k + 1]);
+        }
         for (k = number; k < j; ++k) {
           tmp = min(tmp, w.dg[i][k] + wT.dg[j - number][k + 1 - number]);
         }
@@ -4728,7 +4758,8 @@ d = j - i;
           else
             w5[j] = w5[j - 1] + ct->SHAPEss_give_value(j);
 
-          for (k = 1; k <= 5; k++) e[k] = INFINITE_ENERGY;  // e[k]=0;
+          for (k = 1; k <= 5; k++)
+            e[k] = INFINITE_ENERGY;  // e[k]=0;
 #ifndef disablecoax
           castack = INFINITE_ENERGY;
 #endif  // ifndef disablecoax
@@ -4819,7 +4850,8 @@ d = j - i;
           else
             w3[i] = w3[i + 1] + ct->SHAPEss_give_value(i);
 
-          for (k = 1; k <= 5; k++) e[k] = INFINITE_ENERGY;
+          for (k = 1; k <= 5; k++)
+            e[k] = INFINITE_ENERGY;
 #ifndef disablecoax
           castack = INFINITE_ENERGY;
 #endif  // ifndef disablecoax
@@ -4893,7 +4925,8 @@ d = j - i;
 #ifdef DYNALIGN_II
 
       if (j <= number) {
-        for (size_t it = 1; it <= 5; it++) e[it] = 0;
+        for (size_t it = 1; it <= 5; it++)
+          e[it] = 0;
 
         castack = 0;
 
@@ -4912,7 +4945,8 @@ d = j - i;
           else
             we->f(i, j) = min(we->f(i, j - 1), we->f(i + 1, j));
 
-          for (k = 1; k <= 5; k++) e[k] = INFINITE_ENERGY;
+          for (k = 1; k <= 5; k++)
+            e[k] = INFINITE_ENERGY;
 
           castack = INFINITE_ENERGY;
 
@@ -4962,7 +4996,8 @@ d = j - i;
                     erg1(i + 1, j - 1, i + 2, j - 2, ct, data) + penalty(j - 1, i + 1, ct, data)));
           }
 
-          for (k = i; k <= j; k++) e[5] = min(e[5], we->f(i, k) + we->f(k + 1, j));
+          for (k = i; k <= j; k++)
+            e[5] = min(e[5], we->f(i, k) + we->f(k + 1, j));
 
           castack = min(castack, wca[i][j]);
         }
@@ -5004,7 +5039,8 @@ d = j - i;
 #endif
 
   // clean up memory use:
-  for (int locali = 0; locali <= number; locali++) delete[] wca[locali];
+  for (int locali = 0; locali <= number; locali++)
+    delete[] wca[locali];
   delete[] wca;
 
   if (!ct->intermolecular) {
@@ -5024,8 +5060,12 @@ d = j - i;
 void forcesingle(int x, structure* ct, forceclass* v) {
   int i;
 
-  for (i = x; i < x + (ct->GetSequenceLength()); i++) { v->f(x, i) = v->f(x, i) | SINGLE; }
-  for (i = 1; i <= x; i++) { v->f(i, x) = v->f(i, x) | SINGLE; }
+  for (i = x; i < x + (ct->GetSequenceLength()); i++) {
+    v->f(x, i) = v->f(x, i) | SINGLE;
+  }
+  for (i = 1; i <= x; i++) {
+    v->f(i, x) = v->f(i, x) | SINGLE;
+  }
   for (i = x + 1; i <= ct->GetSequenceLength(); i++) {
     v->f(i, x + ct->GetSequenceLength()) = v->f(i, x + ct->GetSequenceLength()) | SINGLE;
   }
@@ -5035,15 +5075,27 @@ void forcepair(int x, int y, structure* ct, forceclass* v) {
   int i, j;
   v->f(x, y) = v->f(x, y) | PAIR;
   v->f(y, x + ct->GetSequenceLength()) = v->f(y, x + ct->GetSequenceLength()) | PAIR;
-  for (i = y + 1; i <= x - 1 + ct->GetSequenceLength(); i++) { v->f(x, i) = v->f(x, i) | NOPAIR; }
-  for (i = x; i <= y - 1; i++) { v->f(x, i) = v->f(x, i) | NOPAIR; }
-  for (i = 1; i <= x - 1; i++) { v->f(i, y) = v->f(i, y) | NOPAIR; }
-  for (i = x + 1; i <= y; i++) { v->f(i, y) = v->f(i, y) | NOPAIR; }
-  for (i = 1; i <= x - 1; i++) { v->f(i, x) = v->f(i, x) | NOPAIR; }
+  for (i = y + 1; i <= x - 1 + ct->GetSequenceLength(); i++) {
+    v->f(x, i) = v->f(x, i) | NOPAIR;
+  }
+  for (i = x; i <= y - 1; i++) {
+    v->f(x, i) = v->f(x, i) | NOPAIR;
+  }
+  for (i = 1; i <= x - 1; i++) {
+    v->f(i, y) = v->f(i, y) | NOPAIR;
+  }
+  for (i = x + 1; i <= y; i++) {
+    v->f(i, y) = v->f(i, y) | NOPAIR;
+  }
+  for (i = 1; i <= x - 1; i++) {
+    v->f(i, x) = v->f(i, x) | NOPAIR;
+  }
   for (i = y + 1; i <= ct->GetSequenceLength(); i++) {
     v->f(i, y + ct->GetSequenceLength()) = v->f(i, y + ct->GetSequenceLength()) | NOPAIR;
   }
-  for (i = y; i <= x - 1 + (ct->GetSequenceLength()); i++) { v->f(y, i) = v->f(y, i) | NOPAIR; }
+  for (i = y; i <= x - 1 + (ct->GetSequenceLength()); i++) {
+    v->f(y, i) = v->f(y, i) | NOPAIR;
+  }
   for (i = (ct->GetSequenceLength()) + x + 1; i <= (ct->GetSequenceLength()) + y - 1; i++) {
     v->f(y, i) = v->f(y, i) | NOPAIR;
   }
@@ -5054,7 +5106,9 @@ void forcepair(int x, int y, structure* ct, forceclass* v) {
     v->f(i, x + ct->GetSequenceLength()) = v->f(i, x + ct->GetSequenceLength()) | NOPAIR;
   }
   for (i = 1; i <= x - 1; i++) {
-    for (j = x + 1; j <= y - 1; j++) { v->f(i, j) = v->f(i, j) | NOPAIR; }
+    for (j = x + 1; j <= y - 1; j++) {
+      v->f(i, j) = v->f(i, j) | NOPAIR;
+    }
   }
   for (i = x + 1; i <= y - 1; i++) {
     for (j = y + 1; j <= (ct->GetSequenceLength()) + x - 1; j++) {
@@ -5075,10 +5129,14 @@ void forcedbl(int dbl, structure* ct, forceclass* w, bool* v) {
   v[dbl + ct->GetSequenceLength()] = true;
 
   for (i = dbl + 1; i <= ct->GetSequenceLength(); i++) {
-    for (j = 1; j < dbl; j++) { w->f(j, i) = w->f(j, i) | DUBLE; }
+    for (j = 1; j < dbl; j++) {
+      w->f(j, i) = w->f(j, i) | DUBLE;
+    }
   }
   for (j = (dbl + (ct->GetSequenceLength()) - 1); j > ct->GetSequenceLength(); j--) {
-    for (i = dbl + 1; i <= ct->GetSequenceLength(); i++) { w->f(i, j) = w->f(i, j) | DUBLE; }
+    for (i = dbl + 1; i <= ct->GetSequenceLength(); i++) {
+      w->f(i, j) = w->f(i, j) | DUBLE;
+    }
   }
 }
 
@@ -5086,10 +5144,14 @@ void forceinter(int dbl, structure* ct, forceclass* w) {
   int i, j;
 
   for (i = dbl + 1; i <= ct->GetSequenceLength(); i++) {
-    for (j = 1; j < dbl; j++) { w->f(j, i) = w->f(j, i) | INTER; }
+    for (j = 1; j < dbl; j++) {
+      w->f(j, i) = w->f(j, i) | INTER;
+    }
   }
   for (j = (dbl + (ct->GetSequenceLength()) - 1); j > ct->GetSequenceLength(); j--) {
-    for (i = dbl + 1; i <= ct->GetSequenceLength(); i++) { w->f(i, j) = w->f(i, j) | INTER; }
+    for (i = dbl + 1; i <= ct->GetSequenceLength(); i++) {
+      w->f(i, j) = w->f(i, j) | INTER;
+    }
   }
   for (i = dbl + 1 + ct->GetSequenceLength(); i <= 2 * ct->GetSequenceLength(); i++) {
     for (j = ct->GetSequenceLength(); j < dbl + ct->GetSequenceLength(); j++) {
@@ -5102,7 +5164,9 @@ void forceinterefn(int dbl, structure* ct, forceclass* w) {
   int i, j;
 
   for (i = dbl + 1; i <= ct->GetSequenceLength(); i++) {
-    for (j = 1; j < dbl; j++) { w->f(j, i) = w->f(j, i) | INTER; }
+    for (j = 1; j < dbl; j++) {
+      w->f(j, i) = w->f(j, i) | INTER;
+    }
   }
 }
 
@@ -5118,7 +5182,9 @@ void filter(structure* ct, int percent, int max, int window) {
     mark[i] = new bool[ct->GetSequenceLength() + 1];
   }
   for (i = 1; i <= ct->GetSequenceLength(); i++) {
-    for (j = i; j <= ct->GetSequenceLength(); j++) { mark[i][j] = false; }
+    for (j = i; j <= ct->GetSequenceLength(); j++) {
+      mark[i][j] = false;
+    }
   }
 
   crit = (short)(ct->GetEnergy(1) +
@@ -5130,7 +5196,8 @@ void filter(structure* ct, int percent, int max, int window) {
     if (ct->GetEnergy(i) > crit) {
       // none of the remaining structures should be kept bcs the free
 
-      for (j = ct->GetNumberofStructures(); j >= i; j--) ct->RemoveLastStructure();
+      for (j = ct->GetNumberofStructures(); j >= i; j--)
+        ct->RemoveLastStructure();
 
       // clean up memory:
       de_allocate(mark, ct->GetSequenceLength() + 1);
@@ -5140,7 +5207,8 @@ void filter(structure* ct, int percent, int max, int window) {
       // none of the remaining structures should be kept bcs the max #
       // of structures has been reached
 
-      for (j = ct->GetNumberofStructures(); j >= i; j--) ct->RemoveLastStructure();
+      for (j = ct->GetNumberofStructures(); j >= i; j--)
+        ct->RemoveLastStructure();
 
       de_allocate(mark, ct->GetSequenceLength() + 1);
       return;
@@ -5222,10 +5290,14 @@ void cctout(structure* ct, char* filename) {
 
   out << ct->GetCtLabel(1).c_str();
 
-  for (i = 1; i <= ct->GetSequenceLength(); i++) { out << ct->numseq[i] << "\n"; }
+  for (i = 1; i <= ct->GetSequenceLength(); i++) {
+    out << ct->numseq[i] << "\n";
+  }
   for (i = 1; i <= ct->GetNumberofStructures(); i++) {
     out << ct->GetEnergy(1) << "\n";
-    for (j = 1; j <= ct->GetSequenceLength(); j++) { out << ct->GetPair(j, i) << "\n"; }
+    for (j = 1; j <= ct->GetSequenceLength(); j++) {
+      out << ct->GetPair(j, i) << "\n";
+    }
   }
 }
 
@@ -5610,7 +5682,8 @@ void readsav(const char* filename, structure* ct, arrayclass* w2, arrayclass* wm
     sav.read(&(ct->nucs[i]), 1);
   }
 
-  for (i = 0; i <= 2 * ct->GetSequenceLength(); i++) read(&sav, &(ct->numseq[i]));
+  for (i = 0; i <= 2 * ct->GetSequenceLength(); i++)
+    read(&sav, &(ct->numseq[i]));
 
   // Read the number of nucleotides forced double stranded
   read(&sav, &(pairnumber));
@@ -5627,7 +5700,8 @@ void readsav(const char* filename, structure* ct, arrayclass* w2, arrayclass* wm
     w2 = new arrayclass(ct->GetSequenceLength());
     wmb2 = new arrayclass(ct->GetSequenceLength());
 
-    for (i = 0; i < 3; i++) read(&sav, &(ct->inter[i]));
+    for (i = 0; i < 3; i++)
+      read(&sav, &(ct->inter[i]));
   }
 
   // Read the number of nucleotides that are not allowed to pair
@@ -5674,14 +5748,16 @@ void readsav(const char* filename, structure* ct, arrayclass* w2, arrayclass* wm
 
     ct->allocatetem();
     for (i = 0; i <= ct->GetSequenceLength(); i++) {
-      for (j = 0; j <= i; j++) read(&sav, &(ct->tem[i][j]));
+      for (j = 0; j <= i; j++)
+        read(&sav, &(ct->tem[i][j]));
     }
   }
 
   read(&sav, &ct->shaped);
   if (ct->shaped) {
     ct->SHAPE = new double[2 * ct->GetSequenceLength() + 1];
-    for (i = 0; i <= 2 * ct->GetSequenceLength(); i++) read(&sav, &(ct->SHAPE[i]));
+    for (i = 0; i <= 2 * ct->GetSequenceLength(); i++)
+      read(&sav, &(ct->SHAPE[i]));
   }
 
   // now read the array class data for v, w, and wmb:
@@ -5710,9 +5786,11 @@ void readsav(const char* filename, structure* ct, arrayclass* w2, arrayclass* wm
   read(&sav, vmin);
 
   // now open the data files:
-  for (i = 0; i < 5; i++) read(&sav, &(data->poppen[i]));
+  for (i = 0; i < 5; i++)
+    read(&sav, &(data->poppen[i]));
   read(&sav, &(data->maxpen));
-  for (i = 0; i < 11; i++) read(&sav, &(data->eparam[i]));
+  for (i = 0; i < 11; i++)
+    read(&sav, &(data->eparam[i]));
   for (i = 0; i < 31; i++) {
     read(&sav, &(data->inter[i]));
     read(&sav, &(data->bulge[i]));
@@ -5722,7 +5800,9 @@ void readsav(const char* filename, structure* ct, arrayclass* w2, arrayclass* wm
   for (i = 0; i < 6; i++) {
     for (j = 0; j < 6; j++) {
       for (k = 0; k < 6; k++) {
-        for (l = 0; l < 3; l++) { read(&sav, &(data->dangle[i][j][k][l])); }
+        for (l = 0; l < 3; l++) {
+          read(&sav, &(data->dangle[i][j][k][l]));
+        }
         for (l = 0; l < 6; l++) {
           read(&sav, &(data->stack[i][j][k][l]));
           read(&sav, &(data->tstkh[i][j][k][l]));
@@ -5757,15 +5837,18 @@ void readsav(const char* filename, structure* ct, arrayclass* w2, arrayclass* wm
   }
   read(&sav, &(data->numoftloops));
   for (i = 0; i <= data->numoftloops; i++) {
-    for (j = 0; j < 2; j++) read(&sav, &(data->tloop[i][j]));
+    for (j = 0; j < 2; j++)
+      read(&sav, &(data->tloop[i][j]));
   }
   read(&sav, &(data->numoftriloops));
   for (i = 0; i <= data->numoftriloops; i++) {
-    for (j = 0; j < 2; j++) read(&sav, &(data->triloop[i][j]));
+    for (j = 0; j < 2; j++)
+      read(&sav, &(data->triloop[i][j]));
   }
   read(&sav, &(data->numofhexaloops));
   for (i = 0; i <= data->numofhexaloops; i++) {
-    for (j = 0; j < 2; j++) read(&sav, &(data->hexaloop[i][j]));
+    for (j = 0; j < 2; j++)
+      read(&sav, &(data->hexaloop[i][j]));
   }
   read(&sav, &(data->auend));
   read(&sav, &(data->gubonus));
@@ -5830,7 +5913,8 @@ void opensav(char* filename, structure* ct, int cntrl6, int cntrl8, int cntrl9) 
     w2 = new arrayclass(ct->GetSequenceLength());
     wmb2 = new arrayclass(ct->GetSequenceLength());
 
-    for (i = 0; i < 3; i++) read(&sav, &(ct->inter[i]));
+    for (i = 0; i < 3; i++)
+      read(&sav, &(ct->inter[i]));
 
   } else {
     w2 = NULL;
@@ -5912,7 +5996,8 @@ void arraydump(arrayclass& v, arrayclass& w, arrayclass& wmb, const integersize*
       << "\t"
       << "w3[i]"
       << "\n";
-  for (int i = 1; i <= n; i++) foo << i << "\t" << w5[i] << "\t" << w3[i] << "\n";
+  for (int i = 1; i <= n; i++)
+    foo << i << "\t" << w5[i] << "\t" << w3[i] << "\n";
 
   foo.close();
 }

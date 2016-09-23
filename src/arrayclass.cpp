@@ -19,14 +19,20 @@ arrayclass::arrayclass(int size, integersize energy) {
   int i, j;
   dg = new integersize*[size + 1];
 
-  for (i = 0; i <= (size); i++) { dg[i] = new integersize[size + 1]; }
+  for (i = 0; i <= (size); i++) {
+    dg[i] = new integersize[size + 1];
+  }
   for (i = 0; i <= size; i++) {
-    for (j = 0; j < size + 1; j++) { dg[i][j] = INFINITE_ENERGY; }
+    for (j = 0; j < size + 1; j++) {
+      dg[i][j] = INFINITE_ENERGY;
+    }
   }
 
   // Now move pointers, to facilitate fast access by
   // avoiding arithmetic during array access function
-  for (i = 0; i <= size; ++i) { dg[i] -= i; }
+  for (i = 0; i <= size; ++i) {
+    dg[i] -= i;
+  }
   // columns are i index, rows are j index
   // because i>j, array is now shaped like this:
   //     n
@@ -82,10 +88,14 @@ arrayclassT::arrayclassT(int size, integersize energy) {
   for (int i = 0; i <= 2 * size; i++) {
     int rowlength = i <= size ? i + 1 : 2 * size + 1 - i;
     dg[i] = new integersize[rowlength];
-    for (int j = 0; j < rowlength; j++) { dg[i][j] = infinite; }
+    for (int j = 0; j < rowlength; j++) {
+      dg[i][j] = infinite;
+    }
   }
   // move pointer so we don't have to do arithmetic during array access
-  for (int i = size + 1; i <= 2 * size; i++) { dg[i] -= i - size; }
+  for (int i = size + 1; i <= 2 * size; i++) {
+    dg[i] -= i - size;
+  }
 }
 
 // the destructor deallocates the space used
