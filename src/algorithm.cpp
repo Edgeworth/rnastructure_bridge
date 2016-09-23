@@ -54,6 +54,11 @@ void arraydump(arrayclass& v, arrayclass& w, arrayclass& wmb, const integersize*
     const char* filename);
 #endif
 
+// Instead of errmsg.h and writing to stdout, have this.
+void errmsg(int, int) {
+  exit(1);
+}
+
 //********************************functions:
 
 /*	Function efn2
