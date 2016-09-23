@@ -11,13 +11,9 @@ using namespace std;
 
 const char TProgressDialog::spinchars[] = {'/', '-', '\\', '|'};
 
-TProgressDialog::TProgressDialog(ostream& _s)
-    : spinstate(0),
-      s(_s) {
-}
+TProgressDialog::TProgressDialog(ostream& _s) : spinstate(0), s(_s) {}
 
-TProgressDialog::~TProgressDialog() {
-}
+TProgressDialog::~TProgressDialog() {}
 
 void TProgressDialog::update(int percent) {
 
@@ -43,5 +39,4 @@ void TProgressDialog::update(int percent) {
   }
   s.flush();
   ++spinstate %= 4;
-
 }

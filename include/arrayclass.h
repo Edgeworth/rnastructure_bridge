@@ -50,14 +50,12 @@ inline integersize& arrayclass::f(int i, int j) {
     j -= Size;
   }
 
-  if (i > j) {
-    return infinite;
-  }
+  if (i > j) { return infinite; }
 
   return dg[i][j];
 }
 
-//transpose of array class, for efficient traversal of columns
+// transpose of array class, for efficient traversal of columns
 class arrayclassT {
 private:
   int Size;
@@ -84,9 +82,7 @@ inline integersize& arrayclassT::f(int i, int j) {
     j -= Size;
   }
 
-  if (i > j) {
-    return infinite;
-  }
+  if (i > j) { return infinite; }
 
   return dg[j][i];
 }

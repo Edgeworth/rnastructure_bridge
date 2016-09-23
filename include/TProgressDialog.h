@@ -15,6 +15,7 @@ private:
   static const char spinchars[];
   int spinstate;
   std::ostream& s;
+
 public:
   TProgressDialog(std::ostream& _s = std::cout);
   virtual ~TProgressDialog();

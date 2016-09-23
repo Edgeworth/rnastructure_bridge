@@ -17,37 +17,28 @@ arrayclass::arrayclass(int size, integersize energy) {
   infinite = energy;
   Size = size;
   int i, j;
-  dg = new integersize* [size + 1];
+  dg = new integersize*[size + 1];
 
-  for (i = 0; i <= (size); i++) {
-    dg[i] = new integersize[size + 1];
-  }
+  for (i = 0; i <= (size); i++) { dg[i] = new integersize[size + 1]; }
   for (i = 0; i <= size; i++) {
-    for (j = 0; j < size + 1; j++) {
-      dg[i][j] = INFINITE_ENERGY;
-    }
+    for (j = 0; j < size + 1; j++) { dg[i][j] = INFINITE_ENERGY; }
   }
 
-  //Now move pointers, to facilitate fast access by
-  //avoiding arithmetic during array access function
-  for (i = 0; i <= size; ++i) {
-    dg[i] -= i;
-  }
-  //columns are i index, rows are j index
-  //because i>j, array is now shaped like this:
+  // Now move pointers, to facilitate fast access by
+  // avoiding arithmetic during array access function
+  for (i = 0; i <= size; ++i) { dg[i] -= i; }
+  // columns are i index, rows are j index
+  // because i>j, array is now shaped like this:
   //     n
   // |    |
   //  |    |
   //   |    |
   //    |    |
   //         2n
-  //j>n means this is an exterior fragment
-
+  // j>n means this is an exterior fragment
 }
 
-arrayclass::arrayclass(arrayclass&& o) {
-  *this = std::move(o);
-}
+arrayclass::arrayclass(arrayclass&& o) { *this = std::move(o); }
 
 arrayclass& arrayclass::operator=(arrayclass&& o) {
   dg = o.dg;
@@ -59,14 +50,13 @@ arrayclass& arrayclass::operator=(arrayclass&& o) {
   return *this;
 }
 
-
 // the destructor deallocates the space used
 arrayclass::~arrayclass() {
   for (int i = 0; i <= Size; i++) {
-    //move pointers back before deleting
+    // move pointers back before deleting
     dg[i] += i;
 
-    //now delete
+    // now delete
     delete[] dg[i];
   }
   delete[] dg;
@@ -75,11 +65,11 @@ arrayclass::~arrayclass() {
 arrayclassT::arrayclassT(int size, integersize energy) {
   infinite = energy;
   Size = size;
-  dg = new integersize* [2 * size + 1];
+  dg = new integersize*[2 * size + 1];
 
-  //because this is transpose of arrayclass,
-  //i index is rows, j index is columns
-  //array is shaped like this:
+  // because this is transpose of arrayclass,
+  // i index is rows, j index is columns
+  // array is shaped like this:
   // ||
   // | |
   // |  |
@@ -92,22 +82,16 @@ arrayclassT::arrayclassT(int size, integersize energy) {
   for (int i = 0; i <= 2 * size; i++) {
     int rowlength = i <= size ? i + 1 : 2 * size + 1 - i;
     dg[i] = new integersize[rowlength];
-    for (int j = 0; j < rowlength; j++) {
-      dg[i][j] = infinite;
-    }
+    for (int j = 0; j < rowlength; j++) { dg[i][j] = infinite; }
   }
-  //move pointer so we don't have to do arithmetic during array access
-  for (int i = size + 1; i <= 2 * size; i++) {
-    dg[i] -= i - size;
-  }
+  // move pointer so we don't have to do arithmetic during array access
+  for (int i = size + 1; i <= 2 * size; i++) { dg[i] -= i - size; }
 }
 
 // the destructor deallocates the space used
 arrayclassT::~arrayclassT() {
   for (int i = 0; i <= 2 * Size; i++) {
-    if (i > Size) {
-      dg[i] += (i - Size);
-    }
+    if (i > Size) { dg[i] += (i - Size); }
     delete[] dg[i];
   }
   delete[] dg;

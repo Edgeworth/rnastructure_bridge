@@ -13,7 +13,7 @@ void stackclass::allocate_stack() {
   short i;
 
   stackenergy = new integersize[maximum];
-  stack = new short int* [maximum];
+  stack = new short int*[maximum];
   for (i = 0; i < maximum; i++) stack[i] = new short int[4];
 }
 
@@ -23,10 +23,11 @@ stackclass::stackclass(short int stacksize) {
   allocate_stack();
 }
 
-bool stackclass::pull(short int* i, short int* j, short int* open,
-    integersize* energy, short int* pair) {
+bool stackclass::pull(
+    short int* i, short int* j, short int* open, integersize* energy, short int* pair) {
 
-  if (size == 0) return false;
+  if (size == 0)
+    return false;
   else {
     size--;
     *i = stack[size][0];
@@ -38,12 +39,12 @@ bool stackclass::pull(short int* i, short int* j, short int* open,
   }
 }
 
-void stackclass::push(short int i, short int j, short int open,
-    integersize energy, short int pair) {
+void stackclass::push(
+    short int i, short int j, short int open, integersize energy, short int pair) {
   short k;
 
   if (size == maximum) {
-    //allocate more space:
+    // allocate more space:
     stackclass* temp;
     temp = new stackclass(maximum);
     for (k = 0; k < maximum; k++) {
@@ -69,13 +70,9 @@ void stackclass::push(short int i, short int j, short int open,
 }
 
 void stackclass::delete_array() {
-  for (short i = 0; i < maximum; i++) {
-    delete[] stack[i];
-  }
+  for (short i = 0; i < maximum; i++) { delete[] stack[i]; }
   delete[] stack;
   delete[] stackenergy;
 }
 
-stackclass::~stackclass() {
-  delete_array();
-}
+stackclass::~stackclass() { delete_array(); }
