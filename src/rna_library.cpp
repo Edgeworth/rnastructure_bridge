@@ -51,11 +51,11 @@ datatable::datatable() {
 		Function opens data files to read thermodynamic data
 */
 
-int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
-    char* tloop, char* miscloop, char* danglef, char* int22, char* int21,
-    char* coax, char* tstackcoax, char* coaxstack,
-    char* tstack, char* tstackm, char* triloop, char* int11, char* hexaloop,
-    char* tstacki23, char* tstacki1n, datatable* data) {
+int opendat(const char* loop2, const char* stackf, const char* tstackh, const char* tstacki,
+    const char* tloop, const char* miscloop, const char* danglef, const char* int22, const char* int21,
+    const char* coax, const char* tstackcoax, const char* coaxstack,
+    const char* tstack, const char* tstackm, const char* triloop, const char* int11, const char* hexaloop,
+    const char* tstacki23, const char* tstacki1n, datatable* data) {
   char lineoftext[100], base[110];
   int count, i, j, k, l, m, a, b, c, d, e, f, g;
   float temp;

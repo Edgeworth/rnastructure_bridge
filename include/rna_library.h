@@ -70,11 +70,11 @@ void read(std::ifstream* out, float* i);
 void read(std::ifstream* out, double* i);
 void readsinglechar(std::ifstream* out, char* i);
 
-int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
-    char* tloop, char* miscloop, char* danglef, char* int22, char* int21,
-    char* coax, char* tstackcoax, char* coaxstack,
-    char* tstack, char* tstackm, char* triloop, char* int11, char* hexaloop,
-    char* tstacki23, char* tstacki1n, datatable* data);
+int opendat(const char* loop2, const char* stackf, const char* tstackh, const char* tstacki,
+    const char* tloop, const char* miscloop, const char* danglef, const char* int22, const char* int21,
+    const char* coax, const char* tstackcoax, const char* coaxstack,
+    const char* tstack, const char* tstackm, const char* triloop, const char* int11, const char* hexaloop,
+    const char* tstacki23, const char* tstacki1n, datatable* data);
 //gets thermodynamic data from data files
 
 void push(stackstruct* stack, int a, int b, int c, int d);//push info onto the stack
