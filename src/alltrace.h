@@ -32,6 +32,8 @@ public:
   integersize** dg;
   integersize infinite;
   bool allocated;
+
+
   //the constructor allocates the space needed by the arrays
   atarrayclass(int size);
   atarrayclass();
@@ -49,8 +51,7 @@ inline integersize& atarrayclass::f(int i, int j) {
 
   if (i > j) {
     return infinite;
-  }
-  else if (i > Size) return f(i - Size, j - Size);//dg[i-Size][j-Size];
+  } else if (i > Size) return f(i - Size, j - Size);//dg[i-Size][j-Size];
   else return dg[i][j - i];
 
 }
@@ -64,17 +65,18 @@ inline integersize& atarrayclass::f(int i, int j) {
 //NoMBLoop = whether multibranch loops are allowed, wehere true indicates NO multibranch loops
 void
 alltrace(structure* ct, datatable* data, short percentdelta, short absolutedelta, TProgressDialog* update, char* save,
-         bool NoMBLoop = false);
+    bool NoMBLoop = false);
 void readalltrace(char* filename, structure* ct,
-                  short* w5,
-                  atarrayclass* v, atarrayclass* w, atarrayclass* wmb, atarrayclass* wmbl, atarrayclass* wl,
-                  atarrayclass* wcoax,
-                  atarrayclass* w2, atarrayclass* wmb2, forceclass* fce, bool* lfce, bool* mod, datatable* data);
+    short* w5,
+    atarrayclass* v, atarrayclass* w, atarrayclass* wmb, atarrayclass* wmbl, atarrayclass* wl, atarrayclass* wcoax,
+    atarrayclass* w2, atarrayclass* wmb2, forceclass* fce, bool* lfce, bool* mod, datatable* data);
 
 void realltrace(char* savefilename, structure* ct, short percentdelta, short absolutedelta, char* ctname = NULL);
-#define startingsize 500  //maximum number of structure fragments to start in alltracestructurestack (below)
 
+#define startingsize 500  //maximum number of structure fragments to start in alltracestructurestack (below)
 //#define startingrefinementstacksize 25
+
+
 //a stack to keep track of partially refined structures
 //contains a stackclass to keep track of where refinements need to occur
 class alltracestructurestack {
@@ -89,9 +91,9 @@ public:
   void addpair(short i, short j, int index);
   void push();
   void push(integersize totalenergy, bool topair, short pairi, short pairj, bool tostack, short i, short j, short open,
-            integersize energy, short pair, bool topair2, short pairi2, short pairj2, bool tostack2, short i2, short j2,
-            short open2, integersize energy2, short pair2, bool tostack3 = false, short i3 = 0, short j3 = 0,
-            short open3 = 0, integersize energy3 = 0, short pair3 = 0);
+      integersize energy, short pair, bool topair2, short pairi2, short pairj2, bool tostack2, short i2, short j2,
+      short open2, integersize energy2, short pair2, bool tostack3 = false, short i3 = 0, short j3 = 0, short open3 = 0,
+      integersize energy3 = 0, short pair3 = 0);
   short numberofnucs; //length of the sequence
   void allocatearrays();
   void deletearrays();

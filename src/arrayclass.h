@@ -25,11 +25,19 @@ public:
   integersize** dg;
   integersize infinite;
 
+  arrayclass();
   // the constructor allocates the space needed by the arrays
   arrayclass(int size, integersize energy = INFINITE_ENERGY);
 
   // the destructor deallocates the space used
   ~arrayclass();
+
+  // Move semantics added by E.
+  arrayclass(arrayclass&& o);
+  arrayclass& operator=(arrayclass&& o);
+
+  arrayclass(const arrayclass&) = delete;
+  arrayclass& operator=(const arrayclass&) = delete;
 
   // f is an integer function that references the correct element of
   // the array
@@ -82,5 +90,4 @@ inline integersize& arrayclassT::f(int i, int j) {
 
   return dg[j][i];
 }
-
 #endif

@@ -1,15 +1,23 @@
+
+#ifdef _WINDOWS_GUI
+#include "../RNAstructure_windows_interface/platform.h"
+#else
+
 #include "platform.h"
 
+#endif //_WINDOWS
+
 #include "rna_library.h"
-#include <cmath>
-#include <cstdlib>
 #include <cstring>
 
 using namespace std;
 
 //***********************************code for Structures:
+
+
 datatable::datatable() {
   int a, b, c, d, e, f, g, h;
+
   for (a = 0; a <= 5; a++) {
     for (b = 0; b <= 5; b++) {
       for (c = 0; c <= 5; c++) {
@@ -29,9 +37,13 @@ datatable::datatable() {
       }
     }
   }
+
+
 //Set RT equal to the defined rt (in defines.h).
 //This assumes folding at 37 degrees C.
   RT = (float) rt;
+
+
 };
 
 /*  Function opendat
@@ -40,10 +52,10 @@ datatable::datatable() {
 */
 
 int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
-            char* tloop, char* miscloop, char* danglef, char* int22, char* int21,
-            char* coax, char* tstackcoax, char* coaxstack,
-            char* tstack, char* tstackm, char* triloop, char* int11, char* hexaloop,
-            char* tstacki23, char* tstacki1n, datatable* data) {
+    char* tloop, char* miscloop, char* danglef, char* int22, char* int21,
+    char* coax, char* tstackcoax, char* coaxstack,
+    char* tstack, char* tstackm, char* triloop, char* int11, char* hexaloop,
+    char* tstacki23, char* tstacki1n, datatable* data) {
   char lineoftext[100], base[110];
   int count, i, j, k, l, m, a, b, c, d, e, f, g;
   float temp;
@@ -74,6 +86,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
   ifstream t1n;
 
   //ofstream out("check.out");
+
+
 //check that all the files exist with a C i/o function
   if ((check = fopen(miscloop, "r"))
       == NULL) {
@@ -193,12 +207,14 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
   }
 
   fclose(check);
+
   if ((check = fopen(tstacki1n, "r"))
       == NULL) {
     return 0;
   }
 
   fclose(check);
+
   if ((check = fopen(int11, "r")) == NULL) return 0;
 
   fclose(check);
@@ -227,27 +243,35 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 /* Read information from miscloop */
 
 // the key sequence "-->" now indicates a record
+
+
   ml1 >> lineoftext;
   while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+
   ml1 >> (data->prelog);
 
   data->prelog = (data->prelog) * conversionfactor;
+
   ml1 >> lineoftext;
   while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
 
   ml1 >> temp;
   data->maxpen = (int) round(temp * conversionfactor);
+
   ml1 >> lineoftext;
   while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
 
   for (count = 1; count <= 4; count++) {
     ml1 >> temp;
     (data->poppen[count]) = (int) round(temp * conversionfactor);
+
+
   }                    //this reads float values, converts
   // 	them int and assigns them into
   //		array poppen
   ml1 >> lineoftext;
   while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
+
   data->eparam[1] = 0;             // assign some variables that are
   data->eparam[2] = 0;             //	"hard-wired" into code
   data->eparam[3] = 0;
@@ -255,8 +279,11 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
   ml1 >> temp;
   data->eparam[5] = (short) round(temp * conversionfactor);  //constant multi-loop penalty
 
+
+
   ml1 >> temp;
   data->eparam[6] = (short) round(temp * conversionfactor);
+
   data->eparam[7] = 30;
   data->eparam[8] = 30;//This is now deprecated...  This was a limit on internal loop size.
   data->eparam[9] = -500;
@@ -282,7 +309,10 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
     data->init = 0;
 
     data->singlecbulge = 0;
+
+
   } else {
+
     data->efn2a = (short) round(temp * conversionfactor);  //constant multi-loop penalty for efn2
 
     ml1 >> temp;
@@ -295,10 +325,13 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
     while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
     ml1 >> temp;
     data->mlasym = (short) round(temp * conversionfactor);
+
     ml1 >> lineoftext;
     while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
     ml1 >> temp;
     data->strain = (short) round(temp * conversionfactor);
+
+
     //now read the terminal AU penalty:
     ml1 >> lineoftext;
     while (strcmp(lineoftext, "-->")) ml1 >> lineoftext;
@@ -352,7 +385,11 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 
     ml1 >> temp;
     data->singlecbulge = (short) round(temp * conversionfactor);
+
+
   }
+
+
   /*	read info from dangle */
   //add to dangle the case where X (represented as 0) is looked up
   for (l = 1; l <= 2; l++) {
@@ -377,6 +414,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
       }
     }
   }
+
+
 /*	read info from loop for internal loops, hairpin loops, and bulge loops */
 
   for (count = 1; count <= 26; count++) lo1 >> lineoftext; //get past text in file
@@ -401,6 +440,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 
     //cout <<"hair = "<<data->hairpin[i]<<"\n";
   }
+
+
 /* Read info from stack */
 //add to the stack table the case where X (represented as 0) is looked up:
 
@@ -426,6 +467,10 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
       }
     }
   }
+
+
+
+
 
 /* Read info from tstackh */
 //add to the tstackh table the case where X (represented as 0) is looked up:
@@ -567,6 +612,7 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
   for (count = 1; count <= 3; count++) tl1 >> lineoftext;//get past text in file
   data->numoftloops = 0;
   tl1 >> lineoftext;
+
   for (count = 1; count <= maxtloop && !tl1.eof(); count++) {
     //cout << lineoftext;
 
@@ -580,45 +626,51 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
     strcpy(base, lineoftext + 1);
     strcpy(base + 1, "\0");
     data->tloop[data->numoftloops][0] = data->tloop[data->numoftloops][0] +
-                                        5 * tonumi(base);
+        5 * tonumi(base);
 //cout << base << "\n";
 //cout << data->tloop[data->numoftloops][0] << "\n";
     strcpy(base, lineoftext + 2);
     strcpy(base + 1, "\0");
     data->tloop[data->numoftloops][0] = data->tloop[data->numoftloops][0] +
-                                        25 * tonumi(base);
+        25 * tonumi(base);
 //cout << base << "\n";
 //cout << data->tloop[data->numoftloops][0] << "\n";
     strcpy(base, lineoftext + 3);
     strcpy(base + 1, "\0");
     data->tloop[data->numoftloops][0] = data->tloop[data->numoftloops][0] +
-                                        125 * tonumi(base);
+        125 * tonumi(base);
 //cout << base << "\n";
 //cout << data->tloop[data->numoftloops][0] << "\n";
     strcpy(base, lineoftext + 4);
     strcpy(base + 1, "\0");
     data->tloop[data->numoftloops][0] = data->tloop[data->numoftloops][0] +
-                                        625 * tonumi(base);
+        625 * tonumi(base);
 //cout << base << "\n";
 //cout << data->tloop[data->numoftloops][0] << "\n";
     strcpy(base, lineoftext + 5);
     strcpy(base + 1, "\0");
     data->tloop[data->numoftloops][0] = data->tloop[data->numoftloops][0] +
-                                        3125 * tonumi(base);
+        3125 * tonumi(base);
 //cout << base << "\n";
 //cout << data->tloop[data->numoftloops][0] << "\n";
     tl1 >> temp;
     data->tloop[data->numoftloops][1] = (short) round(conversionfactor * temp);
+
+
     //cout << "key = "<<data->tloop[data->numoftloops][0]<<"\n";
     //cout << "bonus = "<<data->tloop[data->numoftloops][1]<<"\n";
 //	cin >> j;
 
     tl1 >> lineoftext;
   }
+
+
 //Read the 2x2 internal loops
 //key iloop22[a][b][c][d][j][l][k][m] =
 //a j l b
 //c k m d
+
+
   for (count = 1; count <= 340; count++) in1 >> lineoftext;//get past text in file
 
   for (i = 1; i <= 36; i++) {//read each of 36 tables
@@ -649,6 +701,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
             //no longer need to store the reverse order at same time because
             //the tables contain redundancy:
             //data->iloop22[d][c][b][a][m][k][l][j] =round(conversionfactor*temp);
+
+
             //cout << "a = "<<a<<" b= "<<b<<" c= "<<c<<" d = "<<d<<"\n";
 
             //cout << "w = "<<j<<" x= "<<l<<" y= "<<k<<" z= "<<m<<"\n";
@@ -723,6 +777,7 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
   for (count = 1; count <= 3; count++) tri >> lineoftext;//get past text in file
   data->numoftriloops = 0;
   tri >> lineoftext;
+
   for (count = 1; count <= maxtloop && !tri.eof(); count++) {
 
     //cout << lineoftext<<"\n";
@@ -734,19 +789,19 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
     strcpy(base, lineoftext + 1);
     strcpy(base + 1, "\0");
     data->triloop[data->numoftriloops][0] = data->triloop[data->numoftriloops][0] +
-                                            5 * tonumi(base);
+        5 * tonumi(base);
     strcpy(base, lineoftext + 2);
     strcpy(base + 1, "\0");
     data->triloop[data->numoftriloops][0] = data->triloop[data->numoftriloops][0] +
-                                            25 * tonumi(base);
+        25 * tonumi(base);
     strcpy(base, lineoftext + 3);
     strcpy(base + 1, "\0");
     data->triloop[data->numoftriloops][0] = data->triloop[data->numoftriloops][0] +
-                                            125 * tonumi(base);
+        125 * tonumi(base);
     strcpy(base, lineoftext + 4);
     strcpy(base + 1, "\0");
     data->triloop[data->numoftriloops][0] = data->triloop[data->numoftriloops][0] +
-                                            625 * tonumi(base);
+        625 * tonumi(base);
     tri >> temp;
     data->triloop[data->numoftriloops][1] = (short) round(conversionfactor * temp);
 
@@ -754,10 +809,13 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 
     tri >> lineoftext;
   }
+
+
 /*	Read info from hexaloops */
   for (count = 1; count <= 3; count++) hl1 >> lineoftext;//get past text in file
   data->numofhexaloops = 0;
   hl1 >> lineoftext;
+
   for (count = 1; count <= maxtloop && !hl1.eof(); count++) {
 
     //cout << lineoftext<<"\n";
@@ -769,35 +827,38 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
     strcpy(base, lineoftext + 1);
     strcpy(base + 1, "\0");
     data->hexaloop[data->numofhexaloops][0] = data->hexaloop[data->numofhexaloops][0] +
-                                              5 * tonumi(base);
+        5 * tonumi(base);
     strcpy(base, lineoftext + 2);
     strcpy(base + 1, "\0");
     data->hexaloop[data->numofhexaloops][0] = data->hexaloop[data->numofhexaloops][0] +
-                                              25 * tonumi(base);
+        25 * tonumi(base);
     strcpy(base, lineoftext + 3);
     strcpy(base + 1, "\0");
     data->hexaloop[data->numofhexaloops][0] = data->hexaloop[data->numofhexaloops][0] +
-                                              125 * tonumi(base);
+        125 * tonumi(base);
     strcpy(base, lineoftext + 4);
     strcpy(base + 1, "\0");
     data->hexaloop[data->numofhexaloops][0] = data->hexaloop[data->numofhexaloops][0] +
-                                              625 * tonumi(base);
+        625 * tonumi(base);
     strcpy(base, lineoftext + 5);
     strcpy(base + 1, "\0");
     data->hexaloop[data->numofhexaloops][0] = data->hexaloop[data->numofhexaloops][0] +
-                                              3125 * tonumi(base);
+        3125 * tonumi(base);
     strcpy(base, lineoftext + 6);
     strcpy(base + 1, "\0");
     data->hexaloop[data->numofhexaloops][0] = data->hexaloop[data->numofhexaloops][0] +
-                                              15625 * tonumi(base);
+        15625 * tonumi(base);
     strcpy(base, lineoftext + 7);
     strcpy(base + 1, "\0");
     data->hexaloop[data->numofhexaloops][0] = data->hexaloop[data->numofhexaloops][0] +
-                                              78125 * tonumi(base);
+        78125 * tonumi(base);
     hl1 >> temp;
     data->hexaloop[data->numofhexaloops][1] = (int) round(conversionfactor * temp);
+
     hl1 >> lineoftext;
   }
+
+
 /* Read info from coax */
 //add to the stack table the case where X (represented as 0) is looked up:
 
@@ -807,6 +868,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 //5'b-c3'
 //3'a d5'
 //this means the helix backbone is continuous between nucs b and c
+
+
   for (count = 1; count <= 42; count++) co1 >> lineoftext;//get past text in file
   for (i = 0; i <= 5; i++) {
     if ((i != 0) && (i != 5)) for (count = 1; count <= 60; count++) co1 >> lineoftext;
@@ -842,6 +905,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 //5'a-c -> strand continues into stack
 //3'b-d -> strand does not continue to stack
 //pair between a-b, c-d is a mismatch
+
+
   for (count = 1; count <= 46; count++) co2 >> lineoftext;//get past text in file
   for (i = 0; i <= 5; i++) {
     if (!(i == 0 || i == 5)) for (count = 1; count <= 60; count++) co2 >> lineoftext;
@@ -868,6 +933,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 //3'b d ->strand does not continue to stack
 //pair between a-b, mismatch between c-d
 //backbone is discontinuous between b and d
+
+
   for (count = 1; count <= 46; count++) co3 >> lineoftext;//get past text in file
   for (i = 0; i <= 5; i++) {
     if (!(i == 0 || i == 5)) for (count = 1; count <= 60; count++) co3 >> lineoftext;
@@ -886,6 +953,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
       }
     }
   }
+
+
 
 /* Read info from tstack */
 //this is the terminal mismatch data used in intermolecular folding
@@ -927,6 +996,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
       }
     }
   }
+
+
 /* Read info from tstackm */
 //add to the tstackm table the case where X (represented as 0) is looked up:
 
@@ -948,6 +1019,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
             } else if (k == 5) {//5' dangling end
               //look up number for dangling end
               data->tstkm[i][j][k][l] = data->dangle[i][j][l][2] + penalty2(i, j, data);
+
+
             } else if (l == 5) {//3' dangling end
               data->tstkm[i][j][k][l] = data->dangle[i][j][k][1] + penalty2(i, j, data);
             }
@@ -967,6 +1040,8 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
 //data arrangement for 1x1 loop tables iloop11[a][b][c][d][e][f]:
 //abc
 //def
+
+
 //Read the 1x1 internal loop data
 //encode the data like:  abc
 //                       def where b-e is a mismatch
@@ -1022,6 +1097,7 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
       }
     }
   }
+
   ml1.close();
   lo1.close();
   st1.close();
@@ -1040,7 +1116,10 @@ int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
   i11.close();
   hl1.close();
   return 1;
+
+
 }
+
 
 //add the factor from SHAPE calculation
 //This pseudo-energy was calculated when the file was loaded (see structure.cpp).
@@ -1049,6 +1128,8 @@ inline integersize SHAPEend(int i, structure* ct) {
   if (ct->shaped) return (integersize) ct->SHAPE[i];
   return 0;
 }
+
+
 
 //calculate the energy of stacked base pairs
 
@@ -1066,7 +1147,7 @@ integersize erg1(int i, int j, int ip, int jp, structure* ct, datatable* data) {
     energy = INFINITE_ENERGY;
   } else {
     energy = data->stack[(ct->numseq[i])][(ct->numseq[j])]
-             [(ct->numseq[ip])][(ct->numseq[jp])] + data->eparam[1];
+    [(ct->numseq[ip])][(ct->numseq[jp])] + data->eparam[1];
     //if (ct->shaped) {
     energy += SHAPEend(i, ct);
     energy += SHAPEend(j, ct);
@@ -1075,7 +1156,7 @@ integersize erg1(int i, int j, int ip, int jp, structure* ct, datatable* data) {
 
     if (ct->experimentalPairBonusExists) {
       energy += 0.5 * (ct->EX[i][j] + ct->EX[j][i])
-                + 0.5 * (ct->EX[ip][jp] + ct->EX[jp][ip]);
+          + 0.5 * (ct->EX[ip][jp] + ct->EX[jp][ip]);
     }
 
     //}
@@ -1083,10 +1164,12 @@ integersize erg1(int i, int j, int ip, int jp, structure* ct, datatable* data) {
   }
   return energy;
 }
+
+
 //calculate the energy of a bulge/internal loop
 //where i is paired to j; ip is paired to jp; ip > i; j > jp
 integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
-                 char a, char b) {
+    char a, char b) {
 
   integersize energy;
   int size, size1, size2, loginc, lopsid, energy2, count, k;
@@ -1095,14 +1178,15 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
 		loginc = the value of a log used in large hairpin loops
 	*/
   if (((i <= (ct->GetSequenceLength())) && (ip > (ct->GetSequenceLength()))) || ((
-                                                                                     jp <= (ct->GetSequenceLength())) &&
-                                                                                 (j > (ct->GetSequenceLength())))) {
+      jp <= (ct->GetSequenceLength())) && (j > (ct->GetSequenceLength())))) {
     //A loop cannot contain the ends of the sequence
 
     return INFINITE_ENERGY;
   }
+
   size1 = ip - i - 1;
   size2 = j - jp - 1;
+
   if ((a > 0) || (b > 0)) {
     if ((a & DUBLE) || (b & DUBLE)) return INFINITE_ENERGY;//the loop contains a nuc that
       //should be double stranded
@@ -1113,38 +1197,39 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
         //and the intermolecular initiation
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 data->tstack[ct->numseq[jp]][ct->numseq[ip]]
-                 [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
+            data->tstack[ct->numseq[jp]][ct->numseq[ip]]
+            [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
       } else if (size2 == 1) {//find the best terminal mismatch and terminal
         //stack free energies combination
 
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 erg4(jp, ip, ip - 1, 2, ct, data, false) + penalty(jp, ip, ct, data);
+            erg4(jp, ip, ip - 1, 2, ct, data, false) + penalty(jp, ip, ct, data);
         energy2 = data->init + data->tstack[ct->numseq[jp]][ct->numseq[ip]]
         [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-                  erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data);
+            erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data);
         energy = min(energy, energy2);
         //if ((ct->numseq[i+1]!=5)&&(ct->numseq[ip-1]!=5)) {
         //now consider if coaxial stacking is better:
         energy2 = data->init + data->tstackcoax[ct->numseq[jp]]
         [ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]]
-                  + data->coaxstack[ct->numseq[jp + 1]][ct->numseq[ip - 1]]
-                  [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[jp + 1]][ct->numseq[ip - 1]]
+        [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         energy2 = data->init + data->tstackcoax[ct->numseq[jp]]
         [ct->numseq[ip]][ct->numseq[j - 1]][ct->numseq[ip - 1]]
-                  + data->coaxstack[ct->numseq[j - 1]][ct->numseq[ip - 1]]
-                  [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[j - 1]][ct->numseq[ip - 1]]
+        [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         //}
       } else if (size2 == 0) {//just have dangling ends or flush stacking
         energy = data->init + erg4(jp, ip, ip - 1, 2, ct, data, false) +
-                 erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy2 = data->init + data->coax[ct->numseq[ip]][ct->numseq[jp]]
         [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
       }
+
       return energy;
     } else if (b & INTER) {
       //the loop is actually between two strands (ie: intermolecular)
@@ -1153,43 +1238,46 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
         //and the intermolecular initiation
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 data->tstack[ct->numseq[jp]][ct->numseq[ip]]
-                 [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
+            data->tstack[ct->numseq[jp]][ct->numseq[ip]]
+            [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
       } else if (size1 == 1) {//find the best terminal mismatch and terminal
         //stack free energies combination
 
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 erg4(ip, jp, jp + 1, 1, ct, data, false) + penalty(ip, jp, ct, data);
+            erg4(ip, jp, jp + 1, 1, ct, data, false) + penalty(ip, jp, ct, data);
         energy2 = data->init + data->tstack[ct->numseq[jp]][ct->numseq[ip]]
         [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-                  erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data);
+            erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data);
 
         energy = min(energy, energy2);
         //if ((ct->numseq[i+1]!=5)&&(ct->numseq[ip-1]!=5)) {
         //now consider if coaxial stacking is better:
         energy2 = data->init + data->tstackcoax[ct->numseq[i]]
         [ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]]
-                  + data->coaxstack[ct->numseq[i + 1]][ct->numseq[j - 1]]
-                  [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[i + 1]][ct->numseq[j - 1]]
+        [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         energy2 = data->init + data->tstackcoax[ct->numseq[i]]
         [ct->numseq[j]][ct->numseq[ip - 1]][ct->numseq[j - 1]]
-                  + data->coaxstack[ct->numseq[ip - 1]][ct->numseq[j - 1]]
-                  [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[ip - 1]][ct->numseq[j - 1]]
+        [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         //}
       } else if (size1 == 0) {//just have dangling ends or flush stacking
         energy = data->init + erg4(jp, ip, jp + 1, 1, ct, data, false) +
-                 erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy2 = data->init + data->coax[ct->numseq[j]][ct->numseq[i]]
         [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
       }
+
       return energy;
 
     }
   }
+
+
   //a typical internal or bulge loop:
   //size1 = ip-i-1;
   //size2 = j - jp - 1;
@@ -1202,13 +1290,16 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
 
   if (size2 == 1) SHAPEss_energy += ct->SHAPEss_give_value(j - 1);
   else if (size2 != 0) SHAPEss_energy += ct->SHAPEss_calc(jp + 1, j - 1);
+
   if (size1 == 0 || size2 == 0) {//bulge loop
+
+
     size = size1 + size2;
     if (size == 1) {
       count = 1;
       energy = data->stack[ct->numseq[i]][ct->numseq[j]]
-               [ct->numseq[ip]][ct->numseq[jp]]
-               + data->bulge[size] + data->eparam[2];
+      [ct->numseq[ip]][ct->numseq[jp]]
+          + data->bulge[size] + data->eparam[2];
       //SHAPEend(i,ct)+
       //SHAPEend(j,ct)+
       //SHAPEend(ip,ct)+
@@ -1268,7 +1359,7 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
       energy -= (int) round(data->RT * conversionfactor * log((double) count));
     } else if (size > 30) {
 
-      loginc = int((data->prelog) * log(double((size) / 30.0)));
+      loginc = int(round((data->prelog) * log(double((size) / 30.0))));
       energy = data->bulge[30] + loginc + data->eparam[2];
       energy = energy + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
 
@@ -1282,31 +1373,36 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
 
     if (size > 30) {
 
-      loginc = int((data->prelog) * log((double((size)) / 30.0)));
+      loginc = int(round((data->prelog) * log((double((size)) / 30.0))));
       if (size1 == 1 || size2 == 1) {
         energy = data->tstki1n[ct->numseq[i]][ct->numseq[j]]
-                 [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 data->tstki1n[ct->numseq[jp]][ct->numseq[ip]]
-                 [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-                 data->inter[30] + loginc + data->eparam[3] +
-                 min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
+        [ct->numseq[i + 1]][ct->numseq[j - 1]] +
+            data->tstki1n[ct->numseq[jp]][ct->numseq[ip]]
+            [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
+            data->inter[30] + loginc + data->eparam[3] +
+            min(data->maxpen, (lopsid *
+                data->poppen[min(2, min(size1, size2))]));
 
       } else {
         energy = data->tstki[ct->numseq[i]][ct->numseq[j]]
-                 [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 data->tstki[ct->numseq[jp]][ct->numseq[ip]]
-                 [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-                 data->inter[30] + loginc + data->eparam[3] +
-                 min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
+        [ct->numseq[i + 1]][ct->numseq[j - 1]] +
+            data->tstki[ct->numseq[jp]][ct->numseq[ip]]
+            [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
+            data->inter[30] + loginc + data->eparam[3] +
+            min(data->maxpen, (lopsid *
+                data->poppen[min(2, min(size1, size2))]));
       }
     } else if ((size1 == 2) && (size2 == 2))//2x2 internal loop
       energy = data->iloop22[ct->numseq[i]][ct->numseq[ip]]
       [ct->numseq[j]][ct->numseq[jp]]
       [ct->numseq[i + 1]][ct->numseq[i + 2]]
       [ct->numseq[j - 1]][ct->numseq[j - 2]];
+
     else if ((size1 == 1) && (size2 == 2)) {//2x1 internal loop
       energy = data->iloop21[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]]
       [ct->numseq[j - 1]][ct->numseq[jp + 1]][ct->numseq[ip]][ct->numseq[jp]];
+
+
     } else if ((size1 == 2) && (size2 == 1)) {//1x2 internal loop
       energy = data->iloop21[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]]
       [ct->numseq[ip - 1]][ct->numseq[i + 1]][ct->numseq[j]][ct->numseq[i]];
@@ -1318,20 +1414,22 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data,
     else if (size1 == 1 || size2 == 1) { //this loop is lopsided
       //this is a 1xn loop:
       energy = data->tstki1n[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]] +
-               data->tstki1n[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-               data->inter[size] + data->eparam[3] +
-               min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
+          data->tstki1n[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
+          data->inter[size] + data->eparam[3] +
+          min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
     } else if ((size1 == 2 && size2 == 3) || (size1 == 3 && size2 == 2)) {
       //this is a 2x3 loop
       energy = data->tstki23[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]] +
-               data->tstki23[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-               data->inter[size] + data->eparam[3] +
-               min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
+          data->tstki23[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
+          data->inter[size] + data->eparam[3] +
+          min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
+
+
     } else {
       energy = data->tstki[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]] +
-               data->tstki[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-               data->inter[size] + data->eparam[3] +
-               min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
+          data->tstki[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
+          data->inter[size] + data->eparam[3] +
+          min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
     }
     //energy+=(SHAPEend(i,ct)+SHAPEend(j,ct)+SHAPEend(ip,ct)+SHAPEend(jp,ct));
 
@@ -1356,14 +1454,15 @@ integersize erg2ex(int i, int j, int size, structure* ct, datatable* data) {
 	*/
   if (size > 30) {
 
-    loginc = int((data->prelog) * log((double((size)) / 30.0)));
+    loginc = int(round((data->prelog) * log((double((size)) / 30.0))));
     energy = data->tstki[ct->numseq[i]][ct->numseq[j]]
-             [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-             data->inter[30] + loginc;
+    [ct->numseq[i + 1]][ct->numseq[j - 1]] +
+        data->inter[30] + loginc;
 
   } else {
+
     energy = data->tstki[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]] +
-             data->inter[size];
+        data->inter[size];
   }
 
   //energy+=(SHAPEend(i,ct)+SHAPEend(j,ct));
@@ -1393,38 +1492,39 @@ integersize erg2in(int i, int j, int ip, int jp, structure* ct, datatable* data,
         //and the intermolecular initiation
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 data->tstack[ct->numseq[jp]][ct->numseq[ip]]
-                 [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
+            data->tstack[ct->numseq[jp]][ct->numseq[ip]]
+            [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
       } else if (size2 == 1) {//find the best terminal mismatch and terminal
         //stack free energies combination
 
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 erg4(jp, ip, ip - 1, 2, ct, data, false) + penalty(jp, ip, ct, data);
+            erg4(jp, ip, ip - 1, 2, ct, data, false) + penalty(jp, ip, ct, data);
         energy2 = data->init + data->tstack[ct->numseq[jp]][ct->numseq[ip]]
         [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-                  erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data);
+            erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data);
         energy = min(energy, energy2);
         //if ((ct->numseq[i+1]!=5)&&(ct->numseq[ip-1]!=5)) {
         //now consider if coaxial stacking is better:
         energy2 = data->init + data->tstackcoax[ct->numseq[jp]]
         [ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]]
-                  + data->coaxstack[ct->numseq[jp + 1]][ct->numseq[ip - 1]]
-                  [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[jp + 1]][ct->numseq[ip - 1]]
+        [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         energy2 = data->init + data->tstackcoax[ct->numseq[jp]]
         [ct->numseq[ip]][ct->numseq[j - 1]][ct->numseq[ip - 1]]
-                  + data->coaxstack[ct->numseq[j - 1]][ct->numseq[ip - 1]]
-                  [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[j - 1]][ct->numseq[ip - 1]]
+        [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         //}
       } else if (size2 == 0) {//just have dangling ends or flush stacking
         energy = data->init + erg4(jp, ip, ip - 1, 2, ct, data, false) +
-                 erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            erg4(i, j, i + 1, 1, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy2 = data->init + data->coax[ct->numseq[ip]][ct->numseq[jp]]
         [ct->numseq[j]][ct->numseq[i]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
       }
+
       return energy;
     } else if (b & INTER) {
       //the loop is actually between two strands (ie: intermolecular)
@@ -1433,50 +1533,55 @@ integersize erg2in(int i, int j, int ip, int jp, structure* ct, datatable* data,
         //and the intermolecular initiation
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 data->tstack[ct->numseq[jp]][ct->numseq[ip]]
-                 [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
+            data->tstack[ct->numseq[jp]][ct->numseq[ip]]
+            [ct->numseq[jp + 1]][ct->numseq[ip - 1]];
       } else if (size1 == 1) {//find the best terminal mismatch and terminal
         //stack free energies combination
 
         energy = data->init + data->tstack[ct->numseq[i]][ct->numseq[j]]
         [ct->numseq[i + 1]][ct->numseq[j - 1]] +
-                 erg4(ip, jp, jp + 1, 1, ct, data, false) + penalty(ip, jp, ct, data);
+            erg4(ip, jp, jp + 1, 1, ct, data, false) + penalty(ip, jp, ct, data);
         energy2 = data->init + data->tstack[ct->numseq[jp]][ct->numseq[ip]]
         [ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-                  erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data);
+            erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data);
 
         energy = min(energy, energy2);
         //if ((ct->numseq[i+1]!=5)&&(ct->numseq[ip-1]!=5)) {
         //now consider if coaxial stacking is better:
         energy2 = data->init + data->tstackcoax[ct->numseq[i]]
         [ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]]
-                  + data->coaxstack[ct->numseq[i + 1]][ct->numseq[j - 1]]
-                  [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[i + 1]][ct->numseq[j - 1]]
+        [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         energy2 = data->init + data->tstackcoax[ct->numseq[i]]
         [ct->numseq[j]][ct->numseq[ip - 1]][ct->numseq[j - 1]]
-                  + data->coaxstack[ct->numseq[ip - 1]][ct->numseq[j - 1]]
-                  [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            + data->coaxstack[ct->numseq[ip - 1]][ct->numseq[j - 1]]
+        [ct->numseq[ip]][ct->numseq[jp]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         //}
       } else if (size1 == 0) {//just have dangling ends or flush stacking
         energy = data->init + erg4(jp, ip, jp + 1, 1, ct, data, false) +
-                 erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
+            erg4(i, j, j - 1, 2, ct, data, false) + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy2 = data->init + data->coax[ct->numseq[j]][ct->numseq[i]]
         [ct->numseq[ip]][ct->numseq[j]] + penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
       }
+
       return energy;
 
     }
   }
 
-  if (((i <= (ct->GetSequenceLength())) && (ip > (ct->GetSequenceLength()))) ||
-      ((jp <= (ct->GetSequenceLength())) && (j > (ct->GetSequenceLength())))) {
+  if (((i <= (ct->GetSequenceLength())) && (ip > (ct->GetSequenceLength()))) || ((
+      jp <= (ct->GetSequenceLength())) && (j > (ct->GetSequenceLength())))) {
     //A loop cannot contain the ends of the sequence
 
     return INFINITE_ENERGY;
   }
+
+
+
+
 
   //a typical internal , no bulge loop:
   //size1 = ip-i-1;
@@ -1485,16 +1590,22 @@ integersize erg2in(int i, int j, int ip, int jp, structure* ct, datatable* data,
     //size = size1 + size2;
     lopsid = abs(size1 - size2);
     energy = data->tstki[ct->numseq[jp]][ct->numseq[ip]]
-             [ct->numseq[jp + 1]][ct->numseq[ip - 1]] + data->eparam[3] +
-             min(data->maxpen, (lopsid * data->poppen[min(2, min(size1, size2))]));
+    [ct->numseq[jp + 1]][ct->numseq[ip - 1]] + data->eparam[3] +
+        min(data->maxpen, (lopsid *
+            data->poppen[min(2, min(size1, size2))]));
+
+
   }
   //energy+=(SHAPEend(ip,ct)+SHAPEend(jp,ct));
   return energy;
 }
+
+
 //calculate the energy of a hairpin loop:
 integersize erg3(int i, int j, structure* ct, datatable* data, char dbl) {
   integersize energy;
   int size, loginc, count, key, k;
+
   if ((i <= (ct->GetSequenceLength())) && (j > (ct->GetSequenceLength()))) {
     //A hairpin cannot contain the ends of the sequence
     return INFINITE_ENERGY;
@@ -1508,65 +1619,72 @@ integersize erg3(int i, int j, structure* ct, datatable* data, char dbl) {
     //	initiation plus the stacked mismatch
 
     energy = data->init + min(data->tstack[ct->numseq[i]][ct->numseq[j]]
-                              [ct->numseq[i + 1]][ct->numseq[j - 1]], erg4(i, j, i + 1, 1, ct, data, false)) +
-             penalty(i, j, ct, data);
+    [ct->numseq[i + 1]][ct->numseq[j - 1]], erg4(i, j, i + 1, 1, ct, data, false)) + penalty(i, j, ct, data);
 
     return energy;
   }
+
   size = j - i - 1;
+
   if (size > 30) {
 
-    loginc = int((data->prelog) * log((double((size)) / 30.0)));
+    loginc = int(round((data->prelog) * log((double((size)) / 30.0))));
+
     energy = data->tstkh[ct->numseq[i]][ct->numseq[j]]
-             [ct->numseq[i + 1]][ct->numseq[j - 1]]
-             + data->hairpin[30] + loginc + data->eparam[4];
+    [ct->numseq[i + 1]][ct->numseq[j - 1]]
+        + data->hairpin[30] + loginc + data->eparam[4];
   } else if (size < 3) {
     energy = data->hairpin[size] + data->eparam[4];
     if (ct->numseq[i] == 4 || ct->numseq[j] == 4) energy = energy + 6;
   } else if (size == 4) {
 
     key = (ct->numseq[j]) * 3125 + (ct->numseq[i + 4]) * 625 +
-          (ct->numseq[i + 3]) * 125 + (ct->numseq[i + 2]) * 25 + (ct->numseq[i + 1]) * 5 + (ct->numseq[i]);
+        (ct->numseq[i + 3]) * 125 + (ct->numseq[i + 2]) * 25 + (ct->numseq[i + 1]) * 5 + (ct->numseq[i]);
     for (count = 1; count <= data->numoftloops; count++) {
       if (key == data->tloop[count][0]) return data->tloop[count][1];
     }
 
     energy = data->tstkh[ct->numseq[i]][ct->numseq[j]]
-             [ct->numseq[i + 1]][ct->numseq[j - 1]]
-             + data->hairpin[size] + data->eparam[4];
+    [ct->numseq[i + 1]][ct->numseq[j - 1]]
+        + data->hairpin[size] + data->eparam[4];
   } else if (size == 3) {
 
     key = (ct->numseq[j]) * 625 +
-          (ct->numseq[i + 3]) * 125 + (ct->numseq[i + 2]) * 25 + (ct->numseq[i + 1]) * 5 + (ct->numseq[i]);
+        (ct->numseq[i + 3]) * 125 + (ct->numseq[i + 2]) * 25 + (ct->numseq[i + 1]) * 5 + (ct->numseq[i]);
     for (count = 1; count <= data->numoftriloops; count++) {
       if (key == data->triloop[count][0]) return data->triloop[count][1];
     }
 
     energy = data->hairpin[size] + data->eparam[4]
-             + penalty(i, j, ct, data);
+        + penalty(i, j, ct, data);
   } else if (size == 6) {
     key = (ct->numseq[j]) * 78125 + (ct->numseq[i + 6]) * 15625 + (ct->numseq[i + 5]) * 3125
-          + (ct->numseq[i + 4]) * 625 +
-          (ct->numseq[i + 3]) * 125 + (ct->numseq[i + 2]) * 25 + (ct->numseq[i + 1]) * 5 + (ct->numseq[i]);
+        + (ct->numseq[i + 4]) * 625 +
+        (ct->numseq[i + 3]) * 125 + (ct->numseq[i + 2]) * 25 + (ct->numseq[i + 1]) * 5 + (ct->numseq[i]);
     for (count = 1; count <= data->numofhexaloops; count++) {
       if (key == data->hexaloop[count][0]) return data->hexaloop[count][1];
     }
 
     energy = data->tstkh[ct->numseq[i]][ct->numseq[j]]
-             [ct->numseq[i + 1]][ct->numseq[j - 1]]
-             + data->hairpin[size] + data->eparam[4];
+    [ct->numseq[i + 1]][ct->numseq[j - 1]]
+        + data->hairpin[size] + data->eparam[4];
   } else {
     energy = data->tstkh[ct->numseq[i]][ct->numseq[j]]
-             [ct->numseq[i + 1]][ct->numseq[j - 1]]
-             + data->hairpin[size] + data->eparam[4];
+    [ct->numseq[i + 1]][ct->numseq[j - 1]]
+        + data->hairpin[size] + data->eparam[4];
   }
+
+
+
+
   //check for GU closeure preceded by GG
   if (ct->numseq[i] == 3 && ct->numseq[j] == 4 && size >= 4) {
     if ((i > 2 && i < ct->GetSequenceLength()) || (i > ct->GetSequenceLength() + 2))
-      if (ct->numseq[i - 1] == 3 &&
-          ct->numseq[i - 2] == 3) {
+      if (ct->numseq[i - 1] == 3 && ct->numseq[i - 2] == 3) {
 
         energy = energy + data->gubonus;
+
+
       }
   }
 
@@ -1583,14 +1701,22 @@ integersize erg3(int i, int j, structure* ct, datatable* data, char dbl) {
   //this is a poly c loop so penalize
   if (size == 3) return (energy + data->c3);
   else return (energy + data->cint + size * data->cslope);
+
+
 }
+
+
 
 //calculate the energy of a dangling end:
 integersize erg4(int i, int j, int ip, int jp, structure* ct, datatable* data, bool lfce) {
   integersize energy;
+
+
   //dangling base
   // jp = 1 => 3' dangle
   // jp = 2 => 5' dangle
+
+
 
   if (lfce) return INFINITE_ENERGY;//stacked nuc should be double stranded
 
@@ -1606,12 +1732,18 @@ integersize erg4(int i, int j, int ip, int jp, structure* ct, datatable* data, b
 
 }
 
+
+
 //this function calculates whether a terminal pair i,j requires the end penalty
 integersize penalty2(int i, int j, datatable* data) {
+
   if (i == 4 || j == 4)
     return data->auend;
   else return 0;//no end penalty
+
+
 }
+
 
 //When considering mismatch at the end of a helix, consult this function to check
 //	whether the nucs are required to pair
@@ -1627,6 +1759,7 @@ int checknp(bool lfce1, bool lfce2) {
 //k indicates the intervening nuc in intervening mismatch that is not sandwiched between
 //	j and ip
 integersize ergcoax(int i, int j, int ip, int jp, int k, structure* ct, datatable* data) {
+
   if (ip == j + 1) {
     //flush stacking
 
@@ -1636,11 +1769,11 @@ integersize ergcoax(int i, int j, int ip, int jp, int k, structure* ct, datatabl
     //coaxial stacking with an intervening mismatch
     if (k == i - 1) {
       return data->tstackcoax[ct->numseq[j]][ct->numseq[i]][ct->numseq[j + 1]][ct->numseq[i - 1]] +
-             data->coaxstack[ct->numseq[j + 1]][ct->numseq[k]][ct->numseq[ip]][ct->numseq[jp]];
+          data->coaxstack[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[k]][ct->numseq[j + 1]];
 
     } else { //if (k==jp+1) {
       return data->tstackcoax[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-             data->coaxstack[ct->numseq[j]][ct->numseq[i]][ct->numseq[j + 1]][ct->numseq[k]];
+          data->coaxstack[ct->numseq[j]][ct->numseq[i]][ct->numseq[j + 1]][ct->numseq[k]];
     }
     //else {
     //some error -- give message
@@ -1649,6 +1782,8 @@ integersize ergcoax(int i, int j, int ip, int jp, int k, structure* ct, datatabl
     //}
 
   } else return INFINITE_ENERGY;
+
+
 }
 //these functions calculate the free energy for coaxial stacking of pair i-j onto ip-jp
 //	require that the backbone continues directly between j and ip without a nucleotide in
@@ -1661,30 +1796,36 @@ integersize ergcoaxflushbases(int i, int j, int ip, int jp, structure* ct, datat
   return data->coax[ct->numseq[i]][ct->numseq[j]][ct->numseq[ip]][ct->numseq[jp]];
 
 }
-
 integersize ergcoaxinterbases1(int i, int j, int ip, int jp, structure* ct, datatable* data) {
   //k==i-1
   return data->tstackcoax[ct->numseq[j]][ct->numseq[i]][ct->numseq[j + 1]][ct->numseq[i - 1]] +
-         data->coaxstack[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[j + 1]][ct->numseq[i - 1]] +
-         ct->SHAPEss_give_value(j + 1) + ct->SHAPEss_give_value(i - 1);
+      data->coaxstack[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[i - 1]][ct->numseq[j + 1]] +
+      ct->SHAPEss_give_value(j + 1) + ct->SHAPEss_give_value(i - 1);
 }
 
 integersize ergcoaxinterbases2(int i, int j, int ip, int jp, structure* ct, datatable* data) {
   //k==jp+1
   return data->tstackcoax[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]] +
-         data->coaxstack[ct->numseq[j]][ct->numseq[i]][ct->numseq[j + 1]][ct->numseq[jp + 1]] +
-         ct->SHAPEss_give_value(jp + 1) + ct->SHAPEss_give_value(ip - 1);
+      data->coaxstack[ct->numseq[j]][ct->numseq[i]][ct->numseq[j + 1]][ct->numseq[jp + 1]] +
+      ct->SHAPEss_give_value(jp + 1) + ct->SHAPEss_give_value(ip - 1);
 
 }
+
+
 //this function calculates the free energy for coaxial stacking of pair i-j onto ip-jp
 //	require that the backbone continues directly between j and ip without a nucleotide in
 //	a canonical pair
+
+
 //Note that this form of the function takes the sequences, not the number of the nuc
 //	in i,j,ip,and jp.
 integersize ergcoaxflushbases(int i, int j, int ip, int jp, datatable* data) {
+
   return data->coax[i][j][ip][jp];
 
 }
+
+
 
 //this function calculates the free energy for coaxial stacking of pair i-j onto ip-jp
 //	require that the backbone continues directly between j and ip without a nucleotide in
@@ -1692,30 +1833,43 @@ integersize ergcoaxflushbases(int i, int j, int ip, int jp, datatable* data) {
 //k indicates the intervening nuc in intervening mismatch that is not sandwiched between
 //	j and ip
 //l is the nuc sandwiched between j and ip
+
+
 //this requires a backbone like:
 // j-l-ip
 // | . |
 // i-k jp
 //i.e. a discontinuity between k and jp
+
+
 //Note that this form of the function takes the sequences, not the number of the nuc
 //	in i,j,ip,jp,k and l.
 integersize ergcoaxinterbases1(int i, int j, int ip, int jp, int k, int l, datatable* data) {
 
   //coaxial stacking with an intervening mismatch
+
   return data->tstackcoax[j][i][l][k] +
-         data->coaxstack[jp][ip][l][k];
+      data->coaxstack[jp][ip][k][l];
+
+
 }
+
+
 //this function calculates the free energy for coaxial stacking of pair i-j onto ip-jp
 //	require that the backbone continues directly between j and ip without a nucleotide in
 //	a canonical pair
 //k indicates the intervening nuc in intervening mismatch that is not sandwiched between
 //	j and ip
 //l is the nuc sandwiched between j and ip
+
+
 //this requires a backbone like:
 // j-l-ip
 // | . |
 // i k-jp
 //i.e. a discontinuity between i and jp
+
+
 //Note that this form of the function takes the sequences, not the number of the nuc
 //	in i,j,ip,jp,k and l.
 integersize ergcoaxinterbases2(int i, int j, int ip, int jp, int k, int l, datatable* data) {
@@ -1723,7 +1877,9 @@ integersize ergcoaxinterbases2(int i, int j, int ip, int jp, int k, int l, datat
   //coaxial stacking with an intervening mismatch
 
   return data->tstackcoax[jp][ip][k][l] +
-         data->coaxstack[j][i][l][k];
+      data->coaxstack[j][i][l][k];
+
+
 }
 
 //These functions are used by ergmulti to deconvolute the base pair code back into nucs
@@ -1732,11 +1888,12 @@ int decon1(int x) {
   return (int) (floor(((float) (x)) / 10) - 1);
 
 }
-
 int decon2(int x) {
 
   return x - (decon1(x) + 1) * 10 - 1;
 }
+
+
 
 //This function will calculate the free energy of a multiloop starting at nuc i for
 //	structure #st
@@ -1758,6 +1915,7 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
   //trace out the loop to learn the size:
   count = 0;
   i = ip;
+
   while (i != ip || count == 0) {
     i++;
     if (ct->GetPair(i, st) != 0) {
@@ -1765,7 +1923,11 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
     }
 
     count++;
+
+
   }
+
+
   //allocate element to store this info:
   element = new short int[count + 3];
   energy = new short int* [count + 3];
@@ -1803,6 +1965,7 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
       } else first = current;
       recent = current;
       current = 0;
+
       c++;
       //store pairs in a code:
       element[count] = 10 * (ct->numseq[i] + 1);
@@ -1810,28 +1973,38 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
       i = ct->GetPair(i, st);
       element[count] = element[count] + ct->numseq[i] + 1;
       if (ct->numseq[i] == 4) au++;
+
+
     } else {
       current++;
       b++;
       element[count] = ct->numseq[i];
       if (element[count] == 5) intermolecular = true;
+
+
     }
 
     count++;
+
+
   }
 
   if (abs(current - first) > biggest) biggest = abs(current - first);
   average = average + (float) (abs(current - recent));
 
   average = average / ((float) (c));
+
   element[count] = element[1];
   element[count + 1] = element[2];
   count--;  //correct the count elements
   //bcs the first helix was counted twice
+
+
   //start the minimization routine:
 
   for (size = 2; size <= count; size++) {
     for (i = 0; i + size < count + 4; i++) {
+
       if (size == 2) {
         //the interactions are either a nuc stacking
         //onto a helix or flush coaxial stacking;
@@ -1845,8 +2018,10 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
           //calculate flush stacking:
 
           energy[i][i + 1] = min(energy[i][i + 1], ergcoaxflushbases(decon1(element[i]),
-                                                                     decon2(element[i]), decon1(element[i + 1]),
-                                                                     decon2(element[i + 1]), data));
+              decon2(element[i]), decon1(element[i + 1]),
+              decon2(element[i + 1]), data));
+
+
         } else if (element[i] > 10) {
           //3' dangling end:
           energy[i][i + 1] = min(energy[i][i + 1], data->dangle[decon2(element[i])]
@@ -1856,63 +2031,95 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
           //5' dangling end:
           energy[i][i + 1] = min(energy[i][i + 1], data->dangle[decon2(element[i + 1])]
           [decon1(element[i + 1])][element[i]][2]);
+
+
         }
+
+
       } else if (size == 3) {
         energy[i][i + 2] = min(energy[i][i + 1], energy[i + 1][i + 2]);
+
         if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10) {
           //consider mismatch stack ono helix:
-
           energy[i][i + 2] = min(energy[i][i + 2],
-                                 data->tstkm[decon2(element[i + 1])][decon1(element[i + 1])]
-                                 [element[i + 2]][element[i]]);
+              data->tstkm[decon2(element[i + 1])][decon1(element[i + 1])]
+              [element[i + 2]][element[i]]);
 
         }
+
+
       } else if (size == 4) {
+
         energy[i][i + 3] = min(energy[i][i + 1] + energy[i + 2][i + 3],
-                               energy[i][i + 2]);
+            energy[i][i + 2]);
         energy[i][i + 3] = min(energy[i][i + 3], energy[i + 1][i + 3]);
 
         //now the fragment is big enough for coaxial stacking with
         //	an intervening mismatch:
         if (element[i] > 10 && element[i + 1] < 10 && element[i + 2] > 10 && element[i + 3] < 10) {
+
           energy[i][i + 3] = min(energy[i][i + 3],
-                                 ergcoaxinterbases2(decon1(element[i]), decon2(element[i]),
-                                                    decon1(element[i + 2]), decon2(element[i + 2]),
-                                                    element[i + 3], element[i + 1], data));
+              ergcoaxinterbases2(decon1(element[i]), decon2(element[i]),
+                  decon1(element[i + 2]), decon2(element[i + 2]),
+                  element[i + 3], element[i + 1], data));
+
+
         } else if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10 &&
-                   element[i + 3] > 10) {
+            element[i + 3] > 10) {
+
           energy[i][i + 3] = min(energy[i][i + 3],
-                                 ergcoaxinterbases1(decon1(element[i + 1]), decon2(element[i + 1]),
-                                                    decon1(element[i + 3]), decon2(element[i + 3]),
-                                                    element[i], element[i + 2], data));
+              ergcoaxinterbases1(decon1(element[i + 1]), decon2(element[i + 1]),
+                  decon1(element[i + 3]), decon2(element[i + 3]),
+                  element[i], element[i + 2], data));
+
+
         }
+
+
       } else {
         //now size > 4
         //energy[i][i+size-1]=0;
         for (j = i; j < i + size - 1; j++) {
 
           energy[i][i + size - 1] = min(energy[i][i + size - 1],
-                                        energy[i][j] + energy[j + 1][i + size - 1]);
+              energy[i][j] + energy[j + 1][i + size - 1]);
+
+
         }
+
+
       }
     }
   }
+
+
   //now find the minimum combination:
   //There are 4 phases of length = count to be checked:
+
+
   minimum = min(energy[0][count - 1], energy[1][count]);
   minimum = min(minimum, energy[2][count + 1]);
   minimum = min(minimum, energy[3][count + 2]);
+
+
+
 
   //deallocate memory use:
 
   for (i = 0; i < count + 3; i++) delete[] energy[i];
   delete[] energy;
   delete[] element;
+
+
   //return the energy:
 
   if (intermolecular)
 
     return minimum + au * data->auend + data->init;
+
+
+
+
   //do not add strin term for simplemb==true
   if (((c % 2) != 0) && ((b == 0) || (b == 1)) && (!simplemb)) minimum = minimum + data->strain;
 
@@ -1922,17 +2129,20 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
 
   minimum = minimum + (short) round(((float) data->mlasym) * average);
 
+
+
   //note that this function, used by efn2, has a logarithmic dependence in
   //unpaired nucleotides after 8.  This is hardwired below.
   if (b > 8 && js && !intermolecular && !simplemb)
     return minimum + data->efn2a + c * data->efn2c +
-           8 * (data->efn2b)
-           + int(11. * log(double(((double(b)) / 8.))) + 0.5) +
-           au * data->auend;
+        8 * (data->efn2b)
+            + int(11. * log(double(((double(b)) / 8.))) + 0.5) +
+        au * data->auend;
 
   else
+
     minimum = minimum + data->efn2a + b * data->efn2b + c * data->efn2c
-              + au * data->auend;
+        + au * data->auend;
 
   return minimum;
 }
@@ -1946,9 +2156,13 @@ void energyout(structure* ct, char* energyfile) {
     out << "Structure: " << i << "   Energy = " << (float(ct->GetEnergy(i)) / 10) << "   \n";
 
 }
+
+
 //This function will calculate the free energy of an exterior loop
 //  for structure #st
 //This uses a recursive algorithm
+
+
 
 integersize ergexterior(int st, structure* ct, datatable* data) {
   short int* element, ** energy;
@@ -1973,6 +2187,8 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
     }
 
     count++;
+
+
   }
 
   //check for empty structure and return 0 if empty
@@ -1987,33 +2203,53 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
       energy[i][j] = 0;
 
   }
+
   au = 0;//keep track of the number of terminal AU/GU pairs
+
+
   //record the info:
+
+
+
+
 
   i = 0;
   count = 0;
   while (i != ct->GetSequenceLength()) {
     i++;
     if (ct->GetPair(i, st) > 0) {
+
+
       //store pairs in a code:
       element[count] = 10 * (ct->numseq[i] + 1);
       if (ct->numseq[i] == 4) au++;
       i = ct->GetPair(i, st);
       element[count] = element[count] + ct->numseq[i] + 1;
       if (ct->numseq[i] == 4) au++;
+
+
     } else {
 
       element[count] = ct->numseq[i];
       if (element[count] == 5) intermolecular = true;
+
+
     }
 
     count++;
+
+
   }
+
+
+
+
 
   //start the minimization routine:
 
   for (size = 2; size <= count; size++) {
     for (i = 0; i + size <= count; i++) {
+
       if (size == 2) {
         //the interactions are either a nuc stacking
         //onto a helix or flush coaxial stacking;
@@ -2027,8 +2263,10 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
           //calculate flush stacking:
 
           energy[i][i + 1] = min(energy[i][i + 1], ergcoaxflushbases(decon1(element[i]),
-                                                                     decon2(element[i]), decon1(element[i + 1]),
-                                                                     decon2(element[i + 1]), data));
+              decon2(element[i]), decon1(element[i + 1]),
+              decon2(element[i + 1]), data));
+
+
         } else if (element[i] > 10) {
           //3' dangling end:
           energy[i][i + 1] = min(energy[i][i + 1], data->dangle[decon2(element[i])]
@@ -2038,20 +2276,27 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
           //5' dangling end:
           energy[i][i + 1] = min(energy[i][i + 1], data->dangle[decon2(element[i + 1])]
           [decon1(element[i + 1])][element[i]][2]);
+
+
         }
+
+
       } else if (size == 3) {
         energy[i][i + 2] = min(energy[i][i + 1], energy[i + 1][i + 2]);
 
         if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10) {
           //consider mismatch stack ono helix:
           energy[i][i + 2] = min(energy[i][i + 2],
-                                 data->tstack[decon2(element[i + 1])][decon1(element[i + 1])]
-                                 [element[i + 2]][element[i]]);
+              data->tstack[decon2(element[i + 1])][decon1(element[i + 1])]
+              [element[i + 2]][element[i]]);
 
         }
+
+
       } else if (size == 4) {
+
         energy[i][i + 3] = min(energy[i][i + 1] + energy[i + 2][i + 3],
-                               energy[i][i + 2]);
+            energy[i][i + 2]);
         energy[i][i + 3] = min(energy[i][i + 3], energy[i + 1][i + 3]);
 
         //now the fragment is big enough for coaxial stacking with
@@ -2059,28 +2304,39 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
         if (element[i] > 10 && element[i + 1] < 10 && element[i + 2] > 10 && element[i + 3] < 10) {
 
           energy[i][i + 3] = min(energy[i][i + 3],
-                                 ergcoaxinterbases2(decon1(element[i]), decon2(element[i]),
-                                                    decon1(element[i + 2]), decon2(element[i + 2]),
-                                                    element[i + 3], element[i + 1], data));
+              ergcoaxinterbases2(decon1(element[i]), decon2(element[i]),
+                  decon1(element[i + 2]), decon2(element[i + 2]),
+                  element[i + 3], element[i + 1], data));
+
+
         } else if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10 &&
-                   element[i + 3] > 10) {
+            element[i + 3] > 10) {
 
           energy[i][i + 3] = min(energy[i][i + 3],
-                                 ergcoaxinterbases1(decon1(element[i + 1]), decon2(element[i + 1]),
-                                                    decon1(element[i + 3]), decon2(element[i + 3]),
-                                                    element[i], element[i + 2], data));
+              ergcoaxinterbases1(decon1(element[i + 1]), decon2(element[i + 1]),
+                  decon1(element[i + 3]), decon2(element[i + 3]),
+                  element[i], element[i + 2], data));
+
+
         }
+
+
       } else {
         //now size > 4
         //energy[i][i+size-1]=0;
         for (j = i; j < i + size - 1; j++) {
 
           energy[i][i + size - 1] = min(energy[i][i + size - 1],
-                                        energy[i][j] + energy[j + 1][i + size - 1]);
+              energy[i][j] + energy[j + 1][i + size - 1]);
+
+
         }
+
+
       }
     }
   }
+
   minimum = energy[0][count - 1];
 
   if (intermolecular) minimum = minimum + data->init;
@@ -2089,9 +2345,14 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
   for (i = 0; i < count; i++) delete[] energy[i];
   delete[] energy;
   delete[] element;
+
+
   //return the energy:
+
+
   return minimum + au * data->auend;
 }
+
 
 void de_allocate(int** v, int i) {//this function deallocates the memory used
   //in an array
@@ -2102,6 +2363,7 @@ void de_allocate(int** v, int i) {//this function deallocates the memory used
   }
   delete[] v;
 }
+
 
 void de_allocate(short int** v, int i) {//this function deallocates the memory used
   //in an array
@@ -2122,6 +2384,7 @@ void de_allocate(bool** v, int i) {//this function deallocates the memory used
   }
   delete[] v;
 }
+
 
 //read is used to read data from a save file
 void read(ifstream* out, short* i) {
@@ -2149,6 +2412,8 @@ void read(ifstream* out, char* i) {
 void read(ifstream* out, string* i) {
   int length, it;
   char c;
+
+
   //First read the length of the string
   out->read((char*) (&length), sizeof(length));
 
@@ -2209,6 +2474,7 @@ void write(ofstream* out, string* i) {
   out->write(i->c_str(), length);
 }
 
+
 void write(ofstream* out, float* i) {
 
   out->write((char*) i, sizeof(*i));
@@ -2246,14 +2512,23 @@ void writehelixfile(char* filename, structure* ct, int StructureNumber) {
       }
       out << count << "\n";
       i++;
+
+
     } else i++;
+
+
   }
+
+
 }
+
 
 //Calculate free energy tables at temperature T(dg),with dg 37(data) and dh 37(dhdata).
 //T is in Kelvins.
 void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg) {
   int a, b, c, d, e, f, g, h;
+
+
   //calculated with T
   dg.prelog = data.prelog * T / ((float) 310.15);
   dg.RT = data.RT * T / ((float) 310.15);
@@ -2263,6 +2538,7 @@ void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg) {
     (dg.triloop[a][1]) = Tscale(T, data.triloop[a][1], dhdata.triloop[a][1]);
   for (a = 1; a <= data.numofhexaloops; a++)
     (dg.hexaloop[a][1]) = Tscale(T, data.hexaloop[a][1], dhdata.hexaloop[a][1]);
+
   for (a = 1; a < 5; a++)
     dg.poppen[a] = Tscale(T, data.poppen[a], dhdata.poppen[a]);
 
@@ -2270,10 +2546,13 @@ void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg) {
   for (a = 1; a < 7; a++)
     dg.eparam[a] = Tscale(T, data.eparam[a], dhdata.eparam[a]);
   dg.eparam[10] = Tscale(T, data.eparam[10], dhdata.eparam[10]);
+
   for (a = 1; a < 31; a++) {
     dg.inter[a] = Tscale(T, data.inter[a], dhdata.inter[a]);
     dg.bulge[a] = Tscale(T, data.bulge[a], dhdata.bulge[a]);
     dg.hairpin[a] = Tscale(T, data.hairpin[a], dhdata.hairpin[a]);
+
+
   }
 
   dg.auend = Tscale(T, data.auend, dhdata.auend);
@@ -2288,6 +2567,7 @@ void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg) {
   dg.mlasym = Tscale(T, data.mlasym, dhdata.mlasym);
   dg.strain = Tscale(T, data.strain, dhdata.strain);
   dg.singlecbulge = Tscale(T, data.singlecbulge, dhdata.singlecbulge);
+
   for (a = 0; a < 6; a++) {
     for (b = 0; b < 6; b++) {
       for (c = 0; c < 6; c++) {
@@ -2295,14 +2575,14 @@ void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg) {
           for (e = 0; e < 6; e++) {
             for (f = 0; f < 6; f++) {
               (dg.iloop11[a][b][c][d][e][f]) = Tscale(T, data.iloop11[a][b][c][d][e][f],
-                                                      dhdata.iloop11[a][b][c][d][e][f]);
+                  dhdata.iloop11[a][b][c][d][e][f]);
               for (g = 0; g < 6; g++) {
                 (dg.iloop21[a][b][c][d][e][f][g]) = Tscale(T, data.iloop21[a][b][c][d][e][f][g],
-                                                           dhdata.iloop21[a][b][c][d][e][f][g]);
+                    dhdata.iloop21[a][b][c][d][e][f][g]);
 
                 for (h = 0; h < 6; h++) {
                   (dg.iloop22[a][b][c][d][e][f][g][h]) = Tscale(T, data.iloop22[a][b][c][d][e][f][g][h],
-                                                                dhdata.iloop22[a][b][c][d][e][f][g][h]);
+                      dhdata.iloop22[a][b][c][d][e][f][g][h]);
                 }
               }
             }
@@ -2323,7 +2603,10 @@ void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg) {
       }
     }
   }
+
+
 }
+
 
 //Write the structure class-specific items in a save file
 void writestructuresave(ofstream* sav, structure* ct1) {
@@ -2392,7 +2675,10 @@ void writestructuresave(ofstream* sav, structure* ct1) {
       }
     }
   }
+
+
 }
+
 
 //Read the structure class-specific items in a save file
 void openstructuresave(ifstream* sav, structure* ct1) {
@@ -2453,10 +2739,14 @@ void openstructuresave(ifstream* sav, structure* ct1) {
     read(sav, &(local1));
     ct1->AddGUPair(local1);
   }
+
+
   //Read the sequence label
   string localstring;
   read(sav, &localstring);
   ct1->SetSequenceLabel(localstring);
+
+
   //Read the template information
   read(sav, &(ct1->templated));
   if (ct1->templated) {

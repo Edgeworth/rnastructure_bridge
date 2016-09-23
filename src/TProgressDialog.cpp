@@ -8,6 +8,7 @@
 #include "TProgressDialog.h"
 
 using namespace std;
+
 const char TProgressDialog::spinchars[] = {'/', '-', '\\', '|'};
 
 TProgressDialog::TProgressDialog(ostream& _s)
@@ -23,6 +24,7 @@ void TProgressDialog::update(int percent) {
   s << "\r";
   s.width(3);
   s << percent << "% [";
+
   for (int i = 0; i < 100; i += 2) {
     if (i <= percent) {
       s << "=";

@@ -24,7 +24,7 @@ stackclass::stackclass(short int stacksize) {
 }
 
 bool stackclass::pull(short int* i, short int* j, short int* open,
-                      integersize* energy, short int* pair) {
+    integersize* energy, short int* pair) {
 
   if (size == 0) return false;
   else {
@@ -39,7 +39,7 @@ bool stackclass::pull(short int* i, short int* j, short int* open,
 }
 
 void stackclass::push(short int i, short int j, short int open,
-                      integersize energy, short int pair) {
+    integersize energy, short int pair) {
   short k;
 
   if (size == maximum) {

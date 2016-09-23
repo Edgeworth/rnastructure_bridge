@@ -8,8 +8,6 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 #include "defines.h"
 
 #ifdef EXTENDED_DOUBLE
@@ -26,18 +24,24 @@ struct singlestructure {
   singlestructure(int sequencelength);
 
   //keep track of the basepairs
-  vector<int> basepr;
+  std::vector<int> basepr;
 
   //keep track of the energy of the structure, if available
   int energy;
 
   //keep a string, from a ct file or sequence file with the sequence desription
-  string ctlabel;
+  std::string ctlabel;
+
+
 };
+
+
 //! structure Class.
 /*!
 	The structure class provides a class for handling sequences and structures.
 */
+
+
 
 //////////////////////////////////////////////////////////////////////
 class structure //this structure contains all the info for a structure
@@ -162,6 +166,8 @@ short int SHAPEss_give_value(int index);  //Returns the single stranded SHAPE ps
 =======*/
 public:
 
+
+
   //******************************
   //Constructor:
   //******************************
@@ -181,7 +187,7 @@ public:
 
   //! \param structurenumber is an int that gives the structure number being indexed, this is one indexed.
   //! \return a string that gives the label.
-  string GetCtLabel(int structurenumber);
+  std::string GetCtLabel(int structurenumber);
 
   //! Get the energy for structure number structurenumber.
 
@@ -205,7 +211,7 @@ public:
   //! Get the label associated with the sequence.
 
   //! \return The string read from the sequence file.
-  string GetSequenceLabel();
+  std::string GetSequenceLabel();
 
   //! Get the length of the sequence.
 
@@ -226,7 +232,9 @@ public:
 
   //! \param label is a string that will be strored.
   //! \param structurenumber is the index to which structure will hold the label.  This is one-indexed.
-  void SetCtLabel(string label, int structurenumber);
+  void SetCtLabel(std::string label, int structurenumber);
+
+
   //! Set the label for a structure,using a pointer to cstring.
 
   //! \param label is a pointer to char that provides the label.
@@ -238,6 +246,8 @@ public:
   //! \param structurenumber is an int that gives the structure number being indexed, this is one indexed.
   //! \param energy is an int that sets the energy in kcal/mol*conversionfactor, where conversionfactor is set in /src/defines.h.
   void SetEnergy(int structurenumber, int energy);
+
+
   //Set the pairing partner for i in structure structurenumber.
 
   //! This function sets nucleotide i paired to j in structure number structurenumber.
@@ -249,16 +259,22 @@ public:
   //! Set the label from a sequence, using a string.
 
   //! \param label is a string that will be stored.
-  void SetSequenceLabel(string label);
+  void SetSequenceLabel(std::string label);
+
+
   //********************************
   // Get and Set constraint information
   //*********************************
+
+
   //! Allocate a bool array with information about whether any given pair is allowed.
 
   //! This function must be called after reading a sequence and before any template information is read or written.
   //! This mechanism is orthogonal to the functions AddForbiddenPair, GetForbiddenPair5, and GetForbiddenPair3.  It exists for the convenience of coding functiopns that need to forbid a large number of pairs.
   //! The memory use is cleaned up in the destructor.
   void allocatetem();
+
+
   //! Add a nucleotide to the list of those that must pair.
 
   //! \param i is an int that indicates the nucleotide position, one indexed.
@@ -391,14 +407,20 @@ public:
   //! \return An int that gives the nucleotide position, one indexed.
   //! \param i is an int that gives the constraint number, which should be between 0 and GetNumberofSingles()-1, inclusive.
   int GetSingle(int i);
+
+
   //! Reset, i.e. remove, all constraints
   void RemoveConstraints();
+
+
   //! Set a maximum pairing distance between nucleotides that can pair.
 
   //! For nucleotides i and j, if |j-i|>=ct->maxdistance, the nucleotides cannot pair.
   //! This also sets a bool so that DistanceLimited() will return true.
   //! \param maxdistance is an int that will be the maximum distance.
   void SetPairingDistance(int maxdistance);
+
+
   //*********************************
   //Functions for disk I/O
   //*********************************
@@ -409,6 +431,8 @@ public:
   //! \param ctoutfile is a const char pointer to a Null-terminated cstring that provides a filename.
   //! \param append is a bool that indicates if these structures should be appended to the end of the file.  The default, falase, is to overwrite any existing file.
   void ctout(const char* ctoutfile, bool append = false);
+
+
   //! Open a CT File.
 
   //! This opens a ct file and stores all the information in this instance of structure.
@@ -416,6 +440,8 @@ public:
   //! \param ctfile is a pointer to a Null-terminated cstring that gives the filename, including any necessary path information.
   //! \return An int that gives the linenumber of an error or -1 if the file was not found.
   long openct(const char* ctfile);
+
+
   //! Open a sequence file.
 
   //! This function works on both .seq and FASTA files.
@@ -442,6 +468,8 @@ public:
 
   //! \param struturenumber is an index to the structure to be cleaned.
   void CleanStructure(int structurenumber);
+
+
   //! Remove the last structure.
   void RemoveLastStructure();
 
@@ -460,28 +488,42 @@ public:
   //! This function sorts structures in energy from lowest to highest.
   //! It is important that the structure energies be present by structure prediction or by efn2.
   void sort();
+
+
   //! Find problem in the set of structures.
 
   //! This function is for debugging.  It checks each pair in each structure to look for inconsistencies.
   //! \return true when an inconstency with pairing is found and false otherwise.
   bool ProblemwithStructures();
+
+
   void ReadSHAPE(const char* filename, float SingleStrandThreshold,
-                 float ModificationThreshold);//Read SHAPE reactivity data from a file
+      float ModificationThreshold);//Read SHAPE reactivity data from a file
   //void ReadSHAPE(const char *filename, bool calculate=true);//Read SHAPE reactivity data from a file
-  void ReadSHAPE(const char* filename, std::string modifier = "SHAPE", bool calculate = true,
-                 bool nosum = false);//Read SHAPE reactivity data from a file
+  void ReadSHAPE(const char* filename, std::string modifier = "SHAPE",
+      bool calculate = true);//Read SHAPE reactivity data from a file
   void ReadOffset(const char* SSOffset, const char* DSOffset);//Read Free Energy Offset Files.
   void ReadExperimentalPairBonus(const char* filename, double const experimentalOffset = 0.0,
-                                 double const experimentalScaling = 1.0);
+      double const experimentalScaling = 1.0);
+
+
   double** constant;//constant is used to hold an array of equilibrium constants.  In partition function calculations,
   //the equilibrium constant is multiplied by constant[j][i] when the i-j pair is formed.
   //NOTE: The use of constant is NOT orthogonal to using chemical modification data.  They cannot
   //both be used at once.
   void allocateconstant();//Function to allocate memory for constant array.
   bool SHAPEFileRead;
+
+
   //private:
 
-  string sequencelabel;//a label that was read from disk along with a sequence
+
+
+
+
+  std::string sequencelabel;//a label that was read from disk along with a sequence
+
+
   short int* numseq, * hnumber;
 
   int inter[3], allocatedstructures;
@@ -491,6 +533,8 @@ public:
 
   void allocate(int size = maxbases);
   void allocatestructure(int structures);
+
+
   short int min_gu, min_g_or_u;//NMR-derived constraint variables
   short int neighbors[maxforce][maxneighborlength], nneighbors;//also NMR-derived index this from zero in both dimensions
   //regional NMR constraints:
@@ -499,6 +543,8 @@ public:
   //microarray type constraints:
   short int nmicroarray, microstart[maxregions], microstop[maxregions], microunpair[maxregions];
   bool* fcedbl;//pointer to a 2-D array used in Dynalign to track nucleotides that must be double-stranded
+
+
   double* SHAPE;//double array to contain SHAPE data -- values less than -500 are ignored
   double** EX;// double array that contains experimental bonuses/penalties
   bool shaped;//keeps track of whether SHAPE data was loaded
@@ -510,41 +556,51 @@ public:
   double SHAPEslope_ss, SHAPEintercept_ss; //values of the slope and intercept for SHAPE data modifying single stranded loop stability
   short int** SHAPEss_region;  //2-d short int array containing energy values for hairpin loop combinations
   int SHAPEss_calc(int index_i,
-                   int index_j);  //Returns pseudoenergy term for a hairpin loop using single stranded SHAPE data
+      int index_j);  //Returns pseudoenergy term for a hairpin loop using single stranded SHAPE data
   short int SHAPEss_give_value(int index);  //Returns the single stranded SHAPE pseudo energy for a given nucleotide
   double CalculatePseudoEnergy(double data, std::string modifier, double, double);
   double Gammadist(double data, double shape, double loc, double scale);
-  double Potential(double data, std::vector <std::vector<double>> params, double kT);
+  double Potential(double data, std::vector<std::vector<double> > params, double kT);
   void ReadProbabilisticPotentialParams();//Read chemical modifier distributions from file
   //Parameters for distributions
-  std::vector <std::vector<double>> SHAPE_params;
-  std::vector <std::vector<double>> DMS_params;
-  std::vector <std::vector<double>> CMCT_params;
+  std::vector<std::vector<double> > SHAPE_params;
+  std::vector<std::vector<double> > DMS_params;
+  std::vector<std::vector<double> > CMCT_params;
   bool distsread;//keep track if the distruibution files have been read from disk.
+
+
 private:
 
   int numofbases;//number of nucleotides in sequence
   bool limitdistance;//toggle to indicate that there is a limit on the maximum distance between nucs in base pairs
   int maxdistance;//maximum distance between nucs in base pairs
 
-  vector <singlestructure> arrayofstructures;//This holds an array of structures, i.e. base pairing information and comments
+  std::vector<singlestructure> arrayofstructures;//This holds an array of structures, i.e. base pairing information and comments
 
   //variables for holding folding constraints:
-  vector<int> doublestranded; //nucleotides that must be double stranded
-  vector<int> singlestranded; //nucleotides that must be single stranded
-  vector<int> GUpair; //Us in GU pairs
-  vector<int> modified; //nucleotides accessible to tradictional chemical modification agents
-  vector<int> pair5; //5' partner in forced pair
-  vector<int> pair3; //3' partner in forced pair
-  vector<int> forbid5; //5' partner in a forbidden pair
-  vector<int> forbid3; //3' partner in a forbidden pair
+  std::vector<int> doublestranded; //nucleotides that must be double stranded
+  std::vector<int> singlestranded; //nucleotides that must be single stranded
+  std::vector<int> GUpair; //Us in GU pairs
+  std::vector<int> modified; //nucleotides accessible to tradictional chemical modification agents
+  std::vector<int> pair5; //5' partner in forced pair
+  std::vector<int> pair3; //3' partner in forced pair
+  std::vector<int> forbid5; //5' partner in a forbidden pair
+  std::vector<int> forbid3; //3' partner in a forbidden pair
+
+
 
 };
 
 short int tonumi(char* base); //converts base to a numeric
-char* tobase(int i);//convert a numeric value for a base to the familiar
+
+
+const char* tobase(int i);//convert a numeric value for a base to the familiar
 //character
+
+
 void tonum(char* base, structure* ct, int count); //converts base to a numeric
+
+
 
 int ecompare(const void* i, const void* j);
 
@@ -552,5 +608,7 @@ void swap(int* a, int* b);//Swap two variables
 void swap(short int* a, short int* b);//swap two variables
 void swap(float* a, float* b);//swap two variables
 void swap(double* a, double* b);//swap two variables
+
+
 
 #endif

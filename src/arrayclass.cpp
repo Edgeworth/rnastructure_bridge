@@ -7,8 +7,11 @@
  */
 
 #include "arrayclass.h"
+#include <utility>
 
 #include "defines.h"
+
+arrayclass::arrayclass() : Size(-1), k(0), dg(nullptr), infinite(INFINITE_ENERGY) {}
 
 arrayclass::arrayclass(int size, integersize energy) {
   infinite = energy;
@@ -41,6 +44,21 @@ arrayclass::arrayclass(int size, integersize energy) {
   //j>n means this is an exterior fragment
 
 }
+
+arrayclass::arrayclass(arrayclass&& o) {
+  *this = std::move(o);
+}
+
+arrayclass& arrayclass::operator=(arrayclass&& o) {
+  dg = o.dg;
+  Size = o.Size;
+  infinite = o.infinite;
+  k = o.k;
+  o.dg = nullptr;
+  o.Size = -1;
+  return *this;
+}
+
 
 // the destructor deallocates the space used
 arrayclass::~arrayclass() {

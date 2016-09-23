@@ -5,6 +5,7 @@
 // dynamic algorithm to enforce folding constraints
 
 forceclass::forceclass(int size) {
+
   Size = size;
   register int i, j;
   dg = new char* [size + 1];

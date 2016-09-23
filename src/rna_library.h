@@ -25,7 +25,10 @@ struct datatable //this structure contains all the info read from thermodynamic
 
   float prelog;
   datatable();
+
+
 };
+
 
 integersize ergcoaxflushbases(int i, int j, int ip, int jp, datatable* data);
 //this function calculates flush coaxial stacking
@@ -45,12 +48,14 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
 integersize ergexterior(int st, structure* ct, datatable* data);
 //calculate the exterior loop free energy in structure number ip
 
+
+
 //write is used to write data to a save file
 void write(std::ofstream* out, short* i);
 void write(std::ofstream* out, bool* i);
 void write(std::ofstream* out, int* i);
 void write(std::ofstream* out, char* i);
-void write(std::ofstream* out, string* i);
+void write(std::ofstream* out, std::string* i);
 void write(std::ofstream* out, float* i);
 void write(std::ofstream* out, double* i);
 void writesinglechar(std::ofstream* out, char* i);
@@ -60,16 +65,16 @@ void read(std::ifstream* out, short* i);
 void read(std::ifstream* out, bool* i);
 void read(std::ifstream* out, int* i);
 void read(std::ifstream* out, char* i);
-void read(std::ifstream* out, string* i);
+void read(std::ifstream* out, std::string* i);
 void read(std::ifstream* out, float* i);
 void read(std::ifstream* out, double* i);
 void readsinglechar(std::ifstream* out, char* i);
 
 int opendat(char* loop2, char* stackf, char* tstackh, char* tstacki,
-            char* tloop, char* miscloop, char* danglef, char* int22, char* int21,
-            char* coax, char* tstackcoax, char* coaxstack,
-            char* tstack, char* tstackm, char* triloop, char* int11, char* hexaloop,
-            char* tstacki23, char* tstacki1n, datatable* data);
+    char* tloop, char* miscloop, char* danglef, char* int22, char* int21,
+    char* coax, char* tstackcoax, char* coaxstack,
+    char* tstack, char* tstackm, char* triloop, char* int11, char* hexaloop,
+    char* tstacki23, char* tstacki1n, datatable* data);
 //gets thermodynamic data from data files
 
 void push(stackstruct* stack, int a, int b, int c, int d);//push info onto the stack
@@ -79,17 +84,17 @@ void pull(stackstruct* stack, int* i, int* j, int* open, int* null, int* stz);
 integersize erg1(int i, int j, int ip, int jp, structure* ct, datatable* data);
 //calculates energy of stacked base pairs
 integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data, char a,
-                 char b);
+    char b);
 //calculates energy of a bulge/internal loop
 integersize erg2in(int i, int j, int ip, int jp, structure* ct, datatable* data, char a,
-                   char b);
+    char b);
 //calculates the energy of an interior part of an internal loop (includes asymmetry)
 integersize erg2ex(int i, int j, int size, structure* ct, datatable* data);
 //calculates the energy of an exterior part of an internal loop (only has length and terminal stack components)
 integersize erg3(int i, int j, structure* ct, datatable* data, char dbl);
 //calculates energy of a hairpin loop
 integersize erg4(int i, int j, int ip, int jp, structure* ct, datatable* data,
-                 bool lfce);
+    bool lfce);
 //calculates energy of a dangling base
 
 inline integersize SHAPEend(int i, structure* ct);//calculate the SHAPE pseudo energy for a single
@@ -103,11 +108,15 @@ inline integersize penalty(int i, int j, structure* ct, datatable* data) {
   else energy = 0;//no end penalty
 
   return (energy/*+SHAPEend(i,ct)+SHAPEend(j,ct)*/);
+
+
 }
 
 integersize penalty2(int i, int j, datatable* data);
 integersize ergcoax(int i, int j, int ip, int jp, int k, structure* ct, datatable* data);
 //returns the free energy of coaxial stacking of i-j onto ip-jp
+
+
 void dG_T(float T, datatable& data, datatable& dhdata, datatable& dg);
 //Determine the free energy parameters at temperature T and store in dg
 //from the free energy parameters at 37 degrees C (data) and the
@@ -120,11 +129,17 @@ inline short Tscale(float T, short dG, short dH) {
   return dH - (short) floor((float) (dH - dG) * T / T37inK + 0.5);
 }
 
+
 //When adding the included and excluded fragments for a structure with pair i-j, the SHAPE free energy needs correction
 //so that it is not counted twice.
+
+
 //Write the structure class-specific items in a save file
-void writestructuresave(ofstream* out, structure* ct);
+void writestructuresave(std::ofstream* out, structure* ct);
 
 //Read the structure class-specific items in a save file
-void openstructuresave(ifstream* out, structure* ct);
+void openstructuresave(std::ifstream* out, structure* ct);
+
 #endif
+
+

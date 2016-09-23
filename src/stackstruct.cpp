@@ -14,8 +14,7 @@ void pull(stackstruct* stack, int* i, int* j, int* open, int* null, int* stz) {
   if (stack->sp == 0) {
     *stz = 1;
     return;
-  }
-  else {
+  } else {
     *stz = 0;
     *i = stack->stk[stack->sp][0];
     *j = stack->stk[stack->sp][1];

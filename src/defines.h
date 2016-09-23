@@ -2,6 +2,7 @@
 
 #if !defined(DEFINES_H)
 #define DEFINES_H
+
 #define maxfil 350    //maximum length of file names
 #define INFINITE_ENERGY 14000  //an arbitrary value given to infinity
 #define maxtloop 200 //maximum tetraloops allowed (info read from tloop, triloop, and hexaloop)
@@ -46,11 +47,15 @@
 //sequence structure prediction) for pairs
 //that will be allowed in a Dynalign calculation
 //by default.
+
+
 //The SIMPLEMBLOOP affects the behavior of the partition function AND stochastic traceback codes
 //#define SIMPLEMBLOOP  //use this line to use an energy model that only includes 3' dangling ends
 //on each helix in multibranch and exterior loops
 #undef SIMPLEMBLOOP  //use this line to use an energy model that explicitly considers all dangles
 //and/or coaxial stacks in helices
+
+
 //The dynamic programming algorithms require integer math:
 //The following three definitions are for tenths precision in parameters
 //allowing short integers for the free energy array..
@@ -67,4 +72,5 @@
 #define safiversion 3//version is the save file version for single sequences
 #define pfsaveversion 4//this is the version of save file format for partition functions
 #define T37inK 310.15//37 degrees C in Kelvin
+
 #endif
