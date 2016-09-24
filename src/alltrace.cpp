@@ -377,7 +377,7 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
   stack.energy[0] = w5[ct->GetSequenceLength()];
 
   crit = w5[ct->GetSequenceLength()] -
-         max(-absolutedelta,
+      max(-absolutedelta,
              (short)((double)w5[ct->GetSequenceLength()] * (double)percentdelta / 100.0));
 
   while (stack.current > -1) {
@@ -404,7 +404,7 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
             if ((stack.peekatenergy() + w5[k] + v->f(k + 1, j) + penalty(j, k + 1, ct, data) -
                     energy) <= crit) {
               stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1, j) +
-                             penalty(j, k + 1, ct, data) - energy,
+                      penalty(j, k + 1, ct, data) - energy,
                   true, k + 1, j, true, k + 1, j, 0, v->f(k + 1, j), 1, false, 0, 0, true, 1, k, 1,
                   w5[k], 0);
             }
@@ -416,8 +416,8 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                       erg1(k + 1, j, k + 2, j - 1, ct, data) + penalty(j, k + 1, ct, data) -
                       energy) <= crit) {
                 stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1, j) +
-                               erg1(k + 1, j, k + 2, j - 1, ct, data) +
-                               penalty(j, k + 1, ct, data) - energy,
+                        erg1(k + 1, j, k + 2, j - 1, ct, data) + penalty(j, k + 1, ct, data) -
+                        energy,
                     true, k + 1, j, true, k + 1, j, 0,
                     v->f(k + 2, j - 1) + erg1(k + 1, j, k + 2, j - 1, ct, data), 1, false, 0, 0,
                     true, 1, k, 1, w5[k], 0);
@@ -428,8 +428,8 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
             if ((stack.peekatenergy() + w5[k] + erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) +
                     v->f(k + 2, j) + penalty(j, k + 2, ct, data) - energy) <= crit) {
               stack.push(stack.peekatenergy() + w5[k] +
-                             erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) + v->f(k + 2, j) +
-                             penalty(j, k + 2, ct, data) - energy,
+                      erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) + v->f(k + 2, j) +
+                      penalty(j, k + 2, ct, data) - energy,
                   true, k + 2, j, true, k + 2, j, 0, v->f(k + 2, j), 1, false, 0, 0, true, 1, k, 1,
                   w5[k], 0);
               stack.nstack(k + 1, k + 2);
@@ -443,9 +443,9 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                       v->f(k + 3, j - 1) + penalty(j, k + 2, ct, data) +
                       erg1(k + 2, j, k + 3, j - 1, ct, data) - energy) <= crit) {
                 stack.push(stack.peekatenergy() + w5[k] +
-                               erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) +
-                               v->f(k + 3, j - 1) + penalty(j, k + 2, ct, data) +
-                               erg1(k + 2, j, k + 3, j - 1, ct, data) - energy,
+                        erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) + v->f(k + 3, j - 1) +
+                        penalty(j, k + 2, ct, data) + erg1(k + 2, j, k + 3, j - 1, ct, data) -
+                        energy,
                     true, k + 2, j, true, k + 2, j, 0,
                     v->f(k + 3, j - 1) + erg1(k + 2, j, k + 3, j - 1, ct, data), 1, false, 0, 0,
                     true, 1, k, 1, w5[k], 0);
@@ -457,8 +457,8 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
             if ((stack.peekatenergy() + w5[k] + erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) +
                     v->f(k + 1, j - 1) + penalty(j - 1, k + 1, ct, data) - energy) <= crit) {
               stack.push(stack.peekatenergy() + w5[k] +
-                             erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) + v->f(k + 1, j - 1) +
-                             penalty(j - 1, k + 1, ct, data) - energy,
+                      erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) + v->f(k + 1, j - 1) +
+                      penalty(j - 1, k + 1, ct, data) - energy,
                   true, k + 1, j - 1, true, k + 1, j - 1, 0, v->f(k + 1, j - 1), 1, false, 0, 0,
                   true, 1, k, 1, w5[k], 0);
               stack.nstack(j, j - 1);
@@ -471,9 +471,9 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                       v->f(k + 2, j - 2) + penalty(j - 1, k + 1, ct, data) +
                       erg1(k + 1, j - 1, k + 2, j - 2, ct, data) - energy) <= crit) {
                 stack.push(stack.peekatenergy() + w5[k] +
-                               erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) + v->f(k + 2, j - 2) +
-                               penalty(j - 1, k + 1, ct, data) +
-                               erg1(k + 1, j - 1, k + 2, j - 2, ct, data) - energy,
+                        erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) + v->f(k + 2, j - 2) +
+                        penalty(j - 1, k + 1, ct, data) +
+                        erg1(k + 1, j - 1, k + 2, j - 2, ct, data) - energy,
                     true, k + 1, j - 1, true, k + 1, j - 1, 0,
                     v->f(k + 2, j - 2) + erg1(k + 1, j - 1, k + 2, j - 2, ct, data), 1, false, 0, 0,
                     true, 1, k, 1, w5[k], 0);
@@ -489,10 +489,10 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                     penalty(j - 1, k + 2, ct, data) - energy) <= crit) {
 
               stack.push(stack.peekatenergy() + w5[k] +
-                             data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
-                                         [ct->numseq[k + 1]] +
-                             checknp(lfce[j], lfce[k + 1]) + v->f(k + 2, j - 1) +
-                             penalty(j - 1, k + 2, ct, data) - energy,
+                      data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                                  [ct->numseq[k + 1]] +
+                      checknp(lfce[j], lfce[k + 1]) + v->f(k + 2, j - 1) +
+                      penalty(j - 1, k + 2, ct, data) - energy,
                   true, k + 2, j - 1, true, k + 2, j - 1, 0, v->f(k + 2, j - 1), 1, false, 0, 0,
                   true, 1, k, 1, w5[k], 0);
               stack.nstack(j, j - 1, k + 1, k + 2);
@@ -510,11 +510,11 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                       energy) <= crit) {
 
                 stack.push(stack.peekatenergy() + w5[k] +
-                               data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
-                                           [ct->numseq[k + 1]] +
-                               checknp(lfce[j], lfce[k + 1]) + v->f(k + 3, j - 2) +
-                               penalty(j - 1, k + 2, ct, data) +
-                               erg1(k + 2, j - 1, k + 3, j - 2, ct, data) - energy,
+                        data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                                    [ct->numseq[k + 1]] +
+                        checknp(lfce[j], lfce[k + 1]) + v->f(k + 3, j - 2) +
+                        penalty(j - 1, k + 2, ct, data) +
+                        erg1(k + 2, j - 1, k + 3, j - 2, ct, data) - energy,
                     true, k + 2, j - 1, true, k + 2, j - 1, 0,
                     v->f(k + 3, j - 2) + erg1(k + 2, j - 1, k + 3, j - 2, ct, data), 1, false, 0, 0,
                     true, 1, k, 1, w5[k], 0);
@@ -532,8 +532,8 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                       ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) - energy) <= crit) {
 
                 stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1, ip) + v->f(ip + 1, j) +
-                               penalty(k + 1, ip, ct, data) + penalty(ip + 1, j, ct, data) +
-                               ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) - energy,
+                        penalty(k + 1, ip, ct, data) + penalty(ip + 1, j, ct, data) +
+                        ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) - energy,
                     true, k + 1, ip, true, k + 1, ip, 0, v->f(k + 1, ip), 1, true, ip + 1, j, true,
                     ip + 1, j, 0, v->f(ip + 1, j), 1, true, 1, k, 1, w5[k], 0);
                 stack.nstack(k + 1, j, j, k + 1);
@@ -554,11 +554,11 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                           erg1(ip + 1, j, ip + 2, j - 1, ct, data) - energy) <= crit) {
 
                     stack.push(stack.peekatenergy() + w5[k] + v->f(k + 2, ip - 1) +
-                                   v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
-                                   penalty(ip + 1, j, ct, data) +
-                                   ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) +
-                                   erg1(k + 1, ip, k + 2, ip - 1, ct, data) +
-                                   erg1(ip + 1, j, ip + 2, j - 1, ct, data) - energy,
+                            v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
+                            penalty(ip + 1, j, ct, data) +
+                            ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) +
+                            erg1(k + 1, ip, k + 2, ip - 1, ct, data) +
+                            erg1(ip + 1, j, ip + 2, j - 1, ct, data) - energy,
                         true, k + 1, ip, true, k + 1, ip, 0,
                         v->f(k + 2, ip - 1) + erg1(k + 1, ip, k + 2, ip - 1, ct, data), 1, true,
                         ip + 1, j, true, ip + 1, j, 0,
@@ -577,10 +577,10 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                           erg1(k + 1, ip, k + 2, ip - 1, ct, data) - energy) <= crit) {
 
                     stack.push(stack.peekatenergy() + w5[k] + v->f(k + 2, ip - 1) +
-                                   v->f(ip + 1, j) + penalty(k + 1, ip, ct, data) +
-                                   penalty(ip + 1, j, ct, data) +
-                                   ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) +
-                                   erg1(k + 1, ip, k + 2, ip - 1, ct, data) - energy,
+                            v->f(ip + 1, j) + penalty(k + 1, ip, ct, data) +
+                            penalty(ip + 1, j, ct, data) +
+                            ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) +
+                            erg1(k + 1, ip, k + 2, ip - 1, ct, data) - energy,
                         true, k + 1, ip, true, k + 1, ip, 0,
                         v->f(k + 2, ip - 1) + erg1(k + 1, ip, k + 2, ip - 1, ct, data), 1, true,
                         ip + 1, j, true, ip + 1, j, 0, v->f(ip + 1, j), 1, true, 1, k, 1, w5[k], 0);
@@ -597,10 +597,10 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                           erg1(ip + 1, j, ip + 2, j - 1, ct, data) - energy) <= crit) {
 
                     stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1, ip) +
-                                   v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
-                                   penalty(ip + 1, j, ct, data) +
-                                   ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) +
-                                   erg1(ip + 1, j, ip + 2, j - 1, ct, data) - energy,
+                            v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
+                            penalty(ip + 1, j, ct, data) +
+                            ergcoax(k + 1, ip, ip + 1, j, 0, ct, data) +
+                            erg1(ip + 1, j, ip + 2, j - 1, ct, data) - energy,
                         true, k + 1, ip, true, k + 1, ip, 0, v->f(k + 1, ip), 1, true, ip + 1, j,
                         true, ip + 1, j, 0,
                         v->f(ip + 2, j - 1) + erg1(ip + 1, j, ip + 2, j - 1, ct, data), 1, true, 1,
@@ -619,9 +619,9 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                           ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) - energy) <= crit) {
 
                     stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1, ip) +
-                                   v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
-                                   penalty(ip + 2, j - 1, ct, data) +
-                                   ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) - energy,
+                            v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
+                            penalty(ip + 2, j - 1, ct, data) +
+                            ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) - energy,
                         true, k + 1, ip, true, k + 1, ip, 0, v->f(k + 1, ip), 1, true, ip + 2,
                         j - 1, true, ip + 2, j - 1, 0, v->f(ip + 2, j - 1), 1, true, 1, k, 1, w5[k],
                         0);
@@ -645,11 +645,11 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                               erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data) - energy) <= crit) {
 
                         stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1 + 1, ip - 1) +
-                                       v->f(ip + 3, j - 2) + penalty(k + 1, ip, ct, data) +
-                                       penalty(ip + 2, j - 1, ct, data) +
-                                       ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) +
-                                       erg1(k + 1, ip, k + 1 + 1, ip - 1, ct, data) +
-                                       erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data) - energy,
+                                v->f(ip + 3, j - 2) + penalty(k + 1, ip, ct, data) +
+                                penalty(ip + 2, j - 1, ct, data) +
+                                ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) +
+                                erg1(k + 1, ip, k + 1 + 1, ip - 1, ct, data) +
+                                erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data) - energy,
                             true, k + 1, ip, true, k + 1, ip, 0,
                             v->f(k + 2, ip - 1) + erg1(k + 1, ip, k + 1 + 1, ip - 1, ct, data), 1,
                             true, ip + 2, j - 1, true, ip + 2, j - 1, 0,
@@ -672,10 +672,10 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                               erg1(k + 1, ip, k + 1 + 1, ip - 1, ct, data) - energy) <= crit) {
 
                         stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1 + 1, ip - 1) +
-                                       v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
-                                       penalty(ip + 2, j - 1, ct, data) +
-                                       ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) +
-                                       erg1(k + 1, ip, k + 1 + 1, ip - 1, ct, data) - energy,
+                                v->f(ip + 2, j - 1) + penalty(k + 1, ip, ct, data) +
+                                penalty(ip + 2, j - 1, ct, data) +
+                                ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) +
+                                erg1(k + 1, ip, k + 1 + 1, ip - 1, ct, data) - energy,
                             true, k + 1, ip, true, k + 1, ip, 0,
                             v->f(k + 2, ip - 1) + erg1(k + 1, ip, k + 1 + 1, ip - 1, ct, data), 1,
                             true, ip + 2, j - 1, true, ip + 2, j - 1, 0, v->f(ip + 2, j - 1), 1,
@@ -696,10 +696,10 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                               erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data) - energy) <= crit) {
 
                         stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1, ip) +
-                                       v->f(ip + 3, j - 2) + penalty(k + 1, ip, ct, data) +
-                                       penalty(ip + 2, j - 1, ct, data) +
-                                       ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) +
-                                       erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data) - energy,
+                                v->f(ip + 3, j - 2) + penalty(k + 1, ip, ct, data) +
+                                penalty(ip + 2, j - 1, ct, data) +
+                                ergcoax(k + 1, ip, ip + 2, j - 1, j, ct, data) +
+                                erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data) - energy,
                             true, k + 1, ip, true, k + 1, ip, 0, v->f(k + 1, ip), 1, true, ip + 2,
                             j - 1, true, ip + 2, j - 1, 0,
                             v->f(ip + 3, j - 2) + erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data), 1,
@@ -718,8 +718,8 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                         ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) - energy) <= crit) {
 
                   stack.push(stack.peekatenergy() + w5[k] + v->f(k + 1 + 1, ip) + v->f(ip + 2, j) +
-                                 penalty(k + 1 + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
-                                 ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) - energy,
+                          penalty(k + 1 + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                          ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) - energy,
                       true, k + 2, ip, true, k + 2, ip, 0, v->f(k + 2, ip), 1, true, ip + 2, j,
                       true, ip + 2, j, 0, v->f(ip + 2, j), 1, true, 1, k, 1, w5[k], 0);
                   stack.nstack(k + 2, k + 1, k + 1, j);
@@ -740,11 +740,11 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                             erg1(ip + 2, j, ip + 3, j - 1, ct, data) - energy) <= crit) {
 
                       stack.push(stack.peekatenergy() + v->f(k + 1 + 2, ip - 1) +
-                                     v->f(ip + 3, j - 1) + penalty(k + 1 + 1, ip, ct, data) +
-                                     penalty(ip + 2, j, ct, data) +
-                                     ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) +
-                                     erg1(k + 1 + 1, ip, k + 1 + 2, ip - 1, ct, data) +
-                                     erg1(ip + 2, j, ip + 3, j - 1, ct, data) - energy,
+                              v->f(ip + 3, j - 1) + penalty(k + 1 + 1, ip, ct, data) +
+                              penalty(ip + 2, j, ct, data) +
+                              ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) +
+                              erg1(k + 1 + 1, ip, k + 1 + 2, ip - 1, ct, data) +
+                              erg1(ip + 2, j, ip + 3, j - 1, ct, data) - energy,
                           true, k + 2, ip, true, k + 2, ip, 0,
                           v->f(k + 3, ip - 1) + erg1(k + 1 + 1, ip, k + 1 + 2, ip - 1, ct, data), 1,
                           true, ip + 2, j, true, ip + 2, j, 0,
@@ -763,10 +763,9 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                             erg1(k + 1 + 1, ip, k + 1 + 2, ip - 1, ct, data) - energy) <= crit) {
 
                       stack.push(stack.peekatenergy() + v->f(k + 1 + 2, ip - 1) + v->f(ip + 2, j) +
-                                     penalty(k + 1 + 1, ip, ct, data) +
-                                     penalty(ip + 2, j, ct, data) +
-                                     ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) +
-                                     erg1(k + 1 + 1, ip, k + 1 + 2, ip - 1, ct, data) - energy,
+                              penalty(k + 1 + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                              ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) +
+                              erg1(k + 1 + 1, ip, k + 1 + 2, ip - 1, ct, data) - energy,
                           true, k + 2, ip, true, k + 2, ip, 0,
                           v->f(k + 3, ip - 1) + erg1(k + 1 + 1, ip, k + 1 + 2, ip - 1, ct, data), 1,
                           true, ip + 2, j, true, ip + 2, j, 0, v->f(ip + 2, j), 1, true, 1, k, 1,
@@ -784,10 +783,9 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                             erg1(ip + 2, j, ip + 3, j - 1, ct, data) - energy) <= crit) {
 
                       stack.push(stack.peekatenergy() + v->f(k + 1 + 1, ip) + v->f(ip + 3, j - 1) +
-                                     penalty(k + 1 + 1, ip, ct, data) +
-                                     penalty(ip + 2, j, ct, data) +
-                                     ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) +
-                                     erg1(ip + 2, j, ip + 3, j - 1, ct, data) - energy,
+                              penalty(k + 1 + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                              ergcoax(k + 1 + 1, ip, ip + 2, j, k + 1, ct, data) +
+                              erg1(ip + 2, j, ip + 3, j - 1, ct, data) - energy,
                           true, k + 2, ip, true, k + 2, ip, 0, v->f(k + 2, ip), 1, true, ip + 2, j,
                           true, ip + 2, j, 0,
                           v->f(ip + 3, j - 1) + erg1(ip + 2, j, ip + 3, j - 1, ct, data), 1, true,
@@ -1716,57 +1714,53 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                 notgu(i, k, ct)) {
 
               branch = min(branch, data->eparam[10] + v->f(i + 1, k - 1) + penalty(k, i, ct, data) +
-                                       erg1(i, k, i + 1, k - 1, ct, data));
+                      erg1(i, k, i + 1, k - 1, ct, data));
             }
 
             // calculate the energy of i stacked onto the pair of i+1,k
 
             branch = min(branch, v->f(i + 1, k) + data->eparam[10] + data->eparam[6] +
-                                     erg4(k, i + 1, i, 2, ct, data, lfce[i]) +
-                                     penalty(i + 1, k, ct, data));
+                    erg4(k, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, k, ct, data));
 
             if ((mod[i + 1] || mod[k]) && inc[ct->numseq[i + 2]][ct->numseq[k - 1]] &&
                 notgu(i + 1, k, ct) && !(fce->f(i + 1, k) & SINGLE)) {
 
               branch = min(branch, v->f(i + 2, k - 1) + data->eparam[10] + data->eparam[6] +
-                                       erg4(k, i + 1, i, 2, ct, data, lfce[i]) +
-                                       penalty(i + 1, k, ct, data) +
-                                       erg1(i + 1, k, i + 2, k - 1, ct, data));
+                      erg4(k, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, k, ct, data) +
+                      erg1(i + 1, k, i + 2, k - 1, ct, data));
             }
 
             // calculate the energy of k stacked onto the pair of i,k-1
             if (k != 1) {
               branch = min(branch, v->f(i, k - 1) + data->eparam[10] + data->eparam[6] +
-                                       erg4(k - 1, i, k, 1, ct, data, lfce[k]) +
-                                       penalty(i, k - 1, ct, data));
+                      erg4(k - 1, i, k, 1, ct, data, lfce[k]) + penalty(i, k - 1, ct, data));
 
               if ((mod[i] || mod[k - 1]) && inc[ct->numseq[i + 1]][ct->numseq[k - 2]] &&
                   notgu(i, k - 1, ct) && !(fce->f(i, k - 1) & SINGLE)) {
 
                 branch = min(branch, v->f(i + 1, k - 2) + data->eparam[10] + data->eparam[6] +
-                                         erg4(k - 1, i, k, 1, ct, data, lfce[k]) +
-                                         penalty(i, k - 1, ct, data) +
-                                         erg1(i, k - 1, i + 1, k - 2, ct, data));
+                        erg4(k - 1, i, k, 1, ct, data, lfce[k]) + penalty(i, k - 1, ct, data) +
+                        erg1(i, k - 1, i + 1, k - 2, ct, data));
               }
             }
 
             // calculate i and k stacked onto the pair of i+1,k-1
             if (k != 1 && !lfce[i] && !lfce[k]) {
               branch = min(branch, v->f(i + 1, k - 1) + data->eparam[10] +
-                                       (data->eparam[6] + data->eparam[6]) +
-                                       data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]]
-                                                  [ct->numseq[k]][ct->numseq[i]] +
-                                       penalty(k - 1, i + 1, ct, data));
+                      (data->eparam[6] + data->eparam[6]) +
+                      data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]][ct->numseq[k]]
+                                 [ct->numseq[i]] +
+                      penalty(k - 1, i + 1, ct, data));
 
               if ((mod[i + 1] || mod[k - 1]) && (k - 2 > 0) && !(fce->f(i + 1, k - 1) & SINGLE)) {
                 if (inc[ct->numseq[i + 2]][ct->numseq[k - 2]] && notgu(i + 1, k - 1, ct)) {
 
                   branch = min(branch, v->f(i + 2, k - 2) + data->eparam[10] +
-                                           (data->eparam[6] + data->eparam[6]) +
-                                           data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]]
-                                                      [ct->numseq[k]][ct->numseq[i]] +
-                                           penalty(k - 1, i + 1, ct, data) +
-                                           erg1(i + 1, k - 1, i + 2, k - 2, ct, data));
+                          (data->eparam[6] + data->eparam[6]) +
+                          data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]][ct->numseq[k]]
+                                     [ct->numseq[i]] +
+                          penalty(k - 1, i + 1, ct, data) +
+                          erg1(i + 1, k - 1, i + 2, k - 2, ct, data));
                 }
               }
             }
@@ -1921,8 +1915,8 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
             while ((ct->neighbors[ip][jp] == ct->numseq[pos2] ||
                        ct->neighbors[ip][jp] ==
                            ct->numseq[ct->GetPair(pos2, ct->GetNumberofStructures())]) &&
-                   ct->GetPair(pos2, ct->GetNumberofStructures()) > 0 && !found &&
-                   pos2 <= ct->GetSequenceLength()) {
+                ct->GetPair(pos2, ct->GetNumberofStructures()) > 0 && !found &&
+                pos2 <= ct->GetSequenceLength()) {
               pos2++;
               jp++;
               if (ct->neighbors[ip][jp] == 0) { found = true; }
@@ -1974,7 +1968,7 @@ void alltracetraceback(structure* ct, atarrayclass* v, atarrayclass* w, atarrayc
                                  ct->numseq[ct->GetPair(pos2, ct->GetNumberofStructures())] &&
                              ct->GetPair(pos2, ct->GetNumberofStructures()) >= ct->start[kp] &&
                              ct->GetPair(pos2, ct->GetNumberofStructures()) <= ct->stop[kp])) &&
-                     !found && pos2 <= ct->stop[kp]) {
+                  !found && pos2 <= ct->stop[kp]) {
                 pos2++;
                 jp++;
                 if (ct->rneighbors[kp][ip][jp] == 0) { found = true; }
@@ -2222,7 +2216,7 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
             rarray = min(rarray, erg1(i, j, i + 1, j - 1, ct, data) + v.f(i + 1, j - 1));
 
           } else if ((ct->numseq[i + 1] == 3 && ct->numseq[j - 1] == 4) ||
-                     (ct->numseq[i + 1] == 4 && ct->numseq[j - 1] == 3)) {
+              (ct->numseq[i + 1] == 4 && ct->numseq[j - 1] == 3)) {
 
             rarray = min(rarray, erg1(i, j, i + 1, j - 1, ct, data) + v.f(i + 1, j - 1));
 
@@ -2250,9 +2244,8 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
               if ((mod[ip] || mod[jp]) && inc[ct->numseq[ip]][ct->numseq[jp]] &&
                   notgu(ip, jp, ct) && !(fce.f(ip, jp) & SINGLE)) {
                 // i or j is modified
-                rarray =
-                    min(rarray, erg2(i, j, ip, jp, ct, data, fce.f(i, ip), fce.f(jp, j)) +
-                                    v.f(ip + 1, jp - 1) + erg1(ip, jp, ip + 1, jp - 1, ct, data));
+                rarray = min(rarray, erg2(i, j, ip, jp, ct, data, fce.f(i, ip), fce.f(jp, j)) +
+                        v.f(ip + 1, jp - 1) + erg1(ip, jp, ip + 1, jp - 1, ct, data));
               }
             }
           }
@@ -2274,14 +2267,14 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
 
           // i+1 dangles on i-j pair:
 
-          rarray = min(rarray, erg4(i, j, i + 1, 1, ct, data, lfce[i + 1]) +
-                                   penalty(i, j, ct, data) + wmb.f(i + 2, j - 1) + data->eparam[5] +
-                                   data->eparam[6] + data->eparam[10]);
+          rarray =
+              min(rarray, erg4(i, j, i + 1, 1, ct, data, lfce[i + 1]) + penalty(i, j, ct, data) +
+                      wmb.f(i + 2, j - 1) + data->eparam[5] + data->eparam[6] + data->eparam[10]);
 
           // j-1 dangles
-          rarray = min(rarray, erg4(i, j, j - 1, 2, ct, data, lfce[j - 1]) +
-                                   penalty(i, j, ct, data) + wmb.f(i + 1, j - 2) + data->eparam[5] +
-                                   data->eparam[6] + data->eparam[10]);
+          rarray =
+              min(rarray, erg4(i, j, j - 1, 2, ct, data, lfce[j - 1]) + penalty(i, j, ct, data) +
+                      wmb.f(i + 1, j - 2) + data->eparam[5] + data->eparam[6] + data->eparam[10]);
 
           rarray = min(rarray,
               data->tstkm[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]] +
@@ -2303,60 +2296,58 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
             // {
             if (i != number && ip != number && j - 1 != number) {
               rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 1, ip) +
-                                       penalty(i + 1, ip, ct, data) + data->eparam[5] +
-                                       data->eparam[10] + data->eparam[10] +
-                                       (min(w.f(ip + 1, j - 1), wmb.f(ip + 1, j - 1))) +
-                                       ergcoax(j, i, i + 1, ip, 0, ct, data));
+                      penalty(i + 1, ip, ct, data) + data->eparam[5] + data->eparam[10] +
+                      data->eparam[10] + (min(w.f(ip + 1, j - 1), wmb.f(ip + 1, j - 1))) +
+                      ergcoax(j, i, i + 1, ip, 0, ct, data));
 
               if ((mod[i + 1] || mod[ip]) && inc[ct->numseq[i + 2]][ct->numseq[ip - 1]] &&
                   notgu(i + 1, ip, ct) && !(fce.f(i + 1, ip) & SINGLE)) {
 
                 rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 2, ip - 1) +
-                                         penalty(i + 1, ip, ct, data) + data->eparam[5] +
-                                         data->eparam[10] + data->eparam[10] +
-                                         (min(w.f(ip + 1, j - 1), wmb.f(ip + 1, j - 1))) +
-                                         ergcoax(j, i, i + 1, ip, 0, ct, data) +
-                                         erg1(i + 1, ip, i + 2, ip - 1, ct, data));
+                        penalty(i + 1, ip, ct, data) + data->eparam[5] + data->eparam[10] +
+                        data->eparam[10] + (min(w.f(ip + 1, j - 1), wmb.f(ip + 1, j - 1))) +
+                        ergcoax(j, i, i + 1, ip, 0, ct, data) +
+                        erg1(i + 1, ip, i + 2, ip - 1, ct, data));
               }
 
               // if ((ip<j-1)&&(i+2!=number)) {
               if (ip + 2 < j - 1 && i + 1 != number && ip + 1 != number) {
                 // now consider an intervening nuc
                 if ((ip + 2 < j - 1) /*&&(j>number||ip+2!=number)*/)
-                  rarray = min(rarray,
-                      penalty(i, j, ct, data) + v.f(i + 2, ip) + penalty(i + 2, ip, ct, data) +
-                          data->eparam[5] + data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                          data->eparam[10] + (min(w.f(ip + 2, j - 1), wmb.f(ip + 2, j - 1))) +
+                  rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 2, ip) +
+                          penalty(i + 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                          data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                          (min(w.f(ip + 2, j - 1), wmb.f(ip + 2, j - 1))) +
                           ergcoax(j, i, i + 2, ip, ip + 1, ct, data) +
                           checknp(lfce[i + 1], lfce[ip + 1]));
 
                 if ((mod[i + 2] || mod[ip]) && inc[ct->numseq[i + 3]][ct->numseq[ip - 1]] &&
                     notgu(i + 2, ip, ct) && !(fce.f(i + 2, ip) & SINGLE)) {
 
-                  rarray = min(rarray,
-                      penalty(i, j, ct, data) + v.f(i + 3, ip - 1) + penalty(i + 2, ip, ct, data) +
-                          data->eparam[5] + data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                          data->eparam[10] + (min(w.f(ip + 2, j - 1), wmb.f(ip + 2, j - 1))) +
+                  rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 3, ip - 1) +
+                          penalty(i + 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                          data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                          (min(w.f(ip + 2, j - 1), wmb.f(ip + 2, j - 1))) +
                           ergcoax(j, i, i + 2, ip, ip + 1, ct, data) +
                           erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
                           checknp(lfce[i + 1], lfce[ip + 1]));
                 }
 
                 if (ip + 1 < j - 2 && j - 2 != number)
-                  rarray = min(rarray,
-                      penalty(i, j, ct, data) + v.f(i + 2, ip) + penalty(i + 2, ip, ct, data) +
-                          data->eparam[5] + data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                          data->eparam[10] + (min(w.f(ip + 1, j - 2), wmb.f(ip + 1, j - 2))) +
+                  rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 2, ip) +
+                          penalty(i + 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                          data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                          (min(w.f(ip + 1, j - 2), wmb.f(ip + 1, j - 2))) +
                           ergcoax(j, i, i + 2, ip, j - 1, ct, data) +
                           checknp(lfce[i + 1], lfce[j - 1]));
 
                 if ((mod[i + 2] || mod[ip]) && inc[ct->numseq[i + 3]][ct->numseq[ip - 1]] &&
                     notgu(i + 2, ip, ct) && !(fce.f(i + 2, ip) & SINGLE)) {
 
-                  rarray = min(rarray,
-                      penalty(i, j, ct, data) + v.f(i + 3, ip - 1) + penalty(i + 2, ip, ct, data) +
-                          data->eparam[5] + data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                          data->eparam[10] + (min(w.f(ip + 1, j - 2), wmb.f(ip + 1, j - 2))) +
+                  rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 3, ip - 1) +
+                          penalty(i + 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                          data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                          (min(w.f(ip + 1, j - 2), wmb.f(ip + 1, j - 2))) +
                           ergcoax(j, i, i + 2, ip, j - 1, ct, data) +
                           erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
                           checknp(lfce[i + 1], lfce[j - 1]));
@@ -2375,63 +2366,59 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
             if (j - 1 != number && ip - 1 != number && i != number) {
               // first consider flush stacking
               rarray = min(rarray, penalty(i, j, ct, data) + v.f(ip, j - 1) +
-                                       penalty(j - 1, ip, ct, data) + data->eparam[5] +
-                                       data->eparam[10] + data->eparam[10] +
-                                       (min(w.f(i + 1, ip - 1), wmb.f(i + 1, ip - 1))) +
-                                       ergcoax(ip, j - 1, j, i, 0, ct, data));
+                      penalty(j - 1, ip, ct, data) + data->eparam[5] + data->eparam[10] +
+                      data->eparam[10] + (min(w.f(i + 1, ip - 1), wmb.f(i + 1, ip - 1))) +
+                      ergcoax(ip, j - 1, j, i, 0, ct, data));
 
               if ((mod[ip] || mod[j - 1]) && inc[ct->numseq[ip + 1]][ct->numseq[j - 2]] &&
                   notgu(ip, j - 1, ct) && !(fce.f(ip, j - 1) & SINGLE)) {
                 rarray = min(rarray, penalty(i, j, ct, data) + v.f(ip + 1, j - 2) +
-                                         penalty(j - 1, ip, ct, data) + data->eparam[5] +
-                                         data->eparam[10] + data->eparam[10] +
-                                         (min(w.f(i + 1, ip - 1), wmb.f(i + 1, ip - 1))) +
-                                         ergcoax(ip, j - 1, j, i, 0, ct, data) +
-                                         erg1(ip, j - 1, ip + 1, j - 2, ct, data));
+                        penalty(j - 1, ip, ct, data) + data->eparam[5] + data->eparam[10] +
+                        data->eparam[10] + (min(w.f(i + 1, ip - 1), wmb.f(i + 1, ip - 1))) +
+                        ergcoax(ip, j - 1, j, i, 0, ct, data) +
+                        erg1(ip, j - 1, ip + 1, j - 2, ct, data));
               }
 
               if (j - 2 != number) {
                 // now consider an intervening nuc
                 // if ((ip>i+1)&&(j>number||ip-2!=number))
                 if (ip - 2 > i + 1 && ip - 2 != number) {
-                  rarray = min(rarray,
-                      penalty(i, j, ct, data) + v.f(ip, j - 2) + penalty(j - 2, ip, ct, data) +
-                          data->eparam[5] + data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                          data->eparam[10] + (min(w.f(i + 1, ip - 2), wmb.f(i + 1, ip - 2))) +
+                  rarray = min(rarray, penalty(i, j, ct, data) + v.f(ip, j - 2) +
+                          penalty(j - 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                          data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                          (min(w.f(i + 1, ip - 2), wmb.f(i + 1, ip - 2))) +
                           ergcoax(ip, j - 2, j, i, ip - 1, ct, data) +
                           checknp(lfce[j - 1], lfce[ip - 1]));
 
                   if ((mod[ip] || mod[j - 2]) && inc[ct->numseq[ip + 1]][ct->numseq[j - 3]] &&
                       notgu(ip, j - 2, ct) && !(fce.f(ip, j - 2) & SINGLE)) {
                     rarray = min(rarray, penalty(i, j, ct, data) + v.f(ip + 1, j - 3) +
-                                             penalty(j - 2, ip, ct, data) + data->eparam[5] +
-                                             data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                                             data->eparam[10] +
-                                             (min(w.f(i + 1, ip - 2), wmb.f(i + 1, ip - 2))) +
-                                             ergcoax(ip, j - 2, j, i, ip - 1, ct, data) +
-                                             erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
-                                             checknp(lfce[j - 1], lfce[ip - 1]));
+                            penalty(j - 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                            data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                            (min(w.f(i + 1, ip - 2), wmb.f(i + 1, ip - 2))) +
+                            ergcoax(ip, j - 2, j, i, ip - 1, ct, data) +
+                            erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
+                            checknp(lfce[j - 1], lfce[ip - 1]));
                   }
                 }
 
                 if ((ip - 1 > i + 2) && i + 1 != number) {
-                  rarray = min(rarray,
-                      penalty(i, j, ct, data) + v.f(ip, j - 2) + penalty(j - 2, ip, ct, data) +
-                          data->eparam[5] + data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                          data->eparam[10] + (min(w.f(i + 2, ip - 1), wmb.f(i + 2, ip - 1))) +
+                  rarray = min(rarray, penalty(i, j, ct, data) + v.f(ip, j - 2) +
+                          penalty(j - 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                          data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                          (min(w.f(i + 2, ip - 1), wmb.f(i + 2, ip - 1))) +
                           ergcoax(ip, j - 2, j, i, i + 1, ct, data) +
                           checknp(lfce[j - 1], lfce[i + 1]));
 
                   if ((mod[ip] || mod[j - 2]) && inc[ct->numseq[ip + 1]][ct->numseq[j - 3]] &&
                       notgu(ip, j - 2, ct) && !(fce.f(ip, j - 2) & SINGLE)) {
                     rarray = min(rarray, penalty(i, j, ct, data) + v.f(ip + 1, j - 3) +
-                                             penalty(j - 2, ip, ct, data) + data->eparam[5] +
-                                             data->eparam[6] + data->eparam[6] + data->eparam[10] +
-                                             data->eparam[10] +
-                                             (min(w.f(i + 2, ip - 1), wmb.f(i + 2, ip - 1))) +
-                                             ergcoax(ip, j - 2, j, i, i + 1, ct, data) +
-                                             erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
-                                             checknp(lfce[j - 1], lfce[i + 1]));
+                            penalty(j - 2, ip, ct, data) + data->eparam[5] + data->eparam[6] +
+                            data->eparam[6] + data->eparam[10] + data->eparam[10] +
+                            (min(w.f(i + 2, ip - 1), wmb.f(i + 2, ip - 1))) +
+                            ergcoax(ip, j - 2, j, i, i + 1, ct, data) +
+                            erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
+                            checknp(lfce[j - 1], lfce[i + 1]));
                   }
                 }
               }
@@ -2497,8 +2484,7 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
 
             if (ip != number) {
               rarray = min(rarray, v.f(i, ip) + v.f(ip + 1, j) + penalty(i, ip, ct, data) +
-                                       penalty(ip + 1, j, ct, data) +
-                                       ergcoax(i, ip, ip + 1, j, 0, ct, data));
+                      penalty(ip + 1, j, ct, data) + ergcoax(i, ip, ip + 1, j, 0, ct, data));
 
               if ((mod[i] || mod[ip] || mod[ip + 1] || mod[j])) {
 
@@ -2509,28 +2495,27 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
                     !(fce.f(i, ip) & SINGLE)) {
 
                   rarray = min(rarray, v.f(i + 1, ip - 1) + v.f(ip + 2, j - 1) +
-                                           penalty(i, ip, ct, data) + penalty(ip + 1, j, ct, data) +
-                                           ergcoax(i, ip, ip + 1, j, 0, ct, data) +
-                                           erg1(i, ip, i + 1, ip - 1, ct, data) +
-                                           erg1(ip + 1, j, ip + 2, j - 1, ct, data));
+                          penalty(i, ip, ct, data) + penalty(ip + 1, j, ct, data) +
+                          ergcoax(i, ip, ip + 1, j, 0, ct, data) +
+                          erg1(i, ip, i + 1, ip - 1, ct, data) +
+                          erg1(ip + 1, j, ip + 2, j - 1, ct, data));
                 }
 
                 if ((mod[i] || mod[ip]) && inc[ct->numseq[i + 1]][ct->numseq[ip - 1]] &&
                     notgu(i, ip, ct) && !(fce.f(i, ip) & SINGLE)) {
 
                   rarray = min(rarray, v.f(i + 1, ip - 1) + v.f(ip + 1, j) +
-                                           penalty(i, ip, ct, data) + penalty(ip + 1, j, ct, data) +
-                                           ergcoax(i, ip, ip + 1, j, 0, ct, data) +
-                                           erg1(i, ip, i + 1, ip - 1, ct, data));
+                          penalty(i, ip, ct, data) + penalty(ip + 1, j, ct, data) +
+                          ergcoax(i, ip, ip + 1, j, 0, ct, data) +
+                          erg1(i, ip, i + 1, ip - 1, ct, data));
                 }
 
                 if ((mod[ip + 1] || mod[j]) && inc[ct->numseq[ip + 2]][ct->numseq[j - 1]] &&
                     notgu(ip + 1, j, ct) && !(fce.f(ip + 1, j) & SINGLE)) {
 
                   rarray = min(rarray, v.f(i, ip) + v.f(ip + 2, j - 1) + penalty(i, ip, ct, data) +
-                                           penalty(ip + 1, j, ct, data) +
-                                           ergcoax(i, ip, ip + 1, j, 0, ct, data) +
-                                           erg1(ip + 1, j, ip + 2, j - 1, ct, data));
+                          penalty(ip + 1, j, ct, data) + ergcoax(i, ip, ip + 1, j, 0, ct, data) +
+                          erg1(ip + 1, j, ip + 2, j - 1, ct, data));
                 }
               }
 
@@ -2539,8 +2524,8 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
                   // now consider an intervening mismatch
                   if (!lfce[ip + 1] && !lfce[j])
                     e = min(e, v.f(i, ip) + v.f(ip + 2, j - 1) + penalty(i, ip, ct, data) +
-                                   penalty(ip + 2, j - 1, ct, data) +
-                                   ergcoax(i, ip, ip + 2, j - 1, j, ct, data));
+                            penalty(ip + 2, j - 1, ct, data) +
+                            ergcoax(i, ip, ip + 2, j - 1, j, ct, data));
 
                   if (mod[i] || mod[ip] || mod[ip + 2] || mod[j - 1]) {
                     if ((mod[i] || mod[ip]) && (mod[ip + 2] || mod[j - 1]) &&
@@ -2551,10 +2536,10 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
 
                       if (!lfce[ip + 1] && !lfce[j])
                         e = min(e, v.f(i + 1, ip - 1) + v.f(ip + 3, j - 2) +
-                                       penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
-                                       ergcoax(i, ip, ip + 2, j - 1, j, ct, data) +
-                                       erg1(i, ip, i + 1, ip - 1, ct, data) +
-                                       erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
+                                penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
+                                ergcoax(i, ip, ip + 2, j - 1, j, ct, data) +
+                                erg1(i, ip, i + 1, ip - 1, ct, data) +
+                                erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
                     }
 
                     if ((mod[i] || mod[ip]) && inc[ct->numseq[i + 1]][ct->numseq[ip - 1]] &&
@@ -2562,9 +2547,9 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
 
                       if (!lfce[ip + 1] && !lfce[j])
                         e = min(e, v.f(i + 1, ip - 1) + v.f(ip + 2, j - 1) +
-                                       penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
-                                       ergcoax(i, ip, ip + 2, j - 1, j, ct, data) +
-                                       erg1(i, ip, i + 1, ip - 1, ct, data));
+                                penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
+                                ergcoax(i, ip, ip + 2, j - 1, j, ct, data) +
+                                erg1(i, ip, i + 1, ip - 1, ct, data));
                     }
 
                     if ((mod[ip + 2] || mod[j - 1]) && inc[ct->numseq[ip + 3]][ct->numseq[j - 2]] &&
@@ -2572,17 +2557,17 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
 
                       if (!lfce[ip + 1] && !lfce[j])
                         e = min(e, v.f(i, ip) + v.f(ip + 3, j - 2) + penalty(i, ip, ct, data) +
-                                       penalty(ip + 2, j - 1, ct, data) +
-                                       ergcoax(i, ip, ip + 2, j - 1, j, ct, data) +
-                                       erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
+                                penalty(ip + 2, j - 1, ct, data) +
+                                ergcoax(i, ip, ip + 2, j - 1, j, ct, data) +
+                                erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
                     }
                   }
                 }
 
                 if (!lfce[i] && !lfce[ip + 1] && i != number) {
                   e = min(e, v.f(i + 1, ip) + v.f(ip + 2, j) + penalty(i + 1, ip, ct, data) +
-                                 penalty(ip + 2, j, ct, data) +
-                                 ergcoax(i + 1, ip, ip + 2, j, i, ct, data));
+                          penalty(ip + 2, j, ct, data) +
+                          ergcoax(i + 1, ip, ip + 2, j, i, ct, data));
 
                   if (mod[i + 1] || mod[ip] || mod[ip + 2] || mod[j]) {
                     if ((mod[i + 1] || mod[ip]) && (mod[ip + 2] || mod[j]) &&
@@ -2592,27 +2577,27 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
                         !(fce.f(ip + 2, j) & SINGLE)) {
 
                       e = min(e, v.f(i + 2, ip - 1) + v.f(ip + 3, j - 1) +
-                                     penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
-                                     ergcoax(i + 1, ip, ip + 2, j, i, ct, data) +
-                                     erg1(i + 1, ip, i + 2, ip - 1, ct, data) +
-                                     erg1(ip + 2, j, ip + 3, j - 1, ct, data));
+                              penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                              ergcoax(i + 1, ip, ip + 2, j, i, ct, data) +
+                              erg1(i + 1, ip, i + 2, ip - 1, ct, data) +
+                              erg1(ip + 2, j, ip + 3, j - 1, ct, data));
                     }
                     if ((mod[i + 1] || mod[ip]) && inc[ct->numseq[i + 2]][ct->numseq[ip - 1]] &&
                         notgu(i + 1, ip, ct) && !(fce.f(i + 1, ip) & SINGLE)) {
 
                       e = min(e, v.f(i + 2, ip - 1) + v.f(ip + 2, j) +
-                                     penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
-                                     ergcoax(i + 1, ip, ip + 2, j, i, ct, data) +
-                                     erg1(i + 1, ip, i + 2, ip - 1, ct, data));
+                              penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                              ergcoax(i + 1, ip, ip + 2, j, i, ct, data) +
+                              erg1(i + 1, ip, i + 2, ip - 1, ct, data));
                     }
 
                     if ((mod[ip + 2] || mod[j]) && inc[ct->numseq[ip + 3]][ct->numseq[j - 1]] &&
                         notgu(ip + 2, j, ct) && !(fce.f(ip + 2, j) & SINGLE)) {
 
                       e = min(e, v.f(i + 1, ip) + v.f(ip + 3, j - 1) +
-                                     penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
-                                     ergcoax(i + 1, ip, ip + 2, j, i, ct, data) +
-                                     erg1(ip + 2, j, ip + 3, j - 1, ct, data));
+                              penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                              ergcoax(i + 1, ip, ip + 2, j, i, ct, data) +
+                              erg1(ip + 2, j, ip + 3, j - 1, ct, data));
                     }
                   }
                 }
@@ -2637,57 +2622,53 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
                 notgu(i, k, ct)) {
 
               branch = min(branch, data->eparam[10] + v.f(i + 1, k - 1) + penalty(k, i, ct, data) +
-                                       erg1(i, k, i + 1, k - 1, ct, data));
+                      erg1(i, k, i + 1, k - 1, ct, data));
             }
 
             // calculate the energy of i stacked onto the pair of i+1,k
 
             branch = min(branch, v.f(i + 1, k) + data->eparam[10] + data->eparam[6] +
-                                     erg4(k, i + 1, i, 2, ct, data, lfce[i]) +
-                                     penalty(i + 1, k, ct, data));
+                    erg4(k, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, k, ct, data));
 
             if ((mod[i + 1] || mod[k]) && inc[ct->numseq[i + 2]][ct->numseq[k - 1]] &&
                 notgu(i + 1, k, ct) && !(fce.f(i + 1, k) & SINGLE)) {
 
               branch = min(branch, v.f(i + 2, k - 1) + data->eparam[10] + data->eparam[6] +
-                                       erg4(k, i + 1, i, 2, ct, data, lfce[i]) +
-                                       penalty(i + 1, k, ct, data) +
-                                       erg1(i + 1, k, i + 2, k - 1, ct, data));
+                      erg4(k, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, k, ct, data) +
+                      erg1(i + 1, k, i + 2, k - 1, ct, data));
             }
 
             // calculate the energy of k stacked onto the pair of i,k-1
             if (k != 1) {
               branch = min(branch, v.f(i, k - 1) + data->eparam[10] + data->eparam[6] +
-                                       erg4(k - 1, i, k, 1, ct, data, lfce[k]) +
-                                       penalty(i, k - 1, ct, data));
+                      erg4(k - 1, i, k, 1, ct, data, lfce[k]) + penalty(i, k - 1, ct, data));
 
               if ((mod[i] || mod[k - 1]) && inc[ct->numseq[i + 1]][ct->numseq[k - 2]] &&
                   notgu(i, k - 1, ct) && !(fce.f(i, k - 1) & SINGLE)) {
 
                 branch = min(branch, v.f(i + 1, k - 2) + data->eparam[10] + data->eparam[6] +
-                                         erg4(k - 1, i, k, 1, ct, data, lfce[k]) +
-                                         penalty(i, k - 1, ct, data) +
-                                         erg1(i, k - 1, i + 1, k - 2, ct, data));
+                        erg4(k - 1, i, k, 1, ct, data, lfce[k]) + penalty(i, k - 1, ct, data) +
+                        erg1(i, k - 1, i + 1, k - 2, ct, data));
               }
             }
 
             // calculate i and k stacked onto the pair of i+1,k-1
             if (k != 1 && !lfce[i] && !lfce[k]) {
               branch = min(branch, v.f(i + 1, k - 1) + data->eparam[10] +
-                                       (data->eparam[6] + data->eparam[6]) +
-                                       data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]]
-                                                  [ct->numseq[k]][ct->numseq[i]] +
-                                       penalty(k - 1, i + 1, ct, data));
+                      (data->eparam[6] + data->eparam[6]) +
+                      data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]][ct->numseq[k]]
+                                 [ct->numseq[i]] +
+                      penalty(k - 1, i + 1, ct, data));
 
               if ((mod[i + 1] || mod[k - 1]) && (k - 2 > 0) && !(fce.f(i + 1, k - 1) & SINGLE)) {
                 if (inc[ct->numseq[i + 2]][ct->numseq[k - 2]] && notgu(i + 1, k - 1, ct)) {
 
                   branch = min(branch, v.f(i + 2, k - 2) + data->eparam[10] +
-                                           (data->eparam[6] + data->eparam[6]) +
-                                           data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]]
-                                                      [ct->numseq[k]][ct->numseq[i]] +
-                                           penalty(k - 1, i + 1, ct, data) +
-                                           erg1(i + 1, k - 1, i + 2, k - 2, ct, data));
+                          (data->eparam[6] + data->eparam[6]) +
+                          data->tstkm[ct->numseq[k - 1]][ct->numseq[i + 1]][ct->numseq[k]]
+                                     [ct->numseq[i]] +
+                          penalty(k - 1, i + 1, ct, data) +
+                          erg1(i + 1, k - 1, i + 2, k - 2, ct, data));
                 }
               }
             }
@@ -2742,41 +2723,36 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
 
         if ((mod[i] || mod[j]) && inc[ct->numseq[i + 1]][ct->numseq[j - 1]] && notgu(i, j, ct)) {
 
-          wl.f(i, j) =
-              min(wl.f(i, j), data->eparam[10] + v.f(i + 1, j - 1) + penalty(j, i, ct, data) +
-                                  erg1(i, j, i + 1, j - 1, ct, data));
+          wl.f(i, j) = min(wl.f(i, j), data->eparam[10] + v.f(i + 1, j - 1) +
+                  penalty(j, i, ct, data) + erg1(i, j, i + 1, j - 1, ct, data));
         }
 
         if (i != number) {
           // calculate the energy of i stacked onto the pair of i+1,j
 
           wl.f(i, j) = min(wl.f(i, j), v.f(i + 1, j) + data->eparam[10] + data->eparam[6] +
-                                           erg4(j, i + 1, i, 2, ct, data, lfce[i]) +
-                                           penalty(i + 1, j, ct, data));
+                  erg4(j, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, j, ct, data));
 
           if ((mod[i + 1] || mod[j]) && inc[ct->numseq[i + 2]][ct->numseq[j - 1]] &&
               notgu(i + 1, j, ct) && !(fce.f(i + 1, j) & SINGLE)) {
 
             wl.f(i, j) = min(wl.f(i, j), v.f(i + 2, j - 1) + data->eparam[10] + data->eparam[6] +
-                                             erg4(j, i + 1, i, 2, ct, data, lfce[i]) +
-                                             penalty(i + 1, j, ct, data) +
-                                             erg1(i + 1, j, i + 2, j - 1, ct, data));
+                    erg4(j, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, j, ct, data) +
+                    erg1(i + 1, j, i + 2, j - 1, ct, data));
           }
         }
         if (j != ((number) + 1)) {
           // calculate the energy of j stacked onto the pair of i,j-1
           if (j != 1) {
             wl.f(i, j) = min(wl.f(i, j), v.f(i, j - 1) + data->eparam[10] + data->eparam[6] +
-                                             erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
-                                             penalty(i, j - 1, ct, data));
+                    erg4(j - 1, i, j, 1, ct, data, lfce[j]) + penalty(i, j - 1, ct, data));
 
             if ((mod[i] || mod[j - 1]) && inc[ct->numseq[i + 1]][ct->numseq[j - 2]] &&
                 notgu(i, j - 1, ct) && !(fce.f(i, j - 1) & SINGLE)) {
 
               wl.f(i, j) = min(wl.f(i, j), v.f(i + 1, j - 2) + data->eparam[10] + data->eparam[6] +
-                                               erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
-                                               penalty(i, j - 1, ct, data) +
-                                               erg1(i, j - 1, i + 1, j - 2, ct, data));
+                      erg4(j - 1, i, j, 1, ct, data, lfce[j]) + penalty(i, j - 1, ct, data) +
+                      erg1(i, j - 1, i + 1, j - 2, ct, data));
             }
           }
         }
@@ -2784,20 +2760,20 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
           // calculate i and j stacked onto the pair of i+1,j-1
           if (j != 1 && !lfce[i] && !lfce[j]) {
             wl.f(i, j) = min(wl.f(i, j), v.f(i + 1, j - 1) + data->eparam[10] +
-                                             (data->eparam[6] + data->eparam[6]) +
-                                             data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]]
-                                                        [ct->numseq[j]][ct->numseq[i]] +
-                                             penalty(j - 1, i + 1, ct, data));
+                    (data->eparam[6] + data->eparam[6]) +
+                    data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
+                               [ct->numseq[i]] +
+                    penalty(j - 1, i + 1, ct, data));
 
             if ((mod[i + 1] || mod[j - 1]) && (j - 2 > 0) && !(fce.f(i + 1, j - 1) & SINGLE)) {
               if (inc[ct->numseq[i + 2]][ct->numseq[j - 2]] && notgu(i + 1, j - 1, ct)) {
 
                 wl.f(i, j) = min(wl.f(i, j), v.f(i + 2, j - 2) + data->eparam[10] +
-                                                 (data->eparam[6] + data->eparam[6]) +
-                                                 data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]]
-                                                            [ct->numseq[j]][ct->numseq[i]] +
-                                                 penalty(j - 1, i + 1, ct, data) +
-                                                 erg1(i + 1, j - 1, i + 2, j - 2, ct, data));
+                        (data->eparam[6] + data->eparam[6]) +
+                        data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
+                                   [ct->numseq[i]] +
+                        penalty(j - 1, i + 1, ct, data) +
+                        erg1(i + 1, j - 1, i + 2, j - 2, ct, data));
               }
             }
           }
@@ -2933,45 +2909,44 @@ void alltrace(structure* ct, datatable* data, short percentdelta, short absolute
                 notgu(k + 1, j, ct) && !(fce.f(k + 1, j) & SINGLE)) {
 
               rarray = min(rarray, w5[k] + v.f(k + 2, j - 1) + penalty(j, k + 1, ct, data) +
-                                       erg1(k + 1, j, k + 2, j - 1, ct, data));
+                      erg1(k + 1, j, k + 2, j - 1, ct, data));
             }
 
             rarray = min(rarray, w5[k] + erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) +
-                                     v.f(k + 2, j) + penalty(j, k + 2, ct, data));
+                    v.f(k + 2, j) + penalty(j, k + 2, ct, data));
 
             if ((mod[k + 2] || mod[j]) && inc[ct->numseq[k + 3]][ct->numseq[j - 1]] &&
                 notgu(k + 2, j, ct) && !(fce.f(k + 2, j) & SINGLE)) {
               rarray = min(rarray, w5[k] + erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) +
-                                       v.f(k + 3, j - 1) + penalty(j, k + 2, ct, data) +
-                                       erg1(k + 2, j, k + 3, j - 1, ct, data));
+                      v.f(k + 3, j - 1) + penalty(j, k + 2, ct, data) +
+                      erg1(k + 2, j, k + 3, j - 1, ct, data));
             }
 
             rarray = min(rarray, w5[k] + erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) +
-                                     v.f(k + 1, j - 1) + penalty(j - 1, k + 1, ct, data));
+                    v.f(k + 1, j - 1) + penalty(j - 1, k + 1, ct, data));
 
             if ((mod[k + 1] || mod[j - 1]) && inc[ct->numseq[k + 2]][ct->numseq[j - 2]] &&
                 notgu(k + 1, j - 1, ct) && !(fce.f(k + 1, j - 1) & SINGLE)) {
 
               rarray = min(rarray, w5[k] + erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) +
-                                       v.f(k + 2, j - 2) + penalty(j - 1, k + 1, ct, data) +
-                                       erg1(k + 1, j - 1, k + 2, j - 2, ct, data));
+                      v.f(k + 2, j - 2) + penalty(j - 1, k + 1, ct, data) +
+                      erg1(k + 1, j - 1, k + 2, j - 2, ct, data));
             }
 
             rarray = min(rarray, w5[k] +
-                                     data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]]
-                                                 [ct->numseq[j]][ct->numseq[k + 1]] +
-                                     checknp(lfce[j], lfce[k + 1]) + v.f(k + 2, j - 1) +
-                                     penalty(j - 1, k + 2, ct, data));
+                    data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                                [ct->numseq[k + 1]] +
+                    checknp(lfce[j], lfce[k + 1]) + v.f(k + 2, j - 1) +
+                    penalty(j - 1, k + 2, ct, data));
 
             if ((mod[k + 2] || mod[j - 1]) && inc[ct->numseq[k + 3]][ct->numseq[j - 2]] &&
                 notgu(k + 2, j - 1, ct) && !(fce.f(k + 2, j - 1) & SINGLE)) {
 
               rarray = min(rarray, w5[k] +
-                                       data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]]
-                                                   [ct->numseq[j]][ct->numseq[k + 1]] +
-                                       checknp(lfce[j], lfce[k + 1]) + v.f(k + 3, j - 2) +
-                                       penalty(j - 1, k + 2, ct, data) +
-                                       erg1(k + 2, j - 1, k + 3, j - 2, ct, data));
+                      data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                                  [ct->numseq[k + 1]] +
+                      checknp(lfce[j], lfce[k + 1]) + v.f(k + 3, j - 2) +
+                      penalty(j - 1, k + 2, ct, data) + erg1(k + 2, j - 1, k + 3, j - 2, ct, data));
             }
 
             rarray = min(rarray, w5[k] + wca[k + 1]);

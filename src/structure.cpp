@@ -1097,7 +1097,7 @@ void structure::allocateconstant() {
 
 double structure::Gammadist(double data, double shape, double loc, double scale) {
   return (1 / scale) * pow((data - loc) * (1 / scale), (shape - 1)) *
-         exp(-(1 / scale) * (data - loc)) / tgamma(shape);
+      exp(-(1 / scale) * (data - loc)) / tgamma(shape);
 }
 
 double structure::Potential(double data, std::vector<std::vector<double>> params, double kT) {
@@ -1106,9 +1106,9 @@ double structure::Potential(double data, std::vector<std::vector<double>> params
   // j=3,4,5 for shape, loc, scale of component 2 and j=6,7 for weights of components 1 and 2
   // respectively.
   double pairedprob = params[0][6] * Gammadist(data, params[0][0], params[0][1], params[0][2]) +
-                      params[0][7] * Gammadist(data, params[0][3], params[0][4], params[0][5]);
+      params[0][7] * Gammadist(data, params[0][3], params[0][4], params[0][5]);
   double unpairedprob = params[1][6] * Gammadist(data, params[1][0], params[1][1], params[1][2]) +
-                        params[1][7] * Gammadist(data, params[1][3], params[1][4], params[1][5]);
+      params[1][7] * Gammadist(data, params[1][3], params[1][4], params[1][5]);
   return -kT * log(pairedprob / unpairedprob);
 }
 
@@ -1447,7 +1447,7 @@ void structure::ReadSHAPE(const char* filename, std::string modifier, bool calcu
                                                    // starting value to add onto below
     for (int i = j - 2; i >= 1; i--) {
       SHAPEss_region[j][i] = SHAPEss_region[j][i + 1] +
-                             (short int)(SHAPEss[i]);  // adds energy for additional loop element
+          (short int)(SHAPEss[i]);  // adds energy for additional loop element
     }
   }
 
@@ -1548,7 +1548,7 @@ void structure::ReadOffset(const char* SSOffset, const char* DSOffset) {
                                                    // starting value to add onto below
     for (int i = j - 2; i >= 1; i--) {
       SHAPEss_region[j][i] = SHAPEss_region[j][i + 1] +
-                             (short int)(SHAPEss[i]);  // adds energy for additional loop element
+          (short int)(SHAPEss[i]);  // adds energy for additional loop element
     }
   }
 }
