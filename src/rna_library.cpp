@@ -698,30 +698,30 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
       for (c = 1; c <= 4; c++) {
         for (j = 1; j <= 6; j++) {
           switch (j) {
-          case 1:
-            f = 1;
-            g = 4;
-            break;
-          case 2:
-            f = 2;
-            g = 3;
-            break;
-          case 3:
-            f = 3;
-            g = 2;
-            break;
-          case 4:
-            f = 4;
-            g = 1;
-            break;
-          case 5:
-            f = 3;
-            g = 4;
-            break;
-          case 6:
-            f = 4;
-            g = 3;
-            break;
+            case 1:
+              f = 1;
+              g = 4;
+              break;
+            case 2:
+              f = 2;
+              g = 3;
+              break;
+            case 3:
+              f = 3;
+              g = 2;
+              break;
+            case 4:
+              f = 4;
+              g = 1;
+              break;
+            case 5:
+              f = 3;
+              g = 4;
+              break;
+            case 6:
+              f = 4;
+              g = 3;
+              break;
           }
           for (d = 1; d <= 4; d++) {
             in2 >> temp;
