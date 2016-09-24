@@ -473,10 +473,10 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
           } else if ((k == 5) || (l == 5)) {
             data->tstki[i][j][k][l] = 0;
           }
-          // else if ((k==5)||(l==5)) {
-          // include "5", linker for intermolecular for case of flush ends
-          //	data->tstki[i][j][k][l]=0;
-          //}
+            // else if ((k==5)||(l==5)) {
+            // include "5", linker for intermolecular for case of flush ends
+            //	data->tstki[i][j][k][l]=0;
+            //}
           else {
             ti1 >> lineoftext;
             // cout <<lineoftext<<"\n";
@@ -513,10 +513,10 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
           } else if ((k == 5) || (l == 5)) {
             data->tstki23[i][j][k][l] = 0;
           }
-          // else if ((k==5)||(l==5)) {
-          // include "5", linker for intermolecular for case of flush ends
-          //	data->tstki[i][j][k][l]=0;
-          //}
+            // else if ((k==5)||(l==5)) {
+            // include "5", linker for intermolecular for case of flush ends
+            //	data->tstki[i][j][k][l]=0;
+            //}
           else {
             t23 >> lineoftext;
             // cout <<lineoftext<<"\n";
@@ -553,10 +553,10 @@ int opendat(const char* loop2, const char* stackf, const char* tstackh, const ch
           } else if ((k == 5) || (l == 5)) {
             data->tstki1n[i][j][k][l] = 0;
           }
-          // else if ((k==5)||(l==5)) {
-          // include "5", linker for intermolecular for case of flush ends
-          //	data->tstki[i][j][k][l]=0;
-          //}
+            // else if ((k==5)||(l==5)) {
+            // include "5", linker for intermolecular for case of flush ends
+            //	data->tstki[i][j][k][l]=0;
+            //}
           else {
             t1n >> lineoftext;
             // cout <<lineoftext<<"\n";
@@ -1160,7 +1160,7 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data, c
 
   if ((a > 0) || (b > 0)) {
     if ((a & DUBLE) || (b & DUBLE)) return INFINITE_ENERGY;  // the loop contains a nuc that
-    // should be double stranded
+      // should be double stranded
     else if ((a & INTER)) {
       // the loop is actually between two strands (ie: intermolecular)
 
@@ -1183,13 +1183,13 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data, c
         // now consider if coaxial stacking is better:
         energy2 = data->init +
             data->tstackcoax[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]]
-                            [ct->numseq[ip - 1]] +
+            [ct->numseq[ip - 1]] +
             data->coaxstack[ct->numseq[jp + 1]][ct->numseq[ip - 1]][ct->numseq[j]][ct->numseq[i]] +
             penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         energy2 = data->init +
             data->tstackcoax[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[j - 1]]
-                            [ct->numseq[ip - 1]] +
+            [ct->numseq[ip - 1]] +
             data->coaxstack[ct->numseq[j - 1]][ct->numseq[ip - 1]][ct->numseq[j]][ct->numseq[i]] +
             penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
@@ -1371,20 +1371,20 @@ integersize erg2(int i, int j, int ip, int jp, structure* ct, datatable* data, c
     } else if ((size1 == 2) && (size2 == 2))  // 2x2 internal loop
       energy =
           data->iloop22[ct->numseq[i]][ct->numseq[ip]][ct->numseq[j]][ct->numseq[jp]]
-                       [ct->numseq[i + 1]][ct->numseq[i + 2]][ct->numseq[j - 1]][ct->numseq[j - 2]];
+          [ct->numseq[i + 1]][ct->numseq[i + 2]][ct->numseq[j - 1]][ct->numseq[j - 2]];
 
     else if ((size1 == 1) && (size2 == 2)) {  // 2x1 internal loop
       energy = data->iloop21[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]]
-                            [ct->numseq[jp + 1]][ct->numseq[ip]][ct->numseq[jp]];
+      [ct->numseq[jp + 1]][ct->numseq[ip]][ct->numseq[jp]];
 
     } else if ((size1 == 2) && (size2 == 1)) {  // 1x2 internal loop
       energy = data->iloop21[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]][ct->numseq[ip - 1]]
-                            [ct->numseq[i + 1]][ct->numseq[j]][ct->numseq[i]];
+      [ct->numseq[i + 1]][ct->numseq[j]][ct->numseq[i]];
 
     } else if (size == 2)  // a single mismatch
 
       energy = data->iloop11[ct->numseq[i]][ct->numseq[i + 1]][ct->numseq[ip]][ct->numseq[j]]
-                            [ct->numseq[j - 1]][ct->numseq[jp]];
+      [ct->numseq[j - 1]][ct->numseq[jp]];
     else if (size1 == 1 || size2 == 1) {  // this loop is lopsided
       // this is a 1xn loop:
       energy = data->tstki1n[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]] +
@@ -1455,7 +1455,7 @@ integersize erg2in(int i, int j, int ip, int jp, structure* ct, datatable* data,
   size2 = j - jp - 1;
   if ((a > 0) || (b > 0)) {
     if ((a & DUBLE) || (b & DUBLE)) return INFINITE_ENERGY;  // the loop contains a nuc that
-    // should be double stranded
+      // should be double stranded
     else if ((a & INTER)) {
       // the loop is actually between two strands (ie: intermolecular)
 
@@ -1478,13 +1478,13 @@ integersize erg2in(int i, int j, int ip, int jp, structure* ct, datatable* data,
         // now consider if coaxial stacking is better:
         energy2 = data->init +
             data->tstackcoax[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]]
-                            [ct->numseq[ip - 1]] +
+            [ct->numseq[ip - 1]] +
             data->coaxstack[ct->numseq[jp + 1]][ct->numseq[ip - 1]][ct->numseq[j]][ct->numseq[i]] +
             penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
         energy2 = data->init +
             data->tstackcoax[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[j - 1]]
-                            [ct->numseq[ip - 1]] +
+            [ct->numseq[ip - 1]] +
             data->coaxstack[ct->numseq[j - 1]][ct->numseq[ip - 1]][ct->numseq[j]][ct->numseq[i]] +
             penalty(i, j, ct, data) + penalty(jp, ip, ct, data);
         energy = min(energy, energy2);
@@ -1577,7 +1577,7 @@ integersize erg3(int i, int j, structure* ct, datatable* data, char dbl) {
   }
 
   if (dbl & DUBLE) return INFINITE_ENERGY;  // the loop contains a base that should be
-  // double stranded
+    // double stranded
 
   else if (dbl & INTER) {  // intermolecular interaction
     // intermolecular "hairpin" free energy is that of intermolecular
@@ -1585,7 +1585,7 @@ integersize erg3(int i, int j, structure* ct, datatable* data, char dbl) {
 
     energy = data->init +
         min(data->tstack[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]],
-                 erg4(i, j, i + 1, 1, ct, data, false)) +
+            erg4(i, j, i + 1, 1, ct, data, false)) +
         penalty(i, j, ct, data);
 
     return energy;
@@ -1719,7 +1719,7 @@ integersize ergcoax(int i, int j, int ip, int jp, int k, structure* ct, datatabl
 
     } else {  // if (k==jp+1) {
       return data->tstackcoax[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[jp + 1]]
-                             [ct->numseq[ip - 1]] +
+      [ct->numseq[ip - 1]] +
           data->coaxstack[ct->numseq[j]][ct->numseq[i]][ct->numseq[j + 1]][ct->numseq[k]];
     }
     // else {
@@ -1827,7 +1827,7 @@ int decon2(int x) { return x - (decon1(x) + 1) * 10 - 1; }
 // algorithms.
 
 integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simplemb) {
-  short int *element, **energy;
+  short int* element, ** energy;
   short int i, count, b, c, size, j, minimum, au, current, first, recent, biggest;
   bool intermolecular;
   float average;
@@ -1845,7 +1845,7 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
 
   // allocate element to store this info:
   element = new short int[count + 3];
-  energy = new short int*[count + 3];
+  energy = new short int* [count + 3];
   for (i = 0; i < count + 3; i++) {
     energy[i] = new short int[count + 3];
     for (j = 0; j < count + 3; j++)
@@ -1928,7 +1928,7 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
 
           energy[i][i + 1] =
               min(energy[i][i + 1], ergcoaxflushbases(decon1(element[i]), decon2(element[i]),
-                                        decon1(element[i + 1]), decon2(element[i + 1]), data));
+                  decon1(element[i + 1]), decon2(element[i + 1]), data));
 
         } else if (element[i] > 10) {
           // 3' dangling end:
@@ -1948,7 +1948,7 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
           // consider mismatch stack ono helix:
           energy[i][i + 2] =
               min(energy[i][i + 2], data->tstkm[decon2(element[i + 1])][decon1(element[i + 1])]
-                                               [element[i + 2]][element[i]]);
+              [element[i + 2]][element[i]]);
         }
 
       } else if (size == 4) {
@@ -1962,15 +1962,15 @@ integersize ergmulti(int st, int ip, structure* ct, datatable* data, bool simple
 
           energy[i][i + 3] = min(energy[i][i + 3],
               ergcoaxinterbases2(decon1(element[i]), decon2(element[i]), decon1(element[i + 2]),
-                                     decon2(element[i + 2]), element[i + 3], element[i + 1], data));
+                  decon2(element[i + 2]), element[i + 3], element[i + 1], data));
 
         } else if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10 &&
             element[i + 3] > 10) {
 
           energy[i][i + 3] =
               min(energy[i][i + 3], ergcoaxinterbases1(decon1(element[i + 1]),
-                                        decon2(element[i + 1]), decon1(element[i + 3]),
-                                        decon2(element[i + 3]), element[i], element[i + 2], data));
+                  decon2(element[i + 1]), decon1(element[i + 3]),
+                  decon2(element[i + 3]), element[i], element[i + 2], data));
         }
 
       } else {
@@ -2041,7 +2041,7 @@ void energyout(structure* ct, char* energyfile) {
 // This uses a recursive algorithm
 
 integersize ergexterior(int st, structure* ct, datatable* data) {
-  short int *element, **energy;
+  short int* element, ** energy;
   short int i, count, size, j, minimum, au, helices;
   bool intermolecular;
 
@@ -2070,7 +2070,7 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
 
   // allocate element to store this info:
   element = new short int[count];
-  energy = new short int*[count];
+  energy = new short int* [count];
   for (i = 0; i < count; i++) {
     energy[i] = new short int[count];
     for (j = 0; j < count; j++)
@@ -2122,7 +2122,7 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
 
           energy[i][i + 1] =
               min(energy[i][i + 1], ergcoaxflushbases(decon1(element[i]), decon2(element[i]),
-                                        decon1(element[i + 1]), decon2(element[i + 1]), data));
+                  decon1(element[i + 1]), decon2(element[i + 1]), data));
 
         } else if (element[i] > 10) {
           // 3' dangling end:
@@ -2142,7 +2142,7 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
           // consider mismatch stack ono helix:
           energy[i][i + 2] =
               min(energy[i][i + 2], data->tstack[decon2(element[i + 1])][decon1(element[i + 1])]
-                                                [element[i + 2]][element[i]]);
+              [element[i + 2]][element[i]]);
         }
 
       } else if (size == 4) {
@@ -2156,15 +2156,15 @@ integersize ergexterior(int st, structure* ct, datatable* data) {
 
           energy[i][i + 3] = min(energy[i][i + 3],
               ergcoaxinterbases2(decon1(element[i]), decon2(element[i]), decon1(element[i + 2]),
-                                     decon2(element[i + 2]), element[i + 3], element[i + 1], data));
+                  decon2(element[i + 2]), element[i + 3], element[i + 1], data));
 
         } else if (element[i] < 10 && element[i + 1] > 10 && element[i + 2] < 10 &&
             element[i + 3] > 10) {
 
           energy[i][i + 3] =
               min(energy[i][i + 3], ergcoaxinterbases1(decon1(element[i + 1]),
-                                        decon2(element[i + 1]), decon1(element[i + 3]),
-                                        decon2(element[i + 3]), element[i], element[i + 2], data));
+                  decon2(element[i + 1]), decon1(element[i + 3]),
+                  decon2(element[i + 3]), element[i], element[i + 2], data));
         }
 
       } else {

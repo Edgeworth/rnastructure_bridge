@@ -15,7 +15,6 @@
  */
 
 #include "algorithm.h"
-#include "structure.h"
 
 #ifdef _WINDOWS_GUI
 #include "../RNAstructure_windows_interface/platform.h"
@@ -25,8 +24,6 @@
 
 #endif  //_WINDOWS
 
-#include <cmath>
-#include <cstdlib>
 #include <cstring>
 
 #ifdef _CUDA_CALC_
@@ -79,8 +76,8 @@ void errmsg(int, int) { exit(1); }
 
  */
 #ifndef INSTRUMENTED  // Execute if pre-compiler flag INSTRUMENTED is not defined. Instrumented is
-                      // only defined when
-                      // compiling NAPSS.
+// only defined when
+// compiling NAPSS.
 // If INSTRUMENTED is defined, functions 'dynamic' and 'fill' will be overloaded
 
 void efn2(
@@ -149,7 +146,7 @@ void efn2(
       i++;
     }
 
-  subroutine:  // loop starts here (I chose the goto statement to make the code more readable)
+    subroutine:  // loop starts here (I chose the goto statement to make the code more readable)
     pull(&stack, &i, &j, &open, &null, &stz);  // take a substructure off the stack
 
     while (stz != 1) {
@@ -221,8 +218,8 @@ void efn2(
             if ((ip - i + j - jp - 2) == 1) {
               // This is a bulge loop with a single bulge, so report the stack information
               sprintf(temp, DIGITS, ((float)data->stack[ct->numseq[i]][ct->numseq[j]]
-                                                       [ct->numseq[ip]][ct->numseq[jp]]) /
-                      conversionfactor);
+              [ct->numseq[ip]][ct->numseq[jp]]) /
+                  conversionfactor);
               // gcvt(((float)data->stack[ct->numseq[i]][ct->numseq[j]][ct->numseq[ip]][ct->numseq[jp]])/conversionfactor,6,temp);
               out << " BP stack across bulge = " << temp;
             }
@@ -423,16 +420,16 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             }
           }
           if (!found && (energy ==
-                            v->f(i, j - 1) + penalty(i, j - 1, ct, data) +
-                                erg4(j - 1, i, j, 1, ct, data, lfce[j]))) {
+              v->f(i, j - 1) + penalty(i, j - 1, ct, data) +
+                  erg4(j - 1, i, j, 1, ct, data, lfce[j]))) {
             j--;
             stack->push(i, j, 0, v->f(i, j), 1);
             found = true;
           } else if ((!found) && (mod[i] || mod[j - 1]) && inc[ct->numseq[i]][ct->numseq[j - 1]]) {
             if ((energy ==
-                    v->f(i + 1, j - 2) + penalty(i, j - 1, ct, data) +
-                        erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
-                        erg1(i, j - 1, i + 1, j - 2, ct, data))) {
+                v->f(i + 1, j - 2) + penalty(i, j - 1, ct, data) +
+                    erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
+                    erg1(i, j - 1, i + 1, j - 2, ct, data))) {
 
               registerbasepair(ct, i, j - 1);
               stack->push(i + 1, j - 2, 0, v->f(i + 1, j - 2), 1);
@@ -441,11 +438,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
           }
 
           if (!found && (energy ==
-                            v->f(i + 1, j - 1) + penalty(i + 1, j - 1, ct, data) +
-                                data->tstack[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                                            [ct->numseq[i]] +
-                                checknp(lfce[i], lfce[j]) + ct->SHAPEss_give_value(i) +
-                                ct->SHAPEss_give_value(j))) {
+              v->f(i + 1, j - 1) + penalty(i + 1, j - 1, ct, data) +
+                  data->tstack[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
+                  [ct->numseq[i]] +
+                  checknp(lfce[i], lfce[j]) + ct->SHAPEss_give_value(i) +
+                  ct->SHAPEss_give_value(j))) {
             j--;
             i++;
             stack->push(i, j, 0, v->f(i, j), 1);
@@ -456,7 +453,7 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             if (energy ==
                 v->f(i + 2, j - 2) + penalty(i + 1, j - 1, ct, data) +
                     data->tstack[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                                [ct->numseq[i]] +
+                    [ct->numseq[i]] +
                     checknp(lfce[i], lfce[j]) + erg1(i + 1, j - 1, i + 2, j - 2, ct, data) +
                     ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j)) {
 
@@ -644,8 +641,8 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             }
           }
           if (!found && (energy ==
-                            v->f(i, j - 1) + erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
-                                penalty(i, j - 1, ct, data))) {
+              v->f(i, j - 1) + erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
+                  penalty(i, j - 1, ct, data))) {
 
             j--;
             stack->push(i, j, 0, v->f(i, j), 1);
@@ -664,11 +661,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
           }
 
           if (!found && (energy ==
-                            v->f(i + 1, j - 1) +
-                                data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                                           [ct->numseq[i]] +
-                                ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j) +
-                                checknp(lfce[i], lfce[j]) + penalty(i + 1, j - 1, ct, data))) {
+              v->f(i + 1, j - 1) +
+                  data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
+                  [ct->numseq[i]] +
+                  ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j) +
+                  checknp(lfce[i], lfce[j]) + penalty(i + 1, j - 1, ct, data))) {
 
             i++;
             j--;
@@ -677,12 +674,12 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
           } else if (!found && (mod[i + 1] || mod[j - 1]) &&
               inc[ct->numseq[i + 1]][ct->numseq[j - 1]]) {
             if (!found && (energy ==
-                              v->f(i + 2, j - 2) +
-                                  data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                                             [ct->numseq[i]] +
-                                  ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j) +
-                                  checknp(lfce[i], lfce[j]) + penalty(i + 1, j - 1, ct, data) +
-                                  erg1(i + 1, j - 1, i + 2, j - 2, ct, data))) {
+                v->f(i + 2, j - 2) +
+                    data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
+                    [ct->numseq[i]] +
+                    ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j) +
+                    checknp(lfce[i], lfce[j]) + penalty(i + 1, j - 1, ct, data) +
+                    erg1(i + 1, j - 1, i + 2, j - 2, ct, data))) {
 
               registerbasepair(ct, i + 1, j - 1);
               stack->push(i + 2, j - 2, 0, v->f(i + 2, j - 2), 1);
@@ -695,8 +692,8 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             found = true;
           } else if (!found && (mod[i] || mod[j]) && inc[ct->numseq[i]][ct->numseq[j]]) {
             if (!found && (energy ==
-                              v->f(i + 1, j - 1) + penalty(i, j, ct, data) +
-                                  erg1(i, j, i + 1, j - 1, ct, data))) {
+                v->f(i + 1, j - 1) + penalty(i, j, ct, data) +
+                    erg1(i, j, i + 1, j - 1, ct, data))) {
 
               registerbasepair(ct, i, j);
               stack->push(i + 1, j - 1, 0, v->f(i + 1, j - 1), 1);
@@ -743,8 +740,8 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
           }
 
           if (!found && (energy ==
-                            v->f(i, j - 1) + erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
-                                penalty(i, j - 1, ct, data) + data->eparam[10] + data->eparam[6])) {
+              v->f(i, j - 1) + erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
+                  penalty(i, j - 1, ct, data) + data->eparam[10] + data->eparam[6])) {
 
             j--;
             stack->push(i, j, 0, v->f(i, j), 1);
@@ -752,9 +749,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
           } else if (!found && (mod[i] || mod[j - 1]) && inc[ct->numseq[i]][ct->numseq[j - 1]]) {
 
             if ((energy ==
-                    v->f(i + 1, j - 2) + erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
-                        penalty(i, j - 1, ct, data) + data->eparam[10] + data->eparam[6] +
-                        erg1(i, j - 1, i + 1, j - 2, ct, data))) {
+                v->f(i + 1, j - 2) + erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
+                    penalty(i, j - 1, ct, data) + data->eparam[10] + data->eparam[6] +
+                    erg1(i, j - 1, i + 1, j - 2, ct, data))) {
 
               registerbasepair(ct, i, j - 1);
               stack->push(i + 1, j - 2, 0, v->f(i + 1, j - 2), 1);
@@ -766,7 +763,7 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
               energy ==
                   v->f(i + 1, j - 1) +
                       data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                                 [ct->numseq[i]] +
+                      [ct->numseq[i]] +
                       checknp(lfce[i], lfce[j]) + penalty(i + 1, j - 1, ct, data) +
                       data->eparam[10] + 2 * data->eparam[6] + ct->SHAPEss_give_value(i) +
                       ct->SHAPEss_give_value(j)) {
@@ -780,7 +777,7 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             if (energy ==
                 v->f(i + 2, j - 2) +
                     data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                               [ct->numseq[i]] +
+                    [ct->numseq[i]] +
                     checknp(lfce[i], lfce[j]) + penalty(i + 1, j - 1, ct, data) + data->eparam[10] +
                     2 * data->eparam[6] + erg1(i + 1, j - 1, i + 2, j - 2, ct, data) +
                     ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j)) {
@@ -891,8 +888,8 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
               }
             }
             if (!found && (energy ==
-                              w5[k] + v->f(k + 2, j) + penalty(k + 2, j, ct, data) +
-                                  erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]))) {
+                w5[k] + v->f(k + 2, j) + penalty(k + 2, j, ct, data) +
+                    erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]))) {
               stack->push(1, k, 1, w5[k], 0);
               stack->push(k + 2, j, 0, v->f(k + 2, j), 1);
               found = true;
@@ -911,8 +908,8 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             }
 
             if (!found && (energy ==
-                              w5[k] + v->f(k + 1, j - 1) + penalty(k + 1, j - 1, ct, data) +
-                                  erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]))) {
+                w5[k] + v->f(k + 1, j - 1) + penalty(k + 1, j - 1, ct, data) +
+                    erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]))) {
 
               stack->push(1, k, 1, w5[k], 0);
               stack->push(k + 1, j - 1, 0, v->f(k + 1, j - 1), 1);
@@ -921,9 +918,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 inc[ct->numseq[k + 1]][ct->numseq[j - 1]]) {
 
               if (!found && (energy ==
-                                w5[k] + v->f(k + 2, j - 2) + penalty(k + 1, j - 1, ct, data) +
-                                    erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) +
-                                    erg1(k + 1, j - 1, k + 2, j - 2, ct, data))) {
+                  w5[k] + v->f(k + 2, j - 2) + penalty(k + 1, j - 1, ct, data) +
+                      erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) +
+                      erg1(k + 1, j - 1, k + 2, j - 2, ct, data))) {
 
                 registerbasepair(ct, k + 1, j - 1);
                 stack->push(1, k, 1, w5[k], 0);
@@ -933,11 +930,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             }
 
             if (!found && (energy ==
-                              w5[k] + v->f(k + 2, j - 1) + penalty(k + 2, j - 1, ct, data) +
-                                  data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
-                                              [ct->numseq[k + 1]] +
-                                  checknp(lfce[j], lfce[k + 1]) + ct->SHAPEss_give_value(j) +
-                                  ct->SHAPEss_give_value(k + 1))) {
+                w5[k] + v->f(k + 2, j - 1) + penalty(k + 2, j - 1, ct, data) +
+                    data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                    [ct->numseq[k + 1]] +
+                    checknp(lfce[j], lfce[k + 1]) + ct->SHAPEss_give_value(j) +
+                    ct->SHAPEss_give_value(k + 1))) {
 
               stack->push(1, k, 1, w5[k], 0);
               stack->push(k + 2, j - 1, 0, v->f(k + 2, j - 1), 1);
@@ -946,12 +943,12 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 inc[ct->numseq[k + 2]][ct->numseq[j - 1]]) {
 
               if ((energy ==
-                      w5[k] + v->f(k + 3, j - 2) + penalty(k + 2, j - 1, ct, data) +
-                          data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
-                                      [ct->numseq[k + 1]] +
-                          checknp(lfce[j], lfce[k + 1]) +
-                          erg1(k + 2, j - 1, k + 3, j - 2, ct, data) + ct->SHAPEss_give_value(j) +
-                          ct->SHAPEss_give_value(k + 1))) {
+                  w5[k] + v->f(k + 3, j - 2) + penalty(k + 2, j - 1, ct, data) +
+                      data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                      [ct->numseq[k + 1]] +
+                      checknp(lfce[j], lfce[k + 1]) +
+                      erg1(k + 2, j - 1, k + 3, j - 2, ct, data) + ct->SHAPEss_give_value(j) +
+                      ct->SHAPEss_give_value(k + 1))) {
 
                 registerbasepair(ct, k + 2, j - 1);
                 stack->push(1, k, 1, w5[k], 0);
@@ -1014,7 +1011,7 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                             ergcoaxflushbases(k, a, a + 1, j, ct, data) + penalty(k, a, ct, data) +
                             penalty(a + 1, j, ct, data)
 
-                            + erg1(a + 1, j, a + 2, j - 1, ct, data)) {
+                                + erg1(a + 1, j, a + 2, j - 1, ct, data)) {
 
                       registerbasepair(ct, a + 1, j);
                       if (k > 1) stack->push(1, k - 1, 1, w5[k - 1], 0);
@@ -1026,9 +1023,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 }
 
                 if (!found && (energy ==
-                                  w5[k - 1] + v->f(k, a) + v->f(a + 2, j - 1) +
-                                      ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
-                                      penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data))) {
+                    w5[k - 1] + v->f(k, a) + v->f(a + 2, j - 1) +
+                        ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
+                        penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data))) {
 
                   if (k > 1) stack->push(1, k - 1, 1, w5[k - 1], 0);
                   stack->push(k, a, 0, v->f(k, a), 1);
@@ -1041,11 +1038,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                       inc[ct->numseq[a + 2]][ct->numseq[j - 1]]) {
 
                     if ((energy ==
-                            w5[k - 1] + v->f(k + 1, a - 1) + v->f(a + 3, j - 2) +
-                                ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
-                                penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data) +
-                                erg1(k, a, k + 1, a - 1, ct, data) +
-                                erg1(a + 2, j - 1, a + 3, j - 2, ct, data))) {
+                        w5[k - 1] + v->f(k + 1, a - 1) + v->f(a + 3, j - 2) +
+                            ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
+                            penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data) +
+                            erg1(k, a, k + 1, a - 1, ct, data) +
+                            erg1(a + 2, j - 1, a + 3, j - 2, ct, data))) {
 
                       registerbasepair(ct, k, a);
                       registerbasepair(ct, a + 2, j - 1);
@@ -1059,10 +1056,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                   if (!found && (mod[k] || mod[a]) && inc[ct->numseq[k]][ct->numseq[a]]) {
 
                     if ((energy ==
-                            w5[k - 1] + v->f(k + 1, a - 1) + v->f(a + 2, j - 1) +
-                                ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
-                                penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data) +
-                                erg1(k, a, k + 1, a - 1, ct, data))) {
+                        w5[k - 1] + v->f(k + 1, a - 1) + v->f(a + 2, j - 1) +
+                            ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
+                            penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data) +
+                            erg1(k, a, k + 1, a - 1, ct, data))) {
 
                       registerbasepair(ct, k, a);
 
@@ -1077,10 +1074,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                       inc[ct->numseq[a + 2]][ct->numseq[j - 1]]) {
 
                     if ((energy ==
-                            w5[k - 1] + v->f(k, a) + v->f(a + 3, j - 2) +
-                                ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
-                                penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data) +
-                                erg1(a + 2, j - 1, a + 3, j - 2, ct, data))) {
+                        w5[k - 1] + v->f(k, a) + v->f(a + 3, j - 2) +
+                            ergcoaxinterbases2(k, a, a + 2, j - 1, ct, data) +
+                            penalty(k, a, ct, data) + penalty(a + 2, j - 1, ct, data) +
+                            erg1(a + 2, j - 1, a + 3, j - 2, ct, data))) {
 
                       registerbasepair(ct, a + 2, j - 1);
                       if (k > 1) stack->push(1, k - 1, 1, w5[k - 1], 0);
@@ -1092,9 +1089,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 }
 
                 if (!found && (energy ==
-                                  w5[k - 1] + v->f(k + 1, a) + v->f(a + 2, j) +
-                                      ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
-                                      penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data))) {
+                    w5[k - 1] + v->f(k + 1, a) + v->f(a + 2, j) +
+                        ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
+                        penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data))) {
 
                   if (k > 1) stack->push(1, k - 1, 1, w5[k - 1], 0);
                   stack->push(k + 1, a, 0, v->f(k + 1, a), 1);
@@ -1107,11 +1104,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                       inc[ct->numseq[a + 2]][ct->numseq[j]]) {
 
                     if ((energy ==
-                            w5[k - 1] + v->f(k + 2, a - 1) + v->f(a + 3, j - 1) +
-                                ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
-                                penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data) +
-                                erg1(k + 1, a, k + 2, a - 1, ct, data) +
-                                erg1(a + 2, j, a + 3, j - 1, ct, data))) {
+                        w5[k - 1] + v->f(k + 2, a - 1) + v->f(a + 3, j - 1) +
+                            ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
+                            penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data) +
+                            erg1(k + 1, a, k + 2, a - 1, ct, data) +
+                            erg1(a + 2, j, a + 3, j - 1, ct, data))) {
 
                       registerbasepair(ct, k + 1, a);
                       registerbasepair(ct, a + 2, j);
@@ -1125,10 +1122,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                   if (!found && (mod[k + 1] || mod[a]) && inc[ct->numseq[k + 1]][ct->numseq[a]]) {
 
                     if ((energy ==
-                            w5[k - 1] + v->f(k + 2, a - 1) + v->f(a + 2, j) +
-                                ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
-                                penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data) +
-                                erg1(k + 1, a, k + 2, a - 1, ct, data))) {
+                        w5[k - 1] + v->f(k + 2, a - 1) + v->f(a + 2, j) +
+                            ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
+                            penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data) +
+                            erg1(k + 1, a, k + 2, a - 1, ct, data))) {
 
                       registerbasepair(ct, k + 1, a);
 
@@ -1142,10 +1139,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                   if (!found && (mod[a + 2] || mod[j]) && inc[ct->numseq[a + 2]][ct->numseq[j]]) {
 
                     if ((energy ==
-                            w5[k - 1] + v->f(k + 1, a) + v->f(a + 3, j - 1) +
-                                ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
-                                penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data) +
-                                erg1(a + 2, j, a + 3, j - 1, ct, data))) {
+                        w5[k - 1] + v->f(k + 1, a) + v->f(a + 3, j - 1) +
+                            ergcoaxinterbases1(k + 1, a, a + 2, j, ct, data) +
+                            penalty(k + 1, a, ct, data) + penalty(a + 2, j, ct, data) +
+                            erg1(a + 2, j, a + 3, j - 1, ct, data))) {
 
                       registerbasepair(ct, a + 2, j);
                       if (k > 1) stack->push(1, k - 1, 1, w5[k - 1], 0);
@@ -1181,8 +1178,8 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
               }
             }
             if (!found && (energy ==
-                              w3[k] + v->f(i, k - 2) + penalty(i, k - 2, ct, data) +
-                                  erg4(k - 2, i, k - 1, 1, ct, data, lfce[k - 1]))) {
+                w3[k] + v->f(i, k - 2) + penalty(i, k - 2, ct, data) +
+                    erg4(k - 2, i, k - 1, 1, ct, data, lfce[k - 1]))) {
 
               stack->push(k, number, 1, w3[k], 0);
               stack->push(i, k - 2, 0, v->f(i, k - 2), 1);
@@ -1191,9 +1188,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             } else if (!found && (mod[i] || mod[k - 2]) && inc[ct->numseq[i]][ct->numseq[k - 2]]) {
 
               if ((energy ==
-                      w3[k] + v->f(i + 1, k - 3) + penalty(i, k - 2, ct, data) +
-                          erg4(k - 2, i, k - 1, 1, ct, data, lfce[k - 1]) +
-                          erg1(i, k - 2, i + 1, k - 3, ct, data))) {
+                  w3[k] + v->f(i + 1, k - 3) + penalty(i, k - 2, ct, data) +
+                      erg4(k - 2, i, k - 1, 1, ct, data, lfce[k - 1]) +
+                      erg1(i, k - 2, i + 1, k - 3, ct, data))) {
 
                 registerbasepair(ct, i, k - 2);
                 stack->push(k, number, 1, w3[k], 0);
@@ -1203,8 +1200,8 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             }
 
             if (!found && (energy ==
-                              w3[k] + v->f(i + 1, k - 1) + penalty(i + 1, k - 1, ct, data) +
-                                  erg4(k - 1, i + 1, i, 2, ct, data, lfce[i]))) {
+                w3[k] + v->f(i + 1, k - 1) + penalty(i + 1, k - 1, ct, data) +
+                    erg4(k - 1, i + 1, i, 2, ct, data, lfce[i]))) {
 
               stack->push(k, number, 1, w3[k], 0);
               stack->push(i + 1, k - 1, 0, v->f(i + 1, k - 1), 1);
@@ -1214,9 +1211,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 inc[ct->numseq[i + 1]][ct->numseq[k - 1]]) {
 
               if ((energy ==
-                      w3[k] + v->f(i + 2, k - 2) + penalty(i + 1, k - 1, ct, data) +
-                          erg4(k - 1, i + 1, i, 2, ct, data, lfce[i]) +
-                          erg1(i + 1, k - 1, i + 2, k - 2, ct, data))) {
+                  w3[k] + v->f(i + 2, k - 2) + penalty(i + 1, k - 1, ct, data) +
+                      erg4(k - 1, i + 1, i, 2, ct, data, lfce[i]) +
+                      erg1(i + 1, k - 1, i + 2, k - 2, ct, data))) {
 
                 registerbasepair(ct, i + 1, k - 1);
                 stack->push(k, number, 1, w3[k], 0);
@@ -1225,11 +1222,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
               }
             }
             if (!found && (energy ==
-                              w3[k] + v->f(i + 1, k - 2) + penalty(i + 1, k - 2, ct, data) +
-                                  data->tstack[ct->numseq[k - 2]][ct->numseq[i + 1]]
-                                              [ct->numseq[k - 1]][ct->numseq[i]] +
-                                  checknp(lfce[k - 1], lfce[i]) + ct->SHAPEss_give_value(k - 1) +
-                                  ct->SHAPEss_give_value(i))) {
+                w3[k] + v->f(i + 1, k - 2) + penalty(i + 1, k - 2, ct, data) +
+                    data->tstack[ct->numseq[k - 2]][ct->numseq[i + 1]]
+                    [ct->numseq[k - 1]][ct->numseq[i]] +
+                    checknp(lfce[k - 1], lfce[i]) + ct->SHAPEss_give_value(k - 1) +
+                    ct->SHAPEss_give_value(i))) {
 
               stack->push(k, number, 1, w3[k], 0);
               stack->push(i + 1, k - 2, 0, v->f(i + 1, k - 2), 1);
@@ -1238,12 +1235,12 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             } else if (!found && (mod[i + 1] || mod[k - 2]) &&
                 inc[ct->numseq[i + 1]][ct->numseq[k - 2]]) {
               if ((energy ==
-                      w3[k] + v->f(i + 2, k - 3) + penalty(i + 1, k - 2, ct, data) +
-                          data->tstack[ct->numseq[k - 2]][ct->numseq[i + 1]][ct->numseq[k - 1]]
-                                      [ct->numseq[i]] +
-                          checknp(lfce[k - 1], lfce[i]) +
-                          erg1(i + 1, k - 2, i + 2, k - 3, ct, data) +
-                          ct->SHAPEss_give_value(k - 1) + ct->SHAPEss_give_value(i))) {
+                  w3[k] + v->f(i + 2, k - 3) + penalty(i + 1, k - 2, ct, data) +
+                      data->tstack[ct->numseq[k - 2]][ct->numseq[i + 1]][ct->numseq[k - 1]]
+                      [ct->numseq[i]] +
+                      checknp(lfce[k - 1], lfce[i]) +
+                      erg1(i + 1, k - 2, i + 2, k - 3, ct, data) +
+                      ct->SHAPEss_give_value(k - 1) + ct->SHAPEss_give_value(i))) {
 
                 registerbasepair(ct, i + 1, k - 2);
                 stack->push(k, number, 1, w3[k], 0);
@@ -1315,9 +1312,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                   }
                 }
                 if (!found && (energy ==
-                                  w3[k + 1] + v->f(i, a) + v->f(a + 2, k - 1) +
-                                      ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
-                                      penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data))) {
+                    w3[k + 1] + v->f(i, a) + v->f(a + 2, k - 1) +
+                        ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
+                        penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data))) {
 
                   if (k < number) stack->push(k + 1, number, 1, w3[k + 1], 0);
                   stack->push(i, a, 0, v->f(i, a), 1);
@@ -1329,11 +1326,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                       inc[ct->numseq[i]][ct->numseq[a]] &&
                       inc[ct->numseq[a + 2]][ct->numseq[k - 1]]) {
                     if ((energy ==
-                            w3[k + 1] + v->f(i + 1, a - 1) + v->f(a + 3, k - 2) +
-                                ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
-                                penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data) +
-                                erg1(i, a, i + 1, a - 1, ct, data) +
-                                erg1(a + 2, k - 1, a + 3, k - 2, ct, data))) {
+                        w3[k + 1] + v->f(i + 1, a - 1) + v->f(a + 3, k - 2) +
+                            ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
+                            penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data) +
+                            erg1(i, a, i + 1, a - 1, ct, data) +
+                            erg1(a + 2, k - 1, a + 3, k - 2, ct, data))) {
 
                       registerbasepair(ct, i, a);
                       registerbasepair(ct, a + 2, k - 1);
@@ -1346,10 +1343,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
 
                   if ((mod[i] || mod[a]) && !found && inc[ct->numseq[i]][ct->numseq[a]]) {
                     if ((energy ==
-                            w3[k + 1] + v->f(i + 1, a - 1) + v->f(a + 2, k - 1) +
-                                ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
-                                penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data) +
-                                erg1(i, a, i + 1, a - 1, ct, data))) {
+                        w3[k + 1] + v->f(i + 1, a - 1) + v->f(a + 2, k - 1) +
+                            ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
+                            penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data) +
+                            erg1(i, a, i + 1, a - 1, ct, data))) {
 
                       registerbasepair(ct, i, a);
 
@@ -1363,10 +1360,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                   if ((!found) && (mod[a + 2] || mod[k - 1]) &&
                       inc[ct->numseq[a + 2]][ct->numseq[k - 1]]) {
                     if ((energy ==
-                            w3[k + 1] + v->f(i, a) + v->f(a + 3, k - 2) +
-                                ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
-                                penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data) +
-                                erg1(a + 2, k - 1, a + 3, k - 2, ct, data))) {
+                        w3[k + 1] + v->f(i, a) + v->f(a + 3, k - 2) +
+                            ergcoaxinterbases2(i, a, a + 2, k - 1, ct, data) +
+                            penalty(i, a, ct, data) + penalty(a + 2, k - 1, ct, data) +
+                            erg1(a + 2, k - 1, a + 3, k - 2, ct, data))) {
 
                       registerbasepair(ct, a + 2, k - 1);
                       if (k < number) stack->push(k + 1, number, 1, w3[k + 1], 0);
@@ -1378,9 +1375,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 }
 
                 if (!found && (energy ==
-                                  w3[k + 1] + v->f(i + 1, a) + v->f(a + 2, k) +
-                                      ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
-                                      penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data))) {
+                    w3[k + 1] + v->f(i + 1, a) + v->f(a + 2, k) +
+                        ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
+                        penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data))) {
 
                   if (k < number) stack->push(k + 1, number, 1, w3[k + 1], 0);
                   stack->push(i + 1, a, 0, v->f(i + 1, a), 1);
@@ -1393,11 +1390,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                       inc[ct->numseq[a + 2]][ct->numseq[k]]) {
 
                     if ((energy ==
-                            w3[k + 1] + v->f(i + 2, a - 1) + v->f(a + 3, k - 1) +
-                                ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
-                                penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data) +
-                                erg1(i + 1, a, i + 2, a - 1, ct, data) +
-                                erg1(a + 2, k, a + 3, k - 1, ct, data))) {
+                        w3[k + 1] + v->f(i + 2, a - 1) + v->f(a + 3, k - 1) +
+                            ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
+                            penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data) +
+                            erg1(i + 1, a, i + 2, a - 1, ct, data) +
+                            erg1(a + 2, k, a + 3, k - 1, ct, data))) {
 
                       registerbasepair(ct, i + 1, a);
                       registerbasepair(ct, a + 2, k);
@@ -1411,10 +1408,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                   if ((mod[i + 1] || mod[a]) && (!found) && inc[ct->numseq[i + 1]][ct->numseq[a]]) {
 
                     if ((energy ==
-                            w3[k + 1] + v->f(i + 2, a - 1) + v->f(a + 2, k) +
-                                ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
-                                penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data) +
-                                erg1(i + 1, a, i + 2, a - 1, ct, data))) {
+                        w3[k + 1] + v->f(i + 2, a - 1) + v->f(a + 2, k) +
+                            ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
+                            penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data) +
+                            erg1(i + 1, a, i + 2, a - 1, ct, data))) {
 
                       registerbasepair(ct, i + 1, a);
 
@@ -1428,10 +1425,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                   if ((!found) && (mod[a + 2] || mod[k]) && inc[ct->numseq[a + 2]][ct->numseq[k]]) {
 
                     if ((energy ==
-                            w3[k + 1] + v->f(i + 1, a) + v->f(a + 3, k - 1) +
-                                ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
-                                penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data) +
-                                erg1(a + 2, k, a + 3, k - 1, ct, data))) {
+                        w3[k + 1] + v->f(i + 1, a) + v->f(a + 3, k - 1) +
+                            ergcoaxinterbases1(i + 1, a, a + 2, k, ct, data) +
+                            penalty(i + 1, a, ct, data) + penalty(a + 2, k, ct, data) +
+                            erg1(a + 2, k, a + 3, k - 1, ct, data))) {
 
                       registerbasepair(ct, a + 2, k);
                       if (k < number) stack->push(k + 1, number, 1, w3[k + 1], 0);
@@ -1646,7 +1643,7 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             found = true;
           }
 
-          // also check for coaxial stacking:
+            // also check for coaxial stacking:
           else if (energy ==
               v->f(i, k) + v->f(k + 1, j) + penalty(i, k, ct, data) + penalty(k + 1, j, ct, data) +
                   2 * data->eparam[10] + ergcoaxflushbases(i, k, k + 1, j, ct, data)) {
@@ -1718,11 +1715,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 inc[ct->numseq[i]][ct->numseq[k]] && inc[ct->numseq[k + 2]][ct->numseq[j - 1]]) {
 
               if ((energy ==
-                      v->f(i + 1, k - 1) + v->f(k + 3, j - 2) + penalty(i, k, ct, data) +
-                          penalty(k + 2, j - 1, ct, data) + 2 * data->eparam[10] +
-                          2 * data->eparam[6] + ergcoaxinterbases2(i, k, k + 2, j - 1, ct, data) +
-                          erg1(i, k, i + 1, k - 1, ct, data) +
-                          erg1(k + 2, j - 1, k + 3, j - 2, ct, data))) {
+                  v->f(i + 1, k - 1) + v->f(k + 3, j - 2) + penalty(i, k, ct, data) +
+                      penalty(k + 2, j - 1, ct, data) + 2 * data->eparam[10] +
+                      2 * data->eparam[6] + ergcoaxinterbases2(i, k, k + 2, j - 1, ct, data) +
+                      erg1(i, k, i + 1, k - 1, ct, data) +
+                      erg1(k + 2, j - 1, k + 3, j - 2, ct, data))) {
 
                 registerbasepair(ct, i, k);
                 registerbasepair(ct, k + 2, j - 1);
@@ -1735,10 +1732,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             if ((mod[i] || mod[k]) && (!found) && inc[ct->numseq[i]][ct->numseq[k]]) {
 
               if ((energy ==
-                      v->f(i + 1, k - 1) + v->f(k + 2, j - 1) + penalty(i, k, ct, data) +
-                          penalty(k + 2, j - 1, ct, data) + 2 * data->eparam[10] +
-                          2 * data->eparam[6] + ergcoaxinterbases2(i, k, k + 2, j - 1, ct, data) +
-                          erg1(i, k, i + 1, k - 1, ct, data))) {
+                  v->f(i + 1, k - 1) + v->f(k + 2, j - 1) + penalty(i, k, ct, data) +
+                      penalty(k + 2, j - 1, ct, data) + 2 * data->eparam[10] +
+                      2 * data->eparam[6] + ergcoaxinterbases2(i, k, k + 2, j - 1, ct, data) +
+                      erg1(i, k, i + 1, k - 1, ct, data))) {
 
                 registerbasepair(ct, i, k);
 
@@ -1752,10 +1749,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 inc[ct->numseq[k + 2]][ct->numseq[j - 1]]) {
 
               if ((energy ==
-                      v->f(i, k) + v->f(k + 3, j - 2) + penalty(i, k, ct, data) +
-                          penalty(k + 2, j - 1, ct, data) + 2 * data->eparam[10] +
-                          2 * data->eparam[6] + ergcoaxinterbases2(i, k, k + 2, j - 1, ct, data) +
-                          erg1(k + 2, j - 1, k + 3, j - 2, ct, data))) {
+                  v->f(i, k) + v->f(k + 3, j - 2) + penalty(i, k, ct, data) +
+                      penalty(k + 2, j - 1, ct, data) + 2 * data->eparam[10] +
+                      2 * data->eparam[6] + ergcoaxinterbases2(i, k, k + 2, j - 1, ct, data) +
+                      erg1(k + 2, j - 1, k + 3, j - 2, ct, data))) {
 
                 registerbasepair(ct, k + 2, j - 1);
                 stack->push(i, k, 0, v->f(i, k), 1);
@@ -1778,11 +1775,11 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             if ((mod[i + 1] || mod[k]) && (mod[k + 2] || mod[j]) &&
                 inc[ct->numseq[i + 1]][ct->numseq[k]] && inc[ct->numseq[k + 2]][ct->numseq[j]]) {
               if ((energy ==
-                      v->f(i + 2, k - 1) + v->f(k + 3, j - 1) + penalty(i + 1, k, ct, data) +
-                          penalty(k + 2, j, ct, data) + 2 * data->eparam[10] + 2 * data->eparam[6] +
-                          ergcoaxinterbases1(i + 1, k, k + 2, j, ct, data) +
-                          erg1(i + 1, k, i + 2, k - 1, ct, data) +
-                          erg1(k + 2, j, k + 3, j - 1, ct, data))) {
+                  v->f(i + 2, k - 1) + v->f(k + 3, j - 1) + penalty(i + 1, k, ct, data) +
+                      penalty(k + 2, j, ct, data) + 2 * data->eparam[10] + 2 * data->eparam[6] +
+                      ergcoaxinterbases1(i + 1, k, k + 2, j, ct, data) +
+                      erg1(i + 1, k, i + 2, k - 1, ct, data) +
+                      erg1(k + 2, j, k + 3, j - 1, ct, data))) {
 
                 registerbasepair(ct, i + 1, k);
                 registerbasepair(ct, k + 2, j);
@@ -1794,10 +1791,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
 
             if ((mod[i + 1] || mod[k]) && (!found) && inc[ct->numseq[i + 1]][ct->numseq[k]]) {
               if ((energy ==
-                      v->f(i + 2, k - 1) + v->f(k + 2, j) + penalty(i + 1, k, ct, data) +
-                          penalty(k + 2, j, ct, data) + 2 * data->eparam[10] + 2 * data->eparam[6] +
-                          ergcoaxinterbases1(i + 1, k, k + 2, j, ct, data) +
-                          erg1(i + 1, k, i + 2, k - 1, ct, data))) {
+                  v->f(i + 2, k - 1) + v->f(k + 2, j) + penalty(i + 1, k, ct, data) +
+                      penalty(k + 2, j, ct, data) + 2 * data->eparam[10] + 2 * data->eparam[6] +
+                      ergcoaxinterbases1(i + 1, k, k + 2, j, ct, data) +
+                      erg1(i + 1, k, i + 2, k - 1, ct, data))) {
 
                 registerbasepair(ct, i + 1, k);
 
@@ -1809,9 +1806,9 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
 
             if ((!found) && (mod[k + 2] || mod[j]) && inc[ct->numseq[k + 2]][ct->numseq[j]]) {
               if ((energy ==
-                      v->f(i + 1, k) + v->f(k + 3, j - 1) + penalty(i + 1, k, ct, data) +
-                          penalty(k + 2, j, ct, data) + 2 * data->eparam[10] + 2 * data->eparam[6] +
-                          ergcoaxinterbases1(i + 1, k, k + 2, j, ct, data)
+                  v->f(i + 1, k) + v->f(k + 3, j - 1) + penalty(i + 1, k, ct, data) +
+                      penalty(k + 2, j, ct, data) + 2 * data->eparam[10] + 2 * data->eparam[6] +
+                      ergcoaxinterbases1(i + 1, k, k + 2, j, ct, data)
 
                           + erg1(k + 2, j, k + 3, j - 1, ct, data))) {
 
@@ -1958,10 +1955,10 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
             } else if (!found && (mod[a + 1] || mod[j - number - 2]) &&
                 inc[ct->numseq[i + 1]][ct->numseq[j - number - 2]]) {
               if ((energy ==
-                      w5[a - 1] + penalty(i, j, ct, data) +
-                          penalty(a + 1, j - number - 2, ct, data) + v->f(a + 2, j - number - 3) +
-                          ergcoaxinterbases1(a + 1, j - number - 2, j - number, i, ct, data) +
-                          erg1(a + 1, j - number - 2, a + 2, j - number - 3, ct, data))) {
+                  w5[a - 1] + penalty(i, j, ct, data) +
+                      penalty(a + 1, j - number - 2, ct, data) + v->f(a + 2, j - number - 3) +
+                      ergcoaxinterbases1(a + 1, j - number - 2, j - number, i, ct, data) +
+                      erg1(a + 1, j - number - 2, a + 2, j - number - 3, ct, data))) {
 
                 registerbasepair(ct, a + 1, j - number - 2);
                 if (a - 1 > minloop + 1) stack->push(1, a - 1, 1, w5[a - 1], 0);
@@ -2225,7 +2222,7 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
                 } else if (energy ==
                     w3[i + 2] + w5[j - number - 2] + penalty(i, j, ct, data) +
                         data->tstack[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]]
-                                    [ct->numseq[j - 1]] +
+                        [ct->numseq[j - 1]] +
                         checknp(lfce[i + 1], lfce[j - 1]) + ct->SHAPEss_give_value(i + 1) +
                         ct->SHAPEss_give_value(j - 1)) {
 
@@ -2475,7 +2472,7 @@ int trace(structure* ct, datatable* data, int ii, int ji, arrayclass* v, arraycl
               //}
               if (mod[a] || mod[b] && inc[ct->numseq[a]][ct->numseq[b]]) {
                 if (energy == (erg2(i, j, a, b, ct, data, fce->f(i, a), fce->f(b, j)) +
-                                  v->f(a + 1, b - 1) + erg1(a, b, a + 1, b - 1, ct, data))) {
+                    v->f(a + 1, b - 1) + erg1(a, b, a + 1, b - 1, ct, data))) {
                   i = a + 1;
                   j = b - 1;
                   registerbasepair(ct, a, b);
@@ -2512,12 +2509,12 @@ int traceback(structure* ct, datatable* data, arrayclass* v, arrayclass* w, arra
     arrayclass* w2, arrayclass* wmb2, integersize* w3, integersize* w5, forceclass* fce, bool* lfce,
     integersize vmin, int cntrl6, int cntrl8, int cntrl9, bool* mod) {
 
-  bool flag, **mark;
+  bool flag, ** mark;
   register int number;
   int ii, sort;
   int i;
   int iret, jret, numbp, count, count2, k1, k2, num, crit;
-  int *heapi, *heapj;
+  int* heapi, * heapj;
   int cur, c, k, j, cntr;
   int ji;  //(added during debugging)
   int tracebackerror = 0;
@@ -2547,7 +2544,7 @@ int traceback(structure* ct, datatable* data, arrayclass* v, arrayclass* w, arra
   }
 
   // dynamically allocate space for mark:
-  mark = new bool*[number + 1];
+  mark = new bool* [number + 1];
   for (i = 0; i <= (number); i++)
     mark[i] = new bool[number + 1];
 
@@ -2726,7 +2723,7 @@ int traceback(structure* ct, datatable* data, arrayclass* v, arrayclass* w, arra
     jret = heapj[cntr];
     // No prior structure was allocated, so add a structure now:
     if (!failedprevious) ct->AddStructure();
-    // The prior failed structure needs to be cleaned, i.e. all base pairs removed:
+      // The prior failed structure needs to be cleaned, i.e. all base pairs removed:
     else
       ct->CleanStructure(ct->GetNumberofStructures());
     // Reset failedprevious as a new traceback is started:
@@ -2808,7 +2805,7 @@ int traceback(structure* ct, datatable* data, arrayclass* v, arrayclass* w, arra
           if (ct->GetNumberofStructures() == cntrl6 && !failedprevious) { flag = false; }
         }
       }
-    sub900:
+      sub900:
       continue;
     }
   }
@@ -2888,7 +2885,7 @@ void force(structure* ct, forceclass* fce, bool* lfce) {
         ct->GetForbiddenPair3(i) <= ct->GetSequenceLength())
       fce->f(ct->GetForbiddenPair3(i), ct->GetForbiddenPair5(i) + ct->GetSequenceLength()) =
           fce->f(ct->GetForbiddenPair3(i), ct->GetForbiddenPair5(i) + ct->GetSequenceLength()) |
-          NOPAIR;
+              NOPAIR;
   }
 
   // Double up the sequence
@@ -2940,10 +2937,10 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
   int i, j, k, l;
   int m, n, o, p;
 
-  bool *lfce, *mod;  //[maxbases+1][maxbases+1];
+  bool* lfce, * mod;  //[maxbases+1][maxbases+1];
 
   // integersize **work,**work2;
-  integersize *w5, *w3;  //**wca,**curE,**prevE,**tempE;
+  integersize* w5, * w3;  //**wca,**curE,**prevE,**tempE;
 
   int inc[6][6] = {{0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 0}, {0, 0, 0, 1, 0, 0}, {0, 0, 1, 0, 1, 0},
       {0, 1, 0, 1, 0, 0}, {0, 0, 0, 0, 0, 0}};
@@ -3010,7 +3007,7 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
   forceclass fce(number);
 
   // add a second array for intermolecular folding:
-  arrayclass *w2, *wmb2;
+  arrayclass* w2, * wmb2;
   if (ct->intermolecular) {
     w2 = new arrayclass(number);
     wmb2 = new arrayclass(number);
@@ -3081,7 +3078,7 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
   vmin = INFINITE_ENERGY;
 
 #ifndef INSTRUMENTED  // If pre-compiler flag INSTRUMENTED is not defined, compile the following
-                      // code
+  // code
 #ifndef DYNALIGN_II
 // perform the fill steps:(i.e. fill arrays v and w.)
 #ifndef _CUDA_CALC_
@@ -3337,7 +3334,6 @@ void dynamic(structure* ct, datatable* data, int cntrl6, int cntrl8, int cntrl9,
 
   if (quickenergy) {
     // Don't do traceback, just return energy
-
     ct->AddStructure();
     ct->SetEnergy(1, w5[number]);
     tracebackerror = 0;
@@ -3478,7 +3474,7 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
   // This is the fill routine:
   register int number, h, maximum;
   int d, maxj;
-  integersize **wca, **curE, **prevE, **tempE;
+  integersize** wca, ** curE, ** prevE, ** tempE;
   number = ct->GetSequenceLength();
 
   // transposed v and w arrays
@@ -3490,9 +3486,9 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
 
   if (!ct->intermolecular) {
     // This code is needed for O(N^3) prediction of internal loops
-    wca = new integersize*[number + 1];
-    curE = new integersize*[number + 1];
-    prevE = new integersize*[number + 1];
+    wca = new integersize* [number + 1];
+    curE = new integersize* [number + 1];
+    prevE = new integersize* [number + 1];
 
     for (int locali = 0; locali <= number; locali++) {
       wca[locali] = new integersize[number + 1];
@@ -3506,7 +3502,7 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
     }
   } else {  // intermolecular folding
     // initialize wca only
-    wca = new integersize*[number + 1];
+    wca = new integersize* [number + 1];
     for (int locali = 0; locali <= number; locali++) {
       wca[locali] = new integersize[number + 1];
 
@@ -3519,7 +3515,7 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
   if (quickenergy || quickstructure)
     maximum = number;
   else
-    maximum = (2 * (number)-1);
+    maximum = (2 * (number) - 1);
 
   vmin = INFINITE_ENERGY;
   // h or (h-number+1) is the distance between i and j
@@ -3617,12 +3613,12 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
             goto sub2;
           }
         }
-        // else if ((ct->gu[ip]+number)==i) {
-        // 	if (ct->numseq[j]!=3) {
-        //   	v.f(i,j) = INFINITE_ENERGY;
-        //      goto sub2;
-        //   }
-        //}
+          // else if ((ct->gu[ip]+number)==i) {
+          // 	if (ct->numseq[j]!=3) {
+          //   	v.f(i,j) = INFINITE_ENERGY;
+          //      goto sub2;
+          //   }
+          //}
         else if (ct->GetGUpair(ip) == j) {
           if (ct->numseq[i] != 3) {
             v.f(i, j) = vT.f(i, j) = INFINITE_ENERGY;
@@ -3707,17 +3703,17 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
               if (abs(ip - i + j - jp) <= (maxinter)) {
                 if (ip > (number)) {
                   rarray = min(rarray, (erg2(i, j, ip, jp, ct, data, fce.f(i, ip - number),
-                                            fce.f(jp - number, j - number)) +
-                                           v.f(ip - (number), jp - (number))));
+                      fce.f(jp - number, j - number)) +
+                      v.f(ip - (number), jp - (number))));
 
                   if (mod[ip] || mod[jp]) {
                     // ip or jp is modified
 
                     rarray = min(rarray, erg2(i, j, ip, jp, ct, data, fce.f(i, ip - number),
-                                             fce.f(jp - number, j - number)) +
-                            v.f(ip - (number) + 1, jp - (number)-1) +
-                            erg1(ip - number, jp - number, ip + 1 - number, jp - 1 - number, ct,
-                                             data));
+                        fce.f(jp - number, j - number)) +
+                        v.f(ip - (number) + 1, jp - (number) - 1) +
+                        erg1(ip - number, jp - number, ip + 1 - number, jp - 1 - number, ct,
+                            data));
                   }
                 } else {
                   if (jp <= number) {
@@ -3733,15 +3729,15 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                     }
                   } else {
                     rarray = min(rarray, (erg2(i, j, ip, jp, ct, data, fce.f(i, ip),
-                                              fce.f(jp - number, j - number)) +
-                                             v.f(ip, jp)));
+                        fce.f(jp - number, j - number)) +
+                        v.f(ip, jp)));
 
                     if (mod[ip] || mod[jp]) {
                       // i or j is modified
                       rarray = min(rarray, (erg2(i, j, ip, jp, ct, data, fce.f(i, ip),
-                                                fce.f(jp - number, j - number)) +
-                                               v.f(ip + 1, jp - 1) +
-                                               erg1(ip, jp, ip + 1, jp - 1, ct, data)));
+                          fce.f(jp - number, j - number)) +
+                          v.f(ip + 1, jp - 1) +
+                          erg1(ip, jp, ip + 1, jp - 1, ct, data)));
                     }
                   }
                 }
@@ -3750,18 +3746,18 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
           }
         }
       }
-      /* Perhaps i,j closes an interior or bulge loop, search for the best possibility
-                     fill the interior loops' energy rarray first
-                     calculate the small loop (size<=5) first
-                     the larger loop is prefilled with curE[dp][i] (after sub2)
+        /* Perhaps i,j closes an interior or bulge loop, search for the best possibility
+                       fill the interior loops' energy rarray first
+                       calculate the small loop (size<=5) first
+                       the larger loop is prefilled with curE[dp][i] (after sub2)
 
-                     d= j-i, dp= jp-ip (interior loop)
-                     i<ip<number<jp<j or i<ip<jp<j<number
-                   */
+                       d= j-i, dp= jp-ip (interior loop)
+                       i<ip<number<jp<j or i<ip<jp<j<number
+                     */
 
-      // Below is the O(N^3) algorithm
-      // this is no longer used by default because time benchmarks show it is slower
-      // when the maximum internal loop size is 30
+        // Below is the O(N^3) algorithm
+        // this is no longer used by default because time benchmarks show it is slower
+        // when the maximum internal loop size is 30
       else {
         if ((d - 1) >= (minloop + 3) || j > number)
           for (dp = d - 3; dp >= ((j > number) ? 1 : minloop + 1); dp--) {
@@ -3790,8 +3786,8 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                   }
               }
             }
-            // when size >=6 and <=30;
-            //	else if (ll>=6&&ll<=(data->eparam[7]))
+              // when size >=6 and <=30;
+              //	else if (ll>=6&&ll<=(data->eparam[7]))
             else if (ll >= 6 && ll <= maxinter) {
 
               // interior energy prefilled (after sub2:) + exterior engergy (the function for erg2in
@@ -3816,7 +3812,7 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                     if (abs(ip - i + jp - j) <= maxasym) {
                       rarray =
                           min(rarray, (erg2(i, j, ip, jp, ct, data, fce.f(i, ip), fce.f(jpf, jf)) +
-                                          v.f(ip, jp)));
+                              v.f(ip, jp)));
                       // i or j is modified
                       if ((mod[ip] || mod[jp]) && inc[ct->numseq[ip]][ct->numseq[jp]] &&
                           !(fce.f(ip, jp) & SINGLE))
@@ -3835,7 +3831,7 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                     if (abs(ip - i + jp - j) <= maxasym) {
                       rarray =
                           min(rarray, (erg2(i, j, ip, jp, ct, data, fce.f(i, ip), fce.f(jpf, jf)) +
-                                          v.f(ip, jp)));
+                              v.f(ip, jp)));
                       if ((mod[ip] || mod[jp]) && inc[ct->numseq[ip]][ct->numseq[jp]] &&
                           !(fce.f(ip, jp) & SINGLE))
                         rarray =
@@ -3848,9 +3844,9 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
           }
       }
 
-    // Perhaps i,j closes a multibranch or exterior loop, search for the best possibility
+      // Perhaps i,j closes a multibranch or exterior loop, search for the best possibility
 
-    sub1:
+      sub1:
 
 #ifndef INSTRUMENTED  //
 
@@ -3869,10 +3865,10 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
 
           if (i != number)
             rarray = min(rarray, erg4(i, j, i + 1, 1, ct, data, lfce[i + 1]) +
-                    penalty(i, j, ct, data) + w3[i + 2] + w5[j - number - 1]);
+                penalty(i, j, ct, data) + w3[i + 2] + w5[j - number - 1]);
           if (j != (number + 1))
             rarray = min(rarray, erg4(i, j, j - 1, 2, ct, data, lfce[j - 1]) +
-                    penalty(i, j, ct, data) + w3[i + 1] + w5[j - number - 2]);
+                penalty(i, j, ct, data) + w3[i + 1] + w5[j - number - 2]);
           if ((i != number) && (j != (number + 1))) {
             rarray = min(rarray,
                 data->tstack[ct->numseq[i]][ct->numseq[j]][ct->numseq[i + 1]][ct->numseq[j - 1]] +
@@ -3888,18 +3884,18 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
           for (ip = j - number - minloop - 1; ip > 0; ip--) {
             // first consider flush stacking
             rarray = min(rarray, w3[i + 1] + w5[ip - 1] + penalty(i, j, ct, data) +
-                    penalty(j - number - 1, ip, ct, data) +
-                    ergcoaxflushbases(ip, j - number - 1, j - number, i, ct, data) +
-                    vT.f(ip, j - number - 1));
+                penalty(j - number - 1, ip, ct, data) +
+                ergcoaxflushbases(ip, j - number - 1, j - number, i, ct, data) +
+                vT.f(ip, j - number - 1));
 
             if ((mod[ip] || mod[j - number - 1]) && j - number - 2 > 0 &&
                 !(fce.f(ip, j - number - 1) & SINGLE)) {
               if (inc[ct->numseq[ip + 1]][ct->numseq[j - number - 2]]) {
                 rarray = min(rarray, w3[i + 1] + w5[ip - 1] + penalty(i, j, ct, data) +
-                        penalty(j - number - 1, ip, ct, data) +
-                        ergcoaxflushbases(ip, j - number - 1, j - number, i, ct, data) +
-                        vT.f(ip + 1, j - number - 2) +
-                        erg1(ip, j - number - 1, ip + 1, j - number - 2, ct, data));
+                    penalty(j - number - 1, ip, ct, data) +
+                    ergcoaxflushbases(ip, j - number - 1, j - number, i, ct, data) +
+                    vT.f(ip + 1, j - number - 2) +
+                    erg1(ip, j - number - 1, ip + 1, j - number - 2, ct, data));
               }
             }
 
@@ -3907,37 +3903,37 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
               // now consider an intervening nuc
               if (i < number) {
                 rarray = min(rarray, w3[i + 2] + w5[ip - 1] + penalty(i, j, ct, data) +
-                        penalty(ip, j - number - 2, ct, data) +
-                        ergcoaxinterbases2(ip, j - number - 2, j - number, i, ct, data) +
-                        vT.f(ip, j - number - 2) + checknp(lfce[i + 1], lfce[j - number - 1]));
+                    penalty(ip, j - number - 2, ct, data) +
+                    ergcoaxinterbases2(ip, j - number - 2, j - number, i, ct, data) +
+                    vT.f(ip, j - number - 2) + checknp(lfce[i + 1], lfce[j - number - 1]));
 
                 if ((mod[ip] || mod[j - number - 2]) &&
                     inc[ct->numseq[ip + 1]][ct->numseq[j - number - 3]] != 0 &&
                     !(fce.f(ip, j - number - 2) & SINGLE)) {
                   rarray = min(rarray, w3[i + 2] + w5[ip - 1] + penalty(i, j, ct, data) +
-                          penalty(ip, j - number - 2, ct, data) +
-                          ergcoaxinterbases2(ip, j - number - 2, j - number, i, ct, data) +
-                          vT.f(ip + 1, j - number - 3) +
-                          erg1(ip, j - number - 2, ip + 1, j - number - 3, ct, data) +
-                          checknp(lfce[i + 1], lfce[j - number - 1]));
+                      penalty(ip, j - number - 2, ct, data) +
+                      ergcoaxinterbases2(ip, j - number - 2, j - number, i, ct, data) +
+                      vT.f(ip + 1, j - number - 3) +
+                      erg1(ip, j - number - 2, ip + 1, j - number - 3, ct, data) +
+                      checknp(lfce[i + 1], lfce[j - number - 1]));
                 }
               }
 
               // consider the other possibility for an intervening nuc
               rarray = min(rarray, w3[i + 1] + w5[ip - 1] + penalty(i, j, ct, data) +
-                      penalty(ip + 1, j - number - 2, ct, data) +
-                      ergcoaxinterbases1(ip + 1, j - number - 2, j - number, i, ct, data) +
-                      vT.f(ip + 1, j - number - 2) + checknp(lfce[ip], lfce[j - number - 1]));
+                  penalty(ip + 1, j - number - 2, ct, data) +
+                  ergcoaxinterbases1(ip + 1, j - number - 2, j - number, i, ct, data) +
+                  vT.f(ip + 1, j - number - 2) + checknp(lfce[ip], lfce[j - number - 1]));
 
               if ((mod[ip + 1] || mod[j - number - 2]) &&
                   inc[ct->numseq[ip + 2]][ct->numseq[j - number - 3]] &&
                   !(fce.f(ip + 1, j - number - 2) & SINGLE)) {
                 rarray = min(rarray, w3[i + 1] + w5[ip - 1] + penalty(i, j, ct, data) +
-                        penalty(ip + 1, j - number - 2, ct, data) +
-                        ergcoaxinterbases1(ip + 1, j - number - 2, j - number, i, ct, data) +
-                        vT.f(ip + 2, j - number - 3) +
-                        erg1(ip + 1, j - number - 2, ip + 2, j - number - 3, ct, data) +
-                        checknp(lfce[ip], lfce[j - number - 1]));
+                    penalty(ip + 1, j - number - 2, ct, data) +
+                    ergcoaxinterbases1(ip + 1, j - number - 2, j - number, i, ct, data) +
+                    vT.f(ip + 2, j - number - 3) +
+                    erg1(ip + 1, j - number - 2, ip + 2, j - number - 3, ct, data) +
+                    checknp(lfce[ip], lfce[j - number - 1]));
               }
             }
           }
@@ -3946,51 +3942,51 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
           for (ip = i + minloop + 1; ip <= number; ip++) {
             // first consider flush stacking
             rarray = min(rarray, w3[ip + 1] + w5[j - number - 1] + penalty(i, j, ct, data) +
-                    penalty(ip, i + 1, ct, data) +
-                    ergcoaxflushbases(j - number, i, i + 1, ip, ct, data) + v.f(i + 1, ip));
+                penalty(ip, i + 1, ct, data) +
+                ergcoaxflushbases(j - number, i, i + 1, ip, ct, data) + v.f(i + 1, ip));
 
             if (mod[i + 1] ||
                 mod[ip] && inc[ct->numseq[i + 2]][ct->numseq[ip - 1]] &&
                     !(fce.f(i + 1, ip) & SINGLE)) {
 
               rarray = min(rarray, w3[ip + 1] + w5[j - number - 1] + penalty(i, j, ct, data) +
-                      penalty(ip, i + 1, ct, data) +
-                      ergcoaxflushbases(j - number, i, i + 1, ip, ct, data) + v.f(i + 2, ip - 1) +
-                      erg1(i + 1, ip, i + 2, ip - 1, ct, data));
+                  penalty(ip, i + 1, ct, data) +
+                  ergcoaxflushbases(j - number, i, i + 1, ip, ct, data) + v.f(i + 2, ip - 1) +
+                  erg1(i + 1, ip, i + 2, ip - 1, ct, data));
             }
 
             // now consider an intervening nuc
             if (j - number > 1) {
               rarray = min(rarray, w3[ip + 1] + w5[j - number - 2] + penalty(i, j, ct, data) +
-                      penalty(ip, i + 2, ct, data) +
-                      ergcoaxinterbases1(j - number, i, i + 2, ip, ct, data) + v.f(i + 2, ip) +
-                      checknp(lfce[i + 1], lfce[j - number - 1]));
+                  penalty(ip, i + 2, ct, data) +
+                  ergcoaxinterbases1(j - number, i, i + 2, ip, ct, data) + v.f(i + 2, ip) +
+                  checknp(lfce[i + 1], lfce[j - number - 1]));
 
               if ((mod[i + 2] || mod[ip]) && inc[ct->numseq[i + 3]][ct->numseq[ip - 1]] &&
                   !(fce.f(i + 2, ip) & SINGLE)) {
 
                 rarray = min(rarray, w3[ip + 1] + w5[j - number - 2] + penalty(i, j, ct, data) +
-                        penalty(ip, i + 2, ct, data) +
-                        ergcoaxinterbases1(j - number, i, i + 2, ip, ct, data) +
-                        v.f(i + 3, ip - 1) + erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
-                        checknp(lfce[i + 1], lfce[j - number - 1]));
+                    penalty(ip, i + 2, ct, data) +
+                    ergcoaxinterbases1(j - number, i, i + 2, ip, ct, data) +
+                    v.f(i + 3, ip - 1) + erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
+                    checknp(lfce[i + 1], lfce[j - number - 1]));
               }
             }
 
             // consider the other possibility for an intervening nuc
             rarray = min(rarray, w3[ip + 1] + w5[j - number - 1] + penalty(i, j, ct, data) +
-                    penalty(ip - 1, i + 2, ct, data) +
-                    ergcoaxinterbases2(j - number, i, i + 2, ip - 1, ct, data) +
-                    v.f(i + 2, ip - 1) + checknp(lfce[i + 1], lfce[ip]));
+                penalty(ip - 1, i + 2, ct, data) +
+                ergcoaxinterbases2(j - number, i, i + 2, ip - 1, ct, data) +
+                v.f(i + 2, ip - 1) + checknp(lfce[i + 1], lfce[ip]));
 
             if ((mod[i + 2] || mod[ip - 1]) && inc[ct->numseq[i + 3]][ct->numseq[ip - 2]] &&
                 !(fce.f(i + 2, ip - 1) & SINGLE)) {
 
               rarray = min(rarray, w3[ip + 1] + w5[j - number - 1] + penalty(i, j, ct, data) +
-                      penalty(ip - 1, i + 2, ct, data) +
-                      ergcoaxinterbases2(j - number, i, i + 2, ip - 1, ct, data) +
-                      v.f(i + 3, ip - 2) + erg1(i + 2, ip - 1, i + 3, ip - 2, ct, data) +
-                      checknp(lfce[i + 1], lfce[ip]));
+                  penalty(ip - 1, i + 2, ct, data) +
+                  ergcoaxinterbases2(j - number, i, i + 2, ip - 1, ct, data) +
+                  v.f(i + 3, ip - 2) + erg1(i + 2, ip - 1, i + 3, ip - 2, ct, data) +
+                  checknp(lfce[i + 1], lfce[ip]));
             }
           }
 #endif  // ifndef disablecoax
@@ -4017,15 +4013,15 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
 
             if (i + 1 != number)
               rarray = min(rarray, erg4(i, j, i + 1, 1, ct, data, lfce[i + 1]) +
-                      penalty(i, j, ct, data) + wmb.f(i + 2, j - 1) + data->eparam[5] +
-                      data->eparam[6] + data->eparam[10]);
+                  penalty(i, j, ct, data) + wmb.f(i + 2, j - 1) + data->eparam[5] +
+                  data->eparam[6] + data->eparam[10]);
           }
           if (j - 2 != number) {
             // j-1 dangles
             if (j != (number + 1))
               rarray = min(rarray, erg4(i, j, j - 1, 2, ct, data, lfce[j - 1]) +
-                      penalty(i, j, ct, data) + wmb.f(i + 1, j - 2) + data->eparam[5] +
-                      data->eparam[6] + data->eparam[10]);
+                  penalty(i, j, ct, data) + wmb.f(i + 1, j - 2) + data->eparam[5] +
+                  data->eparam[6] + data->eparam[10]);
             // both i+1 and j-1 dangle
             if ((i + 1 != number) && (j != (number + 1))) {
               rarray = min(rarray,
@@ -4050,16 +4046,16 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                 // only proceed if i+1 can pair with ip
 
                 rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 1, ip) +
-                        penalty(i + 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
-                        wT.f(ip + 1, j - 1) + ergcoaxflushbases(j, i, i + 1, ip, ct, data));
+                    penalty(i + 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
+                    wT.f(ip + 1, j - 1) + ergcoaxflushbases(j, i, i + 1, ip, ct, data));
 
                 if ((mod[i + 1] || mod[ip]) && inc[ct->numseq[i + 2]][ct->numseq[ip - 1]] &&
                     !(fce.f(i + 1, ip) & SINGLE)) {
 
                   rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 2, ip - 1) +
-                          penalty(i + 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
-                          wT.f(ip + 1, j - 1) + ergcoaxflushbases(j, i, i + 1, ip, ct, data) +
-                          erg1(i + 1, ip, i + 2, ip - 1, ct, data));
+                      penalty(i + 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
+                      wT.f(ip + 1, j - 1) + ergcoaxflushbases(j, i, i + 1, ip, ct, data) +
+                      erg1(i + 1, ip, i + 2, ip - 1, ct, data));
                 }
               }
               // if ((ip<j-1)&&(i+2!=number))
@@ -4068,38 +4064,38 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                 // now consider an intervening nuc
                 if ((ip + 2 < j - 1) /*&&(j>number||ip+2!=number)*/)
                   rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 2, ip) +
-                          penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                          2 * data->eparam[10] + wT.f(ip + 2, j - 1) +
-                          ergcoaxinterbases2(j, i, i + 2, ip, ct, data) +
-                          checknp(lfce[i + 1], lfce[ip + 1]));
+                      penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                      2 * data->eparam[10] + wT.f(ip + 2, j - 1) +
+                      ergcoaxinterbases2(j, i, i + 2, ip, ct, data) +
+                      checknp(lfce[i + 1], lfce[ip + 1]));
 
                 if ((mod[i + 2] || mod[ip]) && inc[ct->numseq[i + 3]][ct->numseq[ip - 1]] &&
                     !(fce.f(i + 2, ip) & SINGLE)) {
 
                   rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 3, ip - 1) +
-                          penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                          2 * data->eparam[10] + wT.f(ip + 2, j - 1) +
-                          ergcoaxinterbases2(j, i, i + 2, ip, ct, data) +
-                          erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
-                          checknp(lfce[i + 1], lfce[ip + 1]));
+                      penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                      2 * data->eparam[10] + wT.f(ip + 2, j - 1) +
+                      ergcoaxinterbases2(j, i, i + 2, ip, ct, data) +
+                      erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
+                      checknp(lfce[i + 1], lfce[ip + 1]));
                 }
 
                 if (ip + 1 < j - 2 && j - 2 != number)
                   rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 2, ip) +
-                          penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                          2 * data->eparam[10] + wT.f(ip + 1, j - 2) +
-                          ergcoaxinterbases1(j, i, i + 2, ip, ct, data) +
-                          checknp(lfce[i + 1], lfce[j - 1]));
+                      penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                      2 * data->eparam[10] + wT.f(ip + 1, j - 2) +
+                      ergcoaxinterbases1(j, i, i + 2, ip, ct, data) +
+                      checknp(lfce[i + 1], lfce[j - 1]));
 
                 if ((mod[i + 2] || mod[ip]) && inc[ct->numseq[i + 3]][ct->numseq[ip - 1]] &&
                     !(fce.f(i + 2, ip) & SINGLE)) {
 
                   rarray = min(rarray, penalty(i, j, ct, data) + v.f(i + 3, ip - 1) +
-                          penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                          2 * data->eparam[10] + wT.f(ip + 1, j - 2) +
-                          ergcoaxinterbases1(j, i, i + 2, ip, ct, data) +
-                          erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
-                          checknp(lfce[i + 1], lfce[j - 1]));
+                      penalty(i + 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                      2 * data->eparam[10] + wT.f(ip + 1, j - 2) +
+                      ergcoaxinterbases1(j, i, i + 2, ip, ct, data) +
+                      erg1(i + 2, ip, i + 3, ip - 1, ct, data) +
+                      checknp(lfce[i + 1], lfce[j - 1]));
                 }
               }  // end (ip+2<j-1&&i+1!=number&&ip+1!=number)
             }
@@ -4119,15 +4115,15 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                 // only proceed if j-1 can pair to ip
 
                 rarray = min(rarray, penalty(i, j, ct, data) + vT.f(ip, j - 1) +
-                        penalty(j - 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
-                        w.f(i + 1, ip - 1) + ergcoaxflushbases(ip, j - 1, j, i, ct, data));
+                    penalty(j - 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
+                    w.f(i + 1, ip - 1) + ergcoaxflushbases(ip, j - 1, j, i, ct, data));
 
                 if ((mod[ip] || mod[j - 1]) && inc[ct->numseq[ip + 1]][ct->numseq[j - 2]] &&
                     !(fce.f(ip, j - 1) & SINGLE)) {
                   rarray = min(rarray, penalty(i, j, ct, data) + vT.f(ip + 1, j - 2) +
-                          penalty(j - 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
-                          w.f(i + 1, ip - 1) + ergcoaxflushbases(ip, j - 1, j, i, ct, data) +
-                          erg1(ip, j - 1, ip + 1, j - 2, ct, data));
+                      penalty(j - 1, ip, ct, data) + data->eparam[5] + 2 * data->eparam[10] +
+                      w.f(i + 1, ip - 1) + ergcoaxflushbases(ip, j - 1, j, i, ct, data) +
+                      erg1(ip, j - 1, ip + 1, j - 2, ct, data));
                 }
               }
 
@@ -4136,37 +4132,37 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
                 // if ((ip>i+1)&&(j>number||ip-2!=number))
                 if (ip - 2 > i + 1 && ip - 2 != number) {
                   rarray = min(rarray, penalty(i, j, ct, data) + vT.f(ip, j - 2) +
-                          penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                          2 * data->eparam[10] + w.f(i + 1, ip - 2) +
-                          ergcoaxinterbases1(ip, j - 2, j, i, ct, data) +
-                          checknp(lfce[j - 1], lfce[ip - 1]));
+                      penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                      2 * data->eparam[10] + w.f(i + 1, ip - 2) +
+                      ergcoaxinterbases1(ip, j - 2, j, i, ct, data) +
+                      checknp(lfce[j - 1], lfce[ip - 1]));
 
                   if ((mod[ip] || mod[j - 2]) && inc[ct->numseq[ip + 1]][ct->numseq[j - 3]] &&
                       !(fce.f(ip, j - 2) & SINGLE)) {
                     rarray = min(rarray, penalty(i, j, ct, data) + vT.f(ip + 1, j - 3) +
-                            penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                            2 * data->eparam[10] + w.f(i + 1, ip - 2) +
-                            ergcoaxinterbases1(ip, j - 2, j, i, ct, data) +
-                            erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
-                            checknp(lfce[j - 1], lfce[ip - 1]));
+                        penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                        2 * data->eparam[10] + w.f(i + 1, ip - 2) +
+                        ergcoaxinterbases1(ip, j - 2, j, i, ct, data) +
+                        erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
+                        checknp(lfce[j - 1], lfce[ip - 1]));
                   }
                 }
 
                 if ((ip - 1 > i + 2) && i + 1 != number) {
                   rarray = min(rarray, penalty(i, j, ct, data) + vT.f(ip, j - 2) +
-                          penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                          2 * data->eparam[10] + w.f(i + 2, ip - 1) +
-                          ergcoaxinterbases2(ip, j - 2, j, i, ct, data) +
-                          checknp(lfce[j - 1], lfce[i + 1]));
+                      penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                      2 * data->eparam[10] + w.f(i + 2, ip - 1) +
+                      ergcoaxinterbases2(ip, j - 2, j, i, ct, data) +
+                      checknp(lfce[j - 1], lfce[i + 1]));
 
                   if ((mod[ip] || mod[j - 2]) && inc[ct->numseq[ip + 1]][ct->numseq[j - 3]] &&
                       !(fce.f(ip, j - 2) & SINGLE)) {
                     rarray = min(rarray, penalty(i, j, ct, data) + vT.f(ip + 1, j - 3) +
-                            penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
-                            2 * data->eparam[10] + w.f(i + 2, ip - 1) +
-                            ergcoaxinterbases2(ip, j - 2, j, i, ct, data) +
-                            erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
-                            checknp(lfce[j - 1], lfce[i + 1]));
+                        penalty(j - 2, ip, ct, data) + data->eparam[5] + 2 * data->eparam[6] +
+                        2 * data->eparam[10] + w.f(i + 2, ip - 1) +
+                        ergcoaxinterbases2(ip, j - 2, j, i, ct, data) +
+                        erg1(ip, j - 2, ip + 1, j - 3, ct, data) +
+                        checknp(lfce[j - 1], lfce[i + 1]));
                   }
                 }
               }
@@ -4183,11 +4179,11 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
             // i+1 dangles on i-j pair:
             if (i != number)
               rarray = min(rarray, erg4(i, j, i + 1, 1, ct, data, lfce[i + 1]) +
-                      penalty(i, j, ct, data) + wmb2->f(i + 2, j - 1) + INFINITE_ENERGY);
+                  penalty(i, j, ct, data) + wmb2->f(i + 2, j - 1) + INFINITE_ENERGY);
             // j-1 dangles
             if (j != (number + 1))
               rarray = min(rarray, erg4(i, j, j - 1, 2, ct, data, lfce[j - 1]) +
-                      penalty(i, j, ct, data) + wmb2->f(i + 1, j - 2) + INFINITE_ENERGY);
+                  penalty(i, j, ct, data) + wmb2->f(i + 1, j - 2) + INFINITE_ENERGY);
             // both i+1 and j-1 dangle
             if ((i != number) && (j != (number + 1))) {
               rarray = min(rarray,
@@ -4207,7 +4203,7 @@ void fill(structure* ct, arrayclass& v, arrayclass& vmb, arrayclass& vext, array
           v.f(i,
               j));  // QUESTION: THIS IS DIFFERENT FROM THE MAIN algorithm.cpp (see #ifndef above)
 #endif  // END INSTRUMENTED
-    sub2:
+      sub2:
 
       /*prefill curE[i] and prev[i] for the first two diagonals as ll =4 and 5
                       As d =10, only fill curE (ll=4, d=10)
@@ -4231,11 +4227,11 @@ d = j - i;
                 if (inc[ct->numseq[ip]][ct->numseq[jp]])
                   if ((ip <= number && jp > number) || (ip <= number && j <= number)) {
                     if (d == ((j > number) ? 7 : 10) || d > ((j > number) ? 8 : 11))
-                    // fill the first diagonal of d and first two of ll for every larger d
+                      // fill the first diagonal of d and first two of ll for every larger d
                     {
                       curE[dp][i] = min(
                           curE[dp][i], (erg2in(i, j, ip, jp, ct, data, fce.f(i, ip), fce.f(jp, j)) +
-                                           v.f(ip, jp)));
+                              v.f(ip, jp)));
 
                       // i or j is modified
                       if ((mod[ip] || mod[jp]) && inc[ct->numseq[ip]][ct->numseq[jp]] &&
@@ -4249,7 +4245,7 @@ d = j - i;
                     {
                       prevE[dp][i] = min(prevE[dp][i],
                           (erg2in(i, j, ip, jp, ct, data, fce.f(i, ip), fce.f(jp, j)) +
-                                             v.f(ip, jp)));
+                              v.f(ip, jp)));
 
                       if ((mod[ip] || mod[jp]) && inc[ct->numseq[ip]][ct->numseq[jp]] &&
                           !(fce.f(ip, jp) & SINGLE))
@@ -4263,8 +4259,8 @@ d = j - i;
               }
             }
 
-            // when size >=6 and <=30;
-            //   else if (ll>=6&&ll<=(data->eparam[7]))
+              // when size >=6 and <=30;
+              //   else if (ll>=6&&ll<=(data->eparam[7]))
             else if (ll >= 6 && ll <= maxinter) {
               // calculate minimum curE[dp][i] of 1 x (n-1) for next step's 2 x (n-2)
               ip = i + 2;
@@ -4307,7 +4303,7 @@ d = j - i;
         if ((lfce[i] || lfce[j]) && !ct->intermolecular)
           for (dp = 1; dp <= d; dp++)
             curE[dp][i] = INFINITE_ENERGY;  // QUESTION: THIS WASN'T IN THE
-                                            // algirithm.napss.cpp
+        // algirithm.napss.cpp
       }
 
       // Compute w[i][j]: best energy between i and j where i,j does not have
@@ -4335,14 +4331,14 @@ d = j - i;
             !(fce.f(i + 1, j) & SINGLE)) {
 
           e[1] = min(e[1], v.f(i + 2, j - 1) + data->eparam[10] + data->eparam[6] +
-                  erg4(j, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, j, ct, data) +
-                  erg1(i + 1, j, i + 2, j - 1, ct, data));
+              erg4(j, i + 1, i, 2, ct, data, lfce[i]) + penalty(i + 1, j, ct, data) +
+              erg1(i + 1, j, i + 2, j - 1, ct, data));
         }
         if (!lfce[i]) {
           if (!(fce.f(i, i) & INTER))
             // add a nuc to an existing loop:
             e[4] = w.f(i + 1, j) + data->eparam[6] + ct->SHAPEss_give_value(i);
-          // this is for when i represents the center of an intermolecular linker:
+            // this is for when i represents the center of an intermolecular linker:
           else
             e[4] = w.f(i + 1, j) + data->eparam[6] + INFINITE_ENERGY;
         }
@@ -4357,8 +4353,8 @@ d = j - i;
               !(fce.f(i, j - 1) & SINGLE)) {
 
             e[2] = min(e[2], v.f(i + 1, j - 2) + data->eparam[10] + data->eparam[6] +
-                    erg4(j - 1, i, j, 1, ct, data, lfce[j]) + penalty(i, j - 1, ct, data) +
-                    erg1(i, j - 1, i + 1, j - 2, ct, data));
+                erg4(j - 1, i, j, 1, ct, data, lfce[j]) + penalty(i, j - 1, ct, data) +
+                erg1(i, j - 1, i + 1, j - 2, ct, data));
           }
 
           if (!lfce[j]) {
@@ -4382,10 +4378,10 @@ d = j - i;
             if (inc[ct->numseq[i + 2]][ct->numseq[j - 2]]) {
 
               e[3] = min(e[3], v.f(i + 2, j - 2) + data->eparam[10] + 2 * (data->eparam[6]) +
-                      data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                                 [ct->numseq[i]] +
-                      penalty(j - 1, i + 1, ct, data) + erg1(i + 1, j - 1, i + 2, j - 2, ct, data) +
-                      ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j));
+                  data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
+                  [ct->numseq[i]] +
+                  penalty(j - 1, i + 1, ct, data) + erg1(i + 1, j - 1, i + 2, j - 2, ct, data) +
+                  ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(j));
             }
           }
         }
@@ -4398,7 +4394,7 @@ d = j - i;
           !(fce.f(i, j) & SINGLE)) {
 
         e[1] = min(((data->eparam[10]) + v.f(i + 1, j - 1) + penalty(j, i, ct, data) +
-                       erg1(i, j, i + 1, j - 1, ct, data)),
+                erg1(i, j, i + 1, j - 1, ct, data)),
             e[1]);
       }
       w.f(i, j) = min(e[1], e[2]);
@@ -4423,7 +4419,7 @@ d = j - i;
               !(fce.f(i + 1, j) & SINGLE)) {
 
             e[1] = min(e[1], v.f(i + 2, j - 1) + erg4(j, i + 1, i, 2, ct, data, lfce[i]) +
-                    penalty(i + 1, j, ct, data) + erg1(i + 1, j, i + 2, j - 1, ct, data));
+                penalty(i + 1, j, ct, data) + erg1(i + 1, j, i + 2, j - 1, ct, data));
           }
 
           // if (!lfce[i]) {
@@ -4443,7 +4439,7 @@ d = j - i;
                 !(fce.f(i, j - 1) & SINGLE)) {
 
               e[2] = min(e[2], v.f(i + 1, j - 2) + erg4(j - 1, i, j, 1, ct, data, lfce[j]) +
-                      penalty(i, j - 1, ct, data) + erg1(i, j - 1, i + 1, j - 2, ct, data));
+                  penalty(i, j - 1, ct, data) + erg1(i, j - 1, i + 1, j - 2, ct, data));
             }
 
             // if (!lfce[j]) {
@@ -4466,10 +4462,10 @@ d = j - i;
                 !(fce.f(i + 1, j - 1) & SINGLE)) {
 
               e[3] = min(e[3], v.f(i + 2, j - 2) +
-                      data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
-                                 [ct->numseq[i]] +
-                      checknp(lfce[i], lfce[j]) + penalty(j - 1, i + 1, ct, data) +
-                      erg1(i + 1, j - 1, i + 2, j - 2, ct, data));
+                  data->tstkm[ct->numseq[j - 1]][ct->numseq[i + 1]][ct->numseq[j]]
+                  [ct->numseq[i]] +
+                  checknp(lfce[i], lfce[j]) + penalty(j - 1, i + 1, ct, data) +
+                  erg1(i + 1, j - 1, i + 2, j - 2, ct, data));
             }
           }
         }
@@ -4539,7 +4535,7 @@ d = j - i;
             if (inc[ct->numseq[i]][ct->numseq[ip]] && inc[ct->numseq[j]][ct->numseq[ip + 1]]) {
               // ony proceed if i and ip and ip+1 and j can pair
               e[1] = min(e[1], v.f(i, ip) + vT.f(ip + 1, j) + penalty(i, ip, ct, data) +
-                      penalty(ip + 1, j, ct, data) + ergcoaxflushbases(i, ip, ip + 1, j, ct, data));
+                  penalty(ip + 1, j, ct, data) + ergcoaxflushbases(i, ip, ip + 1, j, ct, data));
 
               if (mod[i] || mod[ip] || mod[ip + 1] || mod[j]) {
 
@@ -4549,28 +4545,28 @@ d = j - i;
                     !(fce.f(ip + 1, j) & SINGLE)) {
 
                   e[1] = min(e[1], v.f(i + 1, ip - 1) + vT.f(ip + 2, j - 1) +
-                          penalty(i, ip, ct, data) + penalty(ip + 1, j, ct, data) +
-                          ergcoaxflushbases(i, ip, ip + 1, j, ct, data) +
-                          erg1(i, ip, i + 1, ip - 1, ct, data) +
-                          erg1(ip + 1, j, ip + 2, j - 1, ct, data));
+                      penalty(i, ip, ct, data) + penalty(ip + 1, j, ct, data) +
+                      ergcoaxflushbases(i, ip, ip + 1, j, ct, data) +
+                      erg1(i, ip, i + 1, ip - 1, ct, data) +
+                      erg1(ip + 1, j, ip + 2, j - 1, ct, data));
                 }
 
                 if ((mod[i] || mod[ip]) && inc[ct->numseq[i + 1]][ct->numseq[ip - 1]] &&
                     !(fce.f(i, ip) & SINGLE)) {
 
                   e[1] = min(e[1], v.f(i + 1, ip - 1) + vT.f(ip + 1, j) + penalty(i, ip, ct, data) +
-                          penalty(ip + 1, j, ct, data) +
-                          ergcoaxflushbases(i, ip, ip + 1, j, ct, data) +
-                          erg1(i, ip, i + 1, ip - 1, ct, data));
+                      penalty(ip + 1, j, ct, data) +
+                      ergcoaxflushbases(i, ip, ip + 1, j, ct, data) +
+                      erg1(i, ip, i + 1, ip - 1, ct, data));
                 }
 
                 if ((mod[ip + 1] || mod[j]) && inc[ct->numseq[ip + 2]][ct->numseq[j - 1]] &&
                     !(fce.f(ip + 1, j) & SINGLE)) {
 
                   e[1] = min(e[1], v.f(i, ip) + vT.f(ip + 2, j - 1) + penalty(i, ip, ct, data) +
-                          penalty(ip + 1, j, ct, data) +
-                          ergcoaxflushbases(i, ip, ip + 1, j, ct, data) +
-                          erg1(ip + 1, j, ip + 2, j - 1, ct, data));
+                      penalty(ip + 1, j, ct, data) +
+                      ergcoaxflushbases(i, ip, ip + 1, j, ct, data) +
+                      erg1(ip + 1, j, ip + 2, j - 1, ct, data));
                 }
               }
             }  // end (inc[ct->numseq[i]][ct->numseq[ip]]&&inc[ct->numseq[j]][ct->numseq[ip+1]])
@@ -4583,8 +4579,8 @@ d = j - i;
                   // now consider an intervening mismatch
 
                   e[2] = min(e[2], v.f(i, ip) + vT.f(ip + 2, j - 1) + penalty(i, ip, ct, data) +
-                          penalty(ip + 2, j - 1, ct, data) +
-                          ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data));
+                      penalty(ip + 2, j - 1, ct, data) +
+                      ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data));
 
                   if (mod[i] || mod[ip] || mod[ip + 2] || mod[j - 1]) {
                     if ((mod[i] || mod[ip]) && (mod[ip + 2] || mod[j - 1]) &&
@@ -4594,10 +4590,10 @@ d = j - i;
 
                       if (!lfce[ip + 1] && !lfce[j])
                         e[2] = min(e[2], v.f(i + 1, ip - 1) + vT.f(ip + 3, j - 2) +
-                                penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
-                                ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data) +
-                                erg1(i, ip, i + 1, ip - 1, ct, data) +
-                                erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
+                            penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
+                            ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data) +
+                            erg1(i, ip, i + 1, ip - 1, ct, data) +
+                            erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
                     }
 
                     if ((mod[i] || mod[ip]) && inc[ct->numseq[i + 1]][ct->numseq[ip - 1]] &&
@@ -4605,9 +4601,9 @@ d = j - i;
 
                       if (!lfce[ip + 1] && !lfce[j])
                         e[2] = min(e[2], v.f(i + 1, ip - 1) + vT.f(ip + 2, j - 1) +
-                                penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
-                                ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data) +
-                                erg1(i, ip, i + 1, ip - 1, ct, data));
+                            penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
+                            ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data) +
+                            erg1(i, ip, i + 1, ip - 1, ct, data));
                     }
 
                     if ((mod[ip + 2] || mod[j - 1]) && inc[ct->numseq[ip + 3]][ct->numseq[j - 2]] &&
@@ -4615,9 +4611,9 @@ d = j - i;
 
                       if (!lfce[ip + 1] && !lfce[j])
                         e[2] = min(e[2], v.f(i, ip) + vT.f(ip + 3, j - 2) +
-                                penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
-                                ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data) +
-                                erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
+                            penalty(i, ip, ct, data) + penalty(ip + 2, j - 1, ct, data) +
+                            ergcoaxinterbases2(i, ip, ip + 2, j - 1, ct, data) +
+                            erg1(ip + 2, j - 1, ip + 3, j - 2, ct, data));
                     }
                   }
                 }  // end (!lfce[ip+1]&&!lfce[j])
@@ -4628,8 +4624,8 @@ d = j - i;
                 // only proceed if i and ip j and ip+2 can pair
                 if (!lfce[i] && !lfce[ip + 1] && i != number) {
                   e[2] = min(e[2], v.f(i + 1, ip) + vT.f(ip + 2, j) + penalty(i + 1, ip, ct, data) +
-                          penalty(ip + 2, j, ct, data) +
-                          ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data));
+                      penalty(ip + 2, j, ct, data) +
+                      ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data));
 
                   if (mod[i + 1] || mod[ip] || mod[ip + 2] || mod[j]) {
                     if ((mod[i + 1] || mod[ip]) && (mod[ip + 2] || mod[j]) &&
@@ -4638,27 +4634,27 @@ d = j - i;
                         !(fce.f(i + 1, ip) & SINGLE) && !(fce.f(ip + 2, j) & SINGLE)) {
 
                       e[2] = min(e[2], v.f(i + 2, ip - 1) + vT.f(ip + 3, j - 1) +
-                              penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
-                              ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data) +
-                              erg1(i + 1, ip, i + 2, ip - 1, ct, data) +
-                              erg1(ip + 2, j, ip + 3, j - 1, ct, data));
+                          penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                          ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data) +
+                          erg1(i + 1, ip, i + 2, ip - 1, ct, data) +
+                          erg1(ip + 2, j, ip + 3, j - 1, ct, data));
                     }
                     if ((mod[i + 1] || mod[ip]) && inc[ct->numseq[i + 2]][ct->numseq[ip - 1]] &&
                         !(fce.f(i + 1, ip) & SINGLE)) {
 
                       e[2] = min(e[2], v.f(i + 2, ip - 1) + vT.f(ip + 2, j) +
-                              penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
-                              ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data) +
-                              erg1(i + 1, ip, i + 2, ip - 1, ct, data));
+                          penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                          ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data) +
+                          erg1(i + 1, ip, i + 2, ip - 1, ct, data));
                     }
 
                     if ((mod[ip + 2] || mod[j]) && inc[ct->numseq[ip + 3]][ct->numseq[j - 1]] &&
                         !(fce.f(ip + 2, j) & SINGLE)) {
 
                       e[2] = min(e[2], v.f(i + 1, ip) + vT.f(ip + 3, j - 1) +
-                              penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
-                              ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data) +
-                              erg1(ip + 2, j, ip + 3, j - 1, ct, data));
+                          penalty(i + 1, ip, ct, data) + penalty(ip + 2, j, ct, data) +
+                          ergcoaxinterbases1(i + 1, ip, ip + 2, j, ct, data) +
+                          erg1(ip + 2, j, ip + 3, j - 1, ct, data));
                     }
                   }
                 }
@@ -4702,7 +4698,7 @@ d = j - i;
         }
       }
 
-    sub3:
+      sub3:
       wT.f(i, j) = w.f(i, j);
 
       // Calculate vmin, the best energy for the entire sequence
@@ -4737,50 +4733,50 @@ d = j - i;
                     !(fce.f(k + 1, j) & SINGLE)) {
 
               e[1] = min(e[1], (w5[k] + v.f(k + 2, j - 1) + penalty(j, k + 1, ct, data) +
-                                   erg1(k + 1, j, k + 2, j - 1, ct, data)));
+                  erg1(k + 1, j, k + 2, j - 1, ct, data)));
             }
 
             e[2] = min(e[2], (w5[k] + erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) +
-                                 v.f(k + 2, j) + penalty(j, k + 2, ct, data)));
+                v.f(k + 2, j) + penalty(j, k + 2, ct, data)));
 
             if (mod[k + 2] ||
                 mod[j] && inc[ct->numseq[k + 3]][ct->numseq[j - 1]] &&
                     !(fce.f(k + 2, j) & SINGLE)) {
               e[2] = min(e[2],
                   (w5[k] + erg4(j, k + 2, k + 1, 2, ct, data, lfce[k + 1]) + v.f(k + 3, j - 1) +
-                             penalty(j, k + 2, ct, data) + erg1(k + 2, j, k + 3, j - 1, ct, data)));
+                      penalty(j, k + 2, ct, data) + erg1(k + 2, j, k + 3, j - 1, ct, data)));
             }
 
             e[3] = min(e[3], (w5[k] + erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) +
-                                 v.f(k + 1, j - 1) + penalty(j - 1, k + 1, ct, data)));
+                v.f(k + 1, j - 1) + penalty(j - 1, k + 1, ct, data)));
 
             if (mod[k + 1] ||
                 mod[j - 1] && inc[ct->numseq[k + 2]][ct->numseq[j - 2]] &&
                     !(fce.f(k + 1, j - 1) & SINGLE)) {
 
               e[3] = min(e[3], (w5[k] + erg4(j - 1, k + 1, j, 1, ct, data, lfce[j]) +
-                                   v.f(k + 2, j - 2) + penalty(j - 1, k + 1, ct, data) +
-                                   erg1(k + 1, j - 1, k + 2, j - 2, ct, data)));
+                  v.f(k + 2, j - 2) + penalty(j - 1, k + 1, ct, data) +
+                  erg1(k + 1, j - 1, k + 2, j - 2, ct, data)));
             }
 
             e[4] = min(e[4], (w5[k] +
-                                 data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
-                                             [ct->numseq[k + 1]] +
-                                 checknp(lfce[j], lfce[k + 1]) + v.f(k + 2, j - 1) +
-                                 penalty(j - 1, k + 2, ct, data)) +
-                    ct->SHAPEss_give_value(j) + ct->SHAPEss_give_value(k + 1));
+                data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                [ct->numseq[k + 1]] +
+                checknp(lfce[j], lfce[k + 1]) + v.f(k + 2, j - 1) +
+                penalty(j - 1, k + 2, ct, data)) +
+                ct->SHAPEss_give_value(j) + ct->SHAPEss_give_value(k + 1));
 
             if (mod[k + 2] ||
                 mod[j - 1] && inc[ct->numseq[k + 3]][ct->numseq[j - 2]] &&
                     !(fce.f(k + 2, j - 1) & SINGLE)) {
 
               e[4] = min(e[4], (w5[k] +
-                                   data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
-                                               [ct->numseq[k + 1]] +
-                                   checknp(lfce[j], lfce[k + 1]) + v.f(k + 3, j - 2) +
-                                   penalty(j - 1, k + 2, ct, data) +
-                                   erg1(k + 2, j - 1, k + 3, j - 2, ct, data)) +
-                      ct->SHAPEss_give_value(j) + ct->SHAPEss_give_value(k + 1));
+                  data->tstack[ct->numseq[j - 1]][ct->numseq[k + 2]][ct->numseq[j]]
+                  [ct->numseq[k + 1]] +
+                  checknp(lfce[j], lfce[k + 1]) + v.f(k + 3, j - 2) +
+                  penalty(j - 1, k + 2, ct, data) +
+                  erg1(k + 2, j - 1, k + 3, j - 2, ct, data)) +
+                  ct->SHAPEss_give_value(j) + ct->SHAPEss_give_value(k + 1));
             }
 
 #ifndef disablecoax
@@ -4807,7 +4803,7 @@ d = j - i;
             w3[i] = w3[i + 1] + ct->SHAPEss_give_value(i);
         }
         // w3[i]=0;
-        if (i >= 1 && i <= ((number)-minloop - 1)) {
+        if (i >= 1 && i <= ((number) - minloop - 1)) {
 
           if (lfce[i])
             w3[i] = INFINITE_ENERGY;
@@ -4827,36 +4823,36 @@ d = j - i;
                 !(fce.f(i, k - 1) & SINGLE)) {
 
               e[1] = min(e[1], (v.f(i + 1, k - 2) + w3[k] + penalty(k - 1, i, ct, data) +
-                                   erg1(i, k - 1, i + 1, k - 2, ct, data)));
+                  erg1(i, k - 1, i + 1, k - 2, ct, data)));
             }
 
             e[2] = min(e[2], (v.f(i + 1, k - 1) + erg4(k - 1, i + 1, i, 2, ct, data, lfce[i]) +
-                                 penalty(k - 1, i + 1, ct, data) + w3[k]));
+                penalty(k - 1, i + 1, ct, data) + w3[k]));
 
             if ((mod[i + 1] || mod[k - 1]) && inc[ct->numseq[i + 2]][ct->numseq[k - 2]] &&
                 !(fce.f(i + 1, k - 1) & SINGLE)) {
 
               e[2] = min(e[2], (v.f(i + 2, k - 2) + erg4(k - 1, i + 1, i, 2, ct, data, lfce[i]) +
-                                   penalty(k - 1, i + 1, ct, data) + w3[k] +
-                                   erg1(i + 1, k - 1, i + 2, k - 2, ct, data)));
+                  penalty(k - 1, i + 1, ct, data) + w3[k] +
+                  erg1(i + 1, k - 1, i + 2, k - 2, ct, data)));
             }
 
             e[3] = min(e[3], (v.f(i, k - 2) + erg4(k - 2, i, k - 1, 1, ct, data, lfce[k - 1]) +
-                                 penalty(k - 2, i, ct, data) + w3[k]));
+                penalty(k - 2, i, ct, data) + w3[k]));
 
             if ((mod[i] || mod[k - 2]) && inc[ct->numseq[i + 1]][ct->numseq[k - 3]] &&
                 !(fce.f(i, k - 2) & SINGLE)) {
               e[3] =
                   min(e[3], (v.f(i + 1, k - 3) + erg4(k - 2, i, k - 1, 1, ct, data, lfce[k - 1]) +
-                                penalty(k - 2, i, ct, data) + w3[k] +
-                                erg1(i, k - 2, i + 1, k - 3, ct, data)));
+                      penalty(k - 2, i, ct, data) + w3[k] +
+                      erg1(i, k - 2, i + 1, k - 3, ct, data)));
             }
 
             if (!lfce[i] && !lfce[k - 1]) {
               e[4] = min(e[4],
                   (v.f(i + 1, k - 2) +
                       data->tstack[ct->numseq[k - 2]][ct->numseq[i + 1]][ct->numseq[k - 1]]
-                                  [ct->numseq[i]] +
+                      [ct->numseq[i]] +
                       checknp(lfce[k - 1], lfce[i]) + w3[k] + penalty(k - 2, i + 1, ct, data)) +
                       ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(k - 1));
 
@@ -4865,7 +4861,7 @@ d = j - i;
                 e[4] = min(e[4],
                     (v.f(i + 2, k - 3) +
                         data->tstack[ct->numseq[k - 2]][ct->numseq[i + 1]][ct->numseq[k - 1]]
-                                    [ct->numseq[i]] +
+                        [ct->numseq[i]] +
                         checknp(lfce[k - 1], lfce[i]) + w3[k] + penalty(k - 2, i + 1, ct, data) +
                         erg1(i + 1, k - 2, i + 2, k - 3, ct, data)) +
                         ct->SHAPEss_give_value(i) + ct->SHAPEss_give_value(k - 1));
@@ -5142,7 +5138,7 @@ void filter(structure* ct, int percent, int max, int window) {
   bool** mark;
   // bool keep;
 
-  mark = new bool*[ct->GetSequenceLength() + 1];
+  mark = new bool* [ct->GetSequenceLength() + 1];
   for (i = 0; i <= ct->GetSequenceLength(); i++) {
     mark[i] = new bool[ct->GetSequenceLength() + 1];
   }
@@ -5840,10 +5836,10 @@ void opensav(char* filename, structure* ct, int cntrl6, int cntrl8, int cntrl9) 
   // register int inc[6][6]={{0,0,0,0,0,0},{0,0,0,0,1,0},{0,0,0,1,0,0},{0,0,1,0,1,0},
   //{0,1,0,1,0,0},{0,0,0,0,0,0}};
 
-  arrayclass *w2, *wmb2;
-  integersize *w5, *w3;
+  arrayclass* w2, * wmb2;
+  integersize* w5, * w3;
   int vmin;
-  bool *lfce, *mod;
+  bool* lfce, * mod;
   datatable* data;
 
   data = new datatable;

@@ -7,13 +7,11 @@
 
 #include "dotarray.h"
 
-#include "defines.h"
-
 dotarray::dotarray(int size) {
   short int i, j;
 
   // initialize the array
-  array = new integersize*[size + 1];
+  array = new integersize* [size + 1];
 
   for (i = 0; i <= (size); i++) {
     array[i] = new integersize[i + 1];

@@ -538,7 +538,7 @@ public:
       double const experimentalScaling = 1.0);
 
   double** constant;  // constant is used to hold an array of equilibrium constants.  In partition
-                      // function calculations,
+  // function calculations,
   // the equilibrium constant is multiplied by constant[j][i] when the i-j pair is formed.
   // NOTE: The use of constant is NOT orthogonal to using chemical modification data.  They cannot
   // both be used at once.
@@ -549,7 +549,7 @@ public:
 
   std::string sequencelabel;  // a label that was read from disk along with a sequence
 
-  short int *numseq, *hnumber;
+  short int* numseq, * hnumber;
 
   int inter[3], allocatedstructures;
   char* nucs;
@@ -569,7 +569,7 @@ public:
   // microarray type constraints:
   short int nmicroarray, microstart[maxregions], microstop[maxregions], microunpair[maxregions];
   bool* fcedbl;  // pointer to a 2-D array used in Dynalign to track nucleotides that must be
-                 // double-stranded
+  // double-stranded
 
   double* SHAPE;  // double array to contain SHAPE data -- values less than -500 are ignored
   double** EX;    // double array that contains experimental bonuses/penalties
@@ -577,16 +577,16 @@ public:
   bool experimentalPairBonusExists;  // keeps track of whether experimental bonus data was loaded
   bool ssoffset;  // keeps track of whether a single stranded offset was read from disk
   double SHAPEslope, SHAPEintercept;  // values of slope and intercept for SHAPE data modification
-                                      // of pairing stability
+  // of pairing stability
   // SINGLE STRANDED SHAPE ENERGY VARIABLES AND FUNCTIONS
   double* SHAPEss;  // short int array that contains SHAPE data for single-stranded segments
   double SHAPEslope_ss, SHAPEintercept_ss;  // values of the slope and intercept for SHAPE data
-                                            // modifying single stranded loop stability
+  // modifying single stranded loop stability
   short int**
       SHAPEss_region;  // 2-d short int array containing energy values for hairpin loop combinations
   int SHAPEss_calc(int index_i,
       int index_j);  // Returns pseudoenergy term for a hairpin loop using single stranded SHAPE
-                     // data
+  // data
   short int SHAPEss_give_value(
       int index);  // Returns the single stranded SHAPE pseudo energy for a given nucleotide
   double CalculatePseudoEnergy(double data, std::string modifier, double, double);
@@ -602,11 +602,11 @@ public:
 private:
   int numofbases;      // number of nucleotides in sequence
   bool limitdistance;  // toggle to indicate that there is a limit on the maximum distance between
-                       // nucs in base pairs
+  // nucs in base pairs
   int maxdistance;     // maximum distance between nucs in base pairs
 
   std::vector<singlestructure> arrayofstructures;  // This holds an array of structures, i.e. base
-                                                   // pairing information and comments
+  // pairing information and comments
 
   // variables for holding folding constraints:
   std::vector<int> doublestranded;  // nucleotides that must be double stranded

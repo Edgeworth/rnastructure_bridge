@@ -6,8 +6,6 @@
 //#include <stdlib.h>
 #include "structure.h"
 #include <algorithm>
-#include <cmath>
-#include <cstdlib>
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -86,7 +84,7 @@ structure::structure(int structures) {
   //<<<<<<< structure.cpp
 
   numofbases = 0;  // To start, set the length of the sequence to zero.  This indicates that no
-                   // sequence has been read.
+  // sequence has been read.
   SHAPEFileRead = false;
   distsread = false;
 
@@ -176,7 +174,7 @@ void structure::allocatetem() {
   // Size = size;//save the size of the array so that the destructor can
   // deallocate the space
 
-  tem = new bool*[numofbases + 1];
+  tem = new bool* [numofbases + 1];
   for (i = 0; i <= numofbases; i++) {
     tem[i] = new bool[i + 1];
   }
@@ -694,13 +692,13 @@ int structure::openseq(const char* seqfile) {
         strcpy(base + 1, "\0");
         if (!strcmp(base, "1")) break;
         if (!(!strcmp(base, "A") || !strcmp(base, "a") || !strcmp(base, "C") ||
-                !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
-                !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
-                !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
-                !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
+            !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
+            !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
+            !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
+            !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
           // TODO: try to properly report this error via return codes.
           cerr << "Error reading seq file: Invalid nucleobase at position " << j << ": " << base
-               << endl;
+              << endl;
           fclose(se);
           return 0;
         }
@@ -742,21 +740,21 @@ int structure::openseq(const char* seqfile) {
         strcpy(base + 1, "\0");
         if (!strcmp(base, "1")) break;
         if (!(!strcmp(base, "A") || !strcmp(base, "a") || !strcmp(base, "C") ||
-                !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
-                !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
-                !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
-                !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
+            !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
+            !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
+            !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
+            !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
           fclose(se);
           // TODO: try to properly report this error via return codes.
           cerr << "Error reading seq file: Invalid nucleobase at position " << j << ": " << base
-               << endl;
+              << endl;
           return 0;
         }
 
         if ((!strcmp(base, "A") || !strcmp(base, "a") || !strcmp(base, "C") || !strcmp(base, "c") ||
-                !strcmp(base, "G") || !strcmp(base, "g") || !strcmp(base, "T") ||
-                !strcmp(base, "t") || !strcmp(base, "U") || !strcmp(base, "u") ||
-                !strcmp(base, "X") || !strcmp(base, "x") || !strcmp(base, "N"))) {
+            !strcmp(base, "G") || !strcmp(base, "g") || !strcmp(base, "T") ||
+            !strcmp(base, "t") || !strcmp(base, "U") || !strcmp(base, "u") ||
+            !strcmp(base, "X") || !strcmp(base, "x") || !strcmp(base, "N"))) {
 
           tonum(base, this, (i));
           nucs[i] = base[0];
@@ -816,13 +814,13 @@ int structure::openseq(const char* seqfile) {
         strcpy(base + 1, "\0");
 
         if (!(!strcmp(base, "A") || !strcmp(base, "a") || !strcmp(base, "C") ||
-                !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
-                !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
-                !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
-                !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
+            !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
+            !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
+            !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
+            !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
           // TODO: try to properly report this error via return codes.
           cerr << "Error reading FASTA file: Invalid nucleobase at line " << (lineNum)
-               << ", column " << (j + 1) << ": '" << base << "'" << endl;
+              << ", column " << (j + 1) << ": '" << base << "'" << endl;
           FASTA->close();
           delete FASTA;
           return 0;
@@ -884,10 +882,10 @@ int structure::openseq(const char* seqfile) {
         strcpy(base + 1, "\0");
         // if (FASTA->eof()) break;
         if (!(!strcmp(base, "A") || !strcmp(base, "a") || !strcmp(base, "C") ||
-                !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
-                !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
-                !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
-                !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
+            !strcmp(base, "c") || !strcmp(base, "G") || !strcmp(base, "g") ||
+            !strcmp(base, "T") || !strcmp(base, "t") || !strcmp(base, "U") ||
+            !strcmp(base, "u") || !strcmp(base, "X") || !strcmp(base, "x") ||
+            !strcmp(base, " ") || !strcmp(base, "\n") || !strcmp(base, "N"))) {
           FASTA->close();
           delete FASTA;
           return 0;
@@ -1082,7 +1080,7 @@ void structure::allocateconstant() {
   // Size = size;//save the size of the array so that the destructor can
   // deallocate the space
 
-  constant = new double*[numofbases + 1];
+  constant = new double* [numofbases + 1];
   for (i = 0; i <= numofbases; i++) {
     constant[i] = new double[i + 1];
   }
@@ -1120,7 +1118,7 @@ void structure::ReadProbabilisticPotentialParams() {
   if (dir != NULL) {
     filedir = dir;
   }
-  // If DATAPATH does not exist, assume files are in pwd:
+    // If DATAPATH does not exist, assume files are in pwd:
   else {
     filedir = "";
   }
@@ -1436,7 +1434,7 @@ void structure::ReadSHAPE(const char* filename, std::string modifier, bool calcu
   // initializing triangular 2-d array that stores ss SHAPE energies for loops. 1st index is ending
   // location, 2nd index
   // is starting location
-  SHAPEss_region = new short int*[numofbases + 1];
+  SHAPEss_region = new short int* [numofbases + 1];
   for (int i = 1; i <= numofbases; i++)
     SHAPEss_region[i] = new short int[i];
 
@@ -1444,7 +1442,7 @@ void structure::ReadSHAPE(const char* filename, std::string modifier, bool calcu
   for (int j = 2; j <= numofbases; j++) {
     SHAPEss_region[j][j - 1] =
         (short int)(SHAPEss[j] + SHAPEss[j - 1]);  // sets energy for "zero sized loop".  Acts as
-                                                   // starting value to add onto below
+    // starting value to add onto below
     for (int i = j - 2; i >= 1; i--) {
       SHAPEss_region[j][i] = SHAPEss_region[j][i + 1] +
           (short int)(SHAPEss[i]);  // adds energy for additional loop element
@@ -1481,7 +1479,7 @@ void structure::ReadOffset(const char* SSOffset, const char* DSOffset) {
     }
 
     // also initialize the ssSHAPE lookup table for regions
-    SHAPEss_region = new short int*[numofbases + 1];
+    SHAPEss_region = new short int* [numofbases + 1];
     for (int i = 1; i <= numofbases; i++)
       SHAPEss_region[i] = new short int[i];
 
@@ -1545,7 +1543,7 @@ void structure::ReadOffset(const char* SSOffset, const char* DSOffset) {
   for (int j = 2; j <= numofbases; j++) {
     SHAPEss_region[j][j - 1] =
         (short int)(SHAPEss[j] + SHAPEss[j - 1]);  // sets energy for "zero sized loop".  Acts as
-                                                   // starting value to add onto below
+    // starting value to add onto below
     for (int i = j - 2; i >= 1; i--) {
       SHAPEss_region[j][i] = SHAPEss_region[j][i + 1] +
           (short int)(SHAPEss[i]);  // adds energy for additional loop element
@@ -1630,7 +1628,7 @@ void structure::ReadExperimentalPairBonus(
 
   ifstream in(filename);
 
-  EX = new double*[2 * numofbases + 1];
+  EX = new double* [2 * numofbases + 1];
   for (int i = 0; i < 2 * numofbases + 1; i++)
     EX[i] = new double[2 * numofbases + 1];
   for (int i = 0; i < 2 * numofbases + 1; i++)
@@ -1669,7 +1667,7 @@ void structure::ReadExperimentalPairBonus(
 
     if (count != numofbases * numofbases) {
       cerr << "Found too few values in experimental bonus file, found " << count << " but expected "
-           << numofbases * numofbases << endl;
+          << numofbases * numofbases << endl;
       exit(1);
     }
   }

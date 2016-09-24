@@ -8,7 +8,7 @@ forceclass::forceclass(int size) {
 
   Size = size;
   register int i, j;
-  dg = new char*[size + 1];
+  dg = new char* [size + 1];
 
   for (i = 0; i <= (size); i++) {
     dg[i] = new char[size + 1];

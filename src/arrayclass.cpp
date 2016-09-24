@@ -9,15 +9,13 @@
 #include "arrayclass.h"
 #include <utility>
 
-#include "defines.h"
-
 arrayclass::arrayclass() : Size(-1), k(0), dg(nullptr), infinite(INFINITE_ENERGY) {}
 
 arrayclass::arrayclass(int size, integersize energy) {
   infinite = energy;
   Size = size;
   int i, j;
-  dg = new integersize*[size + 1];
+  dg = new integersize* [size + 1];
 
   for (i = 0; i <= (size); i++) {
     dg[i] = new integersize[size + 1];
@@ -71,7 +69,7 @@ arrayclass::~arrayclass() {
 arrayclassT::arrayclassT(int size, integersize energy) {
   infinite = energy;
   Size = size;
-  dg = new integersize*[2 * size + 1];
+  dg = new integersize* [2 * size + 1];
 
   // because this is transpose of arrayclass,
   // i index is rows, j index is columns

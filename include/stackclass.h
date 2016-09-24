@@ -15,7 +15,7 @@ private:
   void allocate_stack();
 
 public:
-  short size, **stack, maximum;
+  short size, ** stack, maximum;
   integersize* stackenergy;
 
   stackclass(short int stacksize = 50);

@@ -90,7 +90,7 @@ integersize erg4(int i, int j, int ip, int jp, structure* ct, datatable* data, b
 // calculates energy of a dangling base
 
 inline integersize SHAPEend(int i, structure* ct);  // calculate the SHAPE pseudo energy for a
-                                                    // single
+// single
 // paired nucleotide
 
 // this function calculates whether a terminal pair i,j requires the end penalty

@@ -7,13 +7,11 @@
 
 #include "stackclass.h"
 
-#include "defines.h"
-
 void stackclass::allocate_stack() {
   short i;
 
   stackenergy = new integersize[maximum];
-  stack = new short int*[maximum];
+  stack = new short int* [maximum];
   for (i = 0; i < maximum; i++)
     stack[i] = new short int[4];
 }
