@@ -23,8 +23,8 @@
 #define minloop 3  // The minimum substructure with a basepair possible
 #define maxsequencelinelength 4000
 #define rt 0.61633       // gas constant times 37 deg. C
-#define Rgas 1.987213    // gas constant (to correct for the energy units)
-#define RKC 1.987213e-3  // gas constant in Kcal/mol
+#define Rgas 1.9872036    // gas constant (to correct for the energy units)
+#define RKC 1.9872036e-3  // gas constant in Kcal/mol
 #define SINGLE 1
 #define PAIR 2
 #define NOPAIR 4

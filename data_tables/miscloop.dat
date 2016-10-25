@@ -4,7 +4,7 @@ Miscellaneous free energy rules
 Extrapolation for large loops based on polymer theory
 internal, bulge or hairpin loops > 30: dS(T)=dS(30)+param*ln(n/30)
 -->
-1.077859855
+1.0785795939449998
 
 asymmetric internal loops: the ninio equation
 the maximum correction
