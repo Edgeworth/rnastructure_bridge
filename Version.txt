@@ -1,1 +1,5 @@
-This is version 5.8 of RNAstructure, released on December 1, 2015.
+# This file is auto-generated during the RNAstructure Release-building Process.
+# You may edit this file, but it will be overwritten when a release is built.
+# To make permanent changes, edit RNAstructure/RELEASE/resources/Version.txt.tpl
+
+This is version 6.3 of RNAstructure, released on April 5, 2021.
