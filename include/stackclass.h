@@ -12,19 +12,19 @@
 
 class stackclass {
 private:
-  void allocate_stack();
+	void allocate_stack();
 
 public:
-  short size, ** stack, maximum;
-  integersize* stackenergy;
+	short size,**stack,maximum;
+	integersize *stackenergy;
 
-  stackclass(short int stacksize = 50);
-  ~stackclass();
+	stackclass(short int stacksize = 50);
+	~stackclass();
 
-  bool pull(short int* i, short int* j, short int* open, integersize* energy, short int* pair);
-  void push(short int i, short int j, short int open, integersize energy, short int pair);
-
-  void delete_array();
+	bool pull(short int *i,short int *j, short int *open, integersize *energy, short int *pair);
+	void push(short int i,short int j, short int open, integersize energy, short int pair);
+	
+	void delete_array();
 };
 
 #endif

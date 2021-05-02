@@ -14,14 +14,14 @@
 
 class dotarray {
 private:
-  integersize** array;
+  integersize **array;
   short int store;
 
 public:
   dotarray(int size);
   ~dotarray();
 
-  integersize& dot(int i, int j);
+  integersize &dot(int i, int j);
 };
 
 #endif
