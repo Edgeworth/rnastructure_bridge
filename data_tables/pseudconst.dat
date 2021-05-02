@@ -1,6 +1,9 @@
 This file contains constants for calculating pseudoknot penalty
 for SHAPEknots program.
 
+All lines are considered comments and the actual constants are read 
+only following the arrows. The names (a, b, c2 etc) are ignored and 
+only the order is important.
 
 Constant 'a' is the single-stranded length. It is being  multiplied 
 by unpaired nucleotide count. 
