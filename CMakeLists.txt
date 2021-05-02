@@ -10,6 +10,7 @@ endif()
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RNASTRUCTURE_FLAGS} -w -std=c++14 -march=native \
   -O3 -Wno-write-strings -D NDEBUG")
-file(GLOB SOURCE "src/*.cpp" "include/*.h")
+file(GLOB_RECURSE SOURCE src "*.cpp")
+file(GLOB_RECURSE HEADERS src "*.h")
 include_directories(include)
-add_library(miles_rnastructure ${SOURCE})
+add_library(miles_rnastructure ${SOURCE} ${HEADERS})

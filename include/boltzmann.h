@@ -1,6 +1,6 @@
 #if !defined(BOLTZMANN_H)
 #define BOLTZMANN_H
-#include "../src/phmm/utils/xmath/log/xlog_math.h"
+#include "phmm/utils/xmath/log/xlog_math.h"
 
 /*======================================================================
 // define boltzman() *once* in the code -- this is the place right now. 

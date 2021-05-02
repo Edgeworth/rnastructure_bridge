@@ -8,7 +8,7 @@
 #include "rna_library.h"
 #include "CTCommentProvider.h"
 #include "DotBracketFormat.h"
-#include "../src/phmm/utils/xmath/log/xlog_math.h"
+#include "phmm/utils/xmath/log/xlog_math.h"
 
 using namespace std;
 
