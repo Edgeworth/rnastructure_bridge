@@ -33,6 +33,20 @@ class DynProgArray {
 	// the destructor deallocates the space used
 	~DynProgArray();
 
+	// ADDED(E): Move constructor and assignment for dp_state_t.
+	DynProgArray& operator=(const DynProgArray& o) = default;
+	DynProgArray(DynProgArray&& o) {
+		*this = o;
+		o.dg = nullptr;
+		o.Size = -1;
+	}
+	DynProgArray& operator=(DynProgArray&& o) {
+		*this = o;
+		o.dg = nullptr;
+		o.Size = -1;
+		return *this;
+	}
+
 	// f is an integer function that references the correct element of
 	// the array
 	T &f(int i, int j);

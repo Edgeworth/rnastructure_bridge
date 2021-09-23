@@ -317,7 +317,7 @@ int structure::SetSequence(const string& sequence) {
 		nucs[++count]=base;
 		int num = data->basetonum(base); 
 		if (num==-1) {
-			SetErrorDetails(sfmt("Invalid nucleobase %c at position %i.", base, i+1));
+			SetErrorDetails(SFMT("Invalid nucleobase %c at position %i.", base, i+1));
 			return 28; // error reading sequence.
 		}
 		numseq[count]=num;
@@ -603,7 +603,7 @@ int structure::ctout(const char * const ctoutfile, const bool append, CTCommentP
 		//Make sure the file opened.  If not, return an error indicator.
 		if (!out_file.is_open()) {
 			perror("Error opening ct output file");
-			// not allowed because the method is marked const: SetErrorDetails(sfmt("Failed to open the file '%s'. Please verify the path and its permissions.", ctoutfile));
+			// not allowed because the method is marked const: SetErrorDetails(SFMT("Failed to open the file '%s'. Please verify the path and its permissions.", ctoutfile));
 			return 2; // Error opening file
 		}
 		output.rdbuf(out_file.rdbuf());
@@ -681,14 +681,14 @@ int structure::opendbn(const char *bracketFile) {
 	std::ifstream file_in;
 	if (!isStdIoFile(bracketFile)) { 
 		if (!fileExists(bracketFile)) {
-			SetErrorDetails(sfmt("The path '%s' is invalid or does not exist.", bracketFile));
+			SetErrorDetails(SFMT("The path '%s' is invalid or does not exist.", bracketFile));
 			return 1; // file not found.
 		}
 		//Open the file for reading:
 		file_in.open(bracketFile);
 		//Make sure the file opened.  If not, return an error indicator.
 		if (!file_in.is_open()) {
-			SetErrorDetails(sfmt("Failed to open the file '%s'. Please verify the file and its permissions.", bracketFile));
+			SetErrorDetails(SFMT("Failed to open the file '%s'. Please verify the file and its permissions.", bracketFile));
 			return 2; // Error opening file
 		}
 		input.rdbuf(file_in.rdbuf());
@@ -706,7 +706,7 @@ int structure::opendbn(const char *bracketFile) {
 	}
 	if (input.bad()) {
 		//Some kind of read error occurred.
-		SetErrorDetails(sfmt("An error occured while reading the file '%s'.", bracketFile));
+		SetErrorDetails(SFMT("An error occured while reading the file '%s'.", bracketFile));
 		return 2;
 	}
 
@@ -734,7 +734,7 @@ int structure::opendbn(const char *bracketFile) {
 		if (-1==data->basetonum(line[i])) {
 			//This nucleotide wasn't recognized
 			// report this error via the lastErrorDetails mechanism
-			SetErrorDetails(sfmt("Invalid nucleobase '%c' at line %li column %i.", line[i], linenumber, i+1));
+			SetErrorDetails(SFMT("Invalid nucleobase '%c' at line %li column %i.", line[i], linenumber, i+1));
 			return 28;
 		} else {
 			//Put the nucleotide in the sequence
@@ -801,7 +801,7 @@ int structure::opendbn(const char *bracketFile) {
 
 			 size_t id = findchr(DBN_BRACKET_SYMBOLS, c);
 			if (id==string::npos) {
-				SetErrorDetails(sfmt("Invalid character in dot-bracket file: '%c' at line %i column %i.", c, linenumber, i+1));
+				SetErrorDetails(SFMT("Invalid character in dot-bracket file: '%c' at line %i column %i.", c, linenumber, i+1));
 				return 29;
 			}
 			if ((id&1)==0) {
@@ -821,7 +821,7 @@ int structure::opendbn(const char *bracketFile) {
 					}
 				}
 				if (found==-1) {
-					SetErrorDetails(sfmt("Unmatched bracket in dot-bracket file: '%c' at line %li column %i.", c, linenumber, i+1));
+					SetErrorDetails(SFMT("Unmatched bracket in dot-bracket file: '%c' at line %li column %i.", c, linenumber, i+1));
 					return 29;
 				}
 				//DEBUG: cout << "SetPair " << (brackets[found].pos+1) << "," << (i+1) << endl;
@@ -968,7 +968,7 @@ int structure::openct(const char *ctfile) {
 				//Check that the bases are incrementing correctly
 				if (position!=count) {
 					//There was a problem
-					SetErrorDetails(sfmt("Invalid nucleobase index %i (expected %i) in structure %i at line %li.", position, count, numofstructures, linenumber));
+					SetErrorDetails(SFMT("Invalid nucleobase index %i (expected %i) in structure %i at line %li.", position, count, numofstructures, linenumber));
 					return 29;
 				}
 
@@ -979,7 +979,7 @@ int structure::openct(const char *ctfile) {
 				numseq[count]=GetThermodynamicDataTable()->basetonum(base[0]);
 				if (numseq[count]==-1) {
 					//This means the bases was not recognized, and an error should be reported
-					SetErrorDetails(sfmt("Invalid nucleobase '%c' in structure %i at line %li.", base[0], numofstructures, linenumber));
+					SetErrorDetails(SFMT("Invalid nucleobase '%c' in structure %i at line %li.", base[0], numofstructures, linenumber));
 					return 29;
 				}
 				
@@ -991,14 +991,14 @@ int structure::openct(const char *ctfile) {
 				//Check the numbering
 				if (position!=(count-1)&&position!=0) {
 					//There was a problem
-					SetErrorDetails(sfmt("Unexpected backbone connection between nucleotides %i and %i in structure %i at line %li.", count, position, numofstructures, linenumber));
+					SetErrorDetails(SFMT("Unexpected backbone connection between nucleotides %i and %i in structure %i at line %li.", count, position, numofstructures, linenumber));
 					return 29;
 				}
 				in >> position;//read the next connected nucleotide
 				//Check the numbering
 				if (position!=(count+1)&&position!=0) {
 					//There was a problem
-					SetErrorDetails(sfmt("Unexpected backbone connection between nucleotides %i and %i in structure %i at line %li.", count, position, numofstructures, linenumber));
+					SetErrorDetails(SFMT("Unexpected backbone connection between nucleotides %i and %i in structure %i at line %li.", count, position, numofstructures, linenumber));
 					return 29;
 				}
 
@@ -1008,7 +1008,7 @@ int structure::openct(const char *ctfile) {
 
 				// Verify that the base is not paired with itself.
 				if (basepair==count) {
-					SetErrorDetails(sfmt("Base %i is paired with itself in structure %i at line %li.", count, numofstructures, linenumber));
+					SetErrorDetails(SFMT("Base %i is paired with itself in structure %i at line %li.", count, numofstructures, linenumber));
 					return 29;
 				}
 
@@ -1030,7 +1030,7 @@ int structure::openct(const char *ctfile) {
 				if ((basepair<count&&assigned!=basepair) || (basepair>count&&assigned!=0)) {
 					// For error reporting, we might have to swap some numbers. count is always THIS base. But either assigned or basepair could be 0. If so, swap them.
 					if (assigned==0) assigned = basepair;
-					SetErrorDetails(sfmt("Inconsistent base pairing information between nucleotides %i and %i in structure %i at line %li.", count, assigned, numofstructures, linenumber));
+					SetErrorDetails(SFMT("Inconsistent base pairing information between nucleotides %i and %i in structure %i at line %li.", count, assigned, numofstructures, linenumber));
 					return 29;
 				}
 
@@ -1040,7 +1040,7 @@ int structure::openct(const char *ctfile) {
 					assigned = GetPair(basepair,numofstructures); //here assigned is the base to which the TARGET base is assigned. 
 					//assigned should be 0. If not, it means a previous base already listed it as being paired to it.
 					if (assigned!=0&&assigned!=basepair) {
-						SetErrorDetails(sfmt("Inconsistent base pairing information. Bases %i and %i are both paired to base %i in structure %i at line %li.", assigned, count, basepair, numofstructures, linenumber));
+						SetErrorDetails(SFMT("Inconsistent base pairing information. Bases %i and %i are both paired to base %i in structure %i at line %li.", assigned, count, basepair, numofstructures, linenumber));
 						return 29;
 					}
 				}
@@ -1195,7 +1195,7 @@ int structure::openseqx (const char *seqfile) {
 			if (-1==data->basetonum(line[i])) {
 				//This nucleotide wasn't recognized
 				// report this error via the lastErrorDetails mechanism
-				SetErrorDetails(sfmt("Invalid nucleobase '%c' at line %li column %i.", line[i], linenumber, i+1));
+				SetErrorDetails(SFMT("Invalid nucleobase '%c' at line %li column %i.", line[i], linenumber, i+1));
 				return 28; //Error reading sequence
 			} else {
 				//Put the nucleotide in the sequence
@@ -1234,7 +1234,7 @@ int structure::writedotbracket(const char * const filename, const int structuren
 		out_file.open(filename,append ? std::ios_base::app : std::ios_base::trunc);
 		//Make sure the file opened.  If not, return an error indicator.
 		if (!out_file.is_open()) {
-			// not allowed because the method is marked const: SetErrorDetails(sfmt("Failed to open the file '%s'. Please verify the path and its permissions.", ctoutfile));
+			// not allowed because the method is marked const: SetErrorDetails(SFMT("Failed to open the file '%s'. Please verify the path and its permissions.", ctoutfile));
 			return 2; // Error opening file
 		}
 		out.rdbuf(out_file.rdbuf());
@@ -1247,7 +1247,7 @@ int structure::writedotbracket(const char * const filename, const int structuren
 	int count=0; // number of structures written.
 	int start=1, end=GetNumberofStructures();
 	if (structurenumber<-1||structurenumber>end) {
-		// not allowed because the method is marked const: SetErrorDetails(sfmt("Invalid structure number: %i. Valid structure numbers are from 1 to %i. Enter -1 to write all structures.", structurenumber, end));
+		// not allowed because the method is marked const: SetErrorDetails(SFMT("Invalid structure number: %i. Valid structure numbers are from 1 to %i. Enter -1 to write all structures.", structurenumber, end));
 		return 3; //structure number out of range.
 	}
 	if (structurenumber>0) start=end=structurenumber; // accept -1 or 0 to indicate that ALL structures should be written.
@@ -2197,7 +2197,7 @@ int structure::ReadExperimentalPairBonus(const char *filename, double const expe
         if (in.eof()) {
             cout << count << " columnar pairing restraints read...";
         } else {
-            SetErrorDetails(sfmt("Experimental bonus file '%s' intrepreted as columnar format contains improper value or is incorrectly formatted", filename));
+            SetErrorDetails(SFMT("Experimental bonus file '%s' intrepreted as columnar format contains improper value or is incorrectly formatted", filename));
             return 203; // see RNA::GetErrormessage
         }
 
@@ -2225,7 +2225,7 @@ int structure::ReadExperimentalPairBonus(const char *filename, double const expe
 	    }
 	
         if ( count != numofbases2 ){
-		    SetErrorDetails(sfmt("Experimental bonus file '%s' intrepreted as matrix format but did not have expected number of values\nFound %i but expected %i.\nIf columnar format, first line needs to start with ';'", filename, count, numofbases*numofbases));
+		    SetErrorDetails(SFMT("Experimental bonus file '%s' intrepreted as matrix format but did not have expected number of values\nFound %i but expected %i.\nIf columnar format, first line needs to start with ';'", filename, count, numofbases*numofbases));
 	        return 203; // see RNA::GetErrormessage
 
 	    }

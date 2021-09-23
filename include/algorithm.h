@@ -49,6 +49,12 @@ double ergexteriordiff(datatable *data,structure *ct, int structnum, bool simple
 
 void energyout(structure *ct,char *enrgyfile);
 
+// Added by E for fuzzing purposes.
+struct dp_state_t {
+  dp_state_t() : v(0), w(0), wmb(0) {}
+  DynProgArray<integersize> v, w, wmb;
+};
+
 //dynamic programming algorithm for secondary structure prediction by free energy minimization
 	//this is the dynamic folding algorithm of Zuker
          //cntrl6 = #tracebacks
@@ -62,7 +68,7 @@ void energyout(structure *ct,char *enrgyfile);
 		//maxinter is the maximum number of unpaired nucleotides allowed in an internal loop
 	//This returns an error code, where zero is no error and non-zero indicates a traceback error.
 int dynamic (structure *ct,datatable *data,int cntrl6,int cntrl8,int cntrl9,
-			 ProgressHandler* update=0, bool quickenergy = false, char* savfile = 0, int maxinter = 30, bool quickstructure = false, bool simple_iloops = true, bool disablecoax=false);
+			 ProgressHandler* update=0, bool quickenergy = false, char* savfile = 0, int maxinter = 30, bool quickstructure = false, bool simple_iloops = true, bool disablecoax=false, dp_state_t* dp_state = nullptr);
 
 
 void fill(structure *ct, DynProgArray<integersize> &v, DynProgArray<integersize> &w, DynProgArray<integersize> &wmb, forceclass &fce, int &vmin,bool *lfce, bool *mod,
@@ -84,7 +90,7 @@ void fill(structure *ct, DynProgArray<integersize> &v, DynProgArray<integersize>
           int &vmin, bool *lfce, bool *mod,integersize *w5, integersize *w3, bool quickenergy,
           datatable *data, DynProgArray<integersize> *w2, DynProgArray<integersize> *wmb2, ProgressHandler* update=0, int maxinter = 30, bool quickstructure = false, bool simple_iloops = true, bool disablecoax=false);
 
-void errmsg(int err,int err1);//function for outputting info in case of an error
+inline void errmsg(int err,int err1) {abort();}//function for outputting info in case of an error
 void update (int i);//function informs user of progress of fill algorithm
 
 //filter is used to choose structures to output after efn2

@@ -11,3 +11,7 @@ CMakeScripts
 Makefile
 cmake_install.cmake
 install_manifest.txt
+
+# ADDED(E):
+compile_commands.json
+.cache/

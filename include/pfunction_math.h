@@ -70,8 +70,8 @@ inline R binary_reduce(const T& t, const U& u, Rest... rest) {
 	// inline T log_sum(T t, Rest... rest) {
 	// 	return xlog_sum(t,log_sum(rest...));
 	// }
-	#define ZERO LOG_OF_ZERO
-	#define ONE 0.0
+	const inline PFPRECISION ZERO = LOG_OF_ZERO;
+	constexpr PFPRECISION ONE = 0.0;
 	#define SUM(...)  binary_reduce<PFPRECISION,xlog_sum2>(__VA_ARGS__)
 	#define DIFF(...)  xlog_sub(__VA_ARGS__)
 	#define PROD(...) binary_reduce<PFPRECISION,xlog_mul>(__VA_ARGS__)
@@ -156,15 +156,15 @@ inline R binary_reduce(const T& t, const U& u, Rest... rest) {
 		// Convert log value to PFPRECISION (i.e. log_double) -- Initialize a new log_double from the log-scale double.
 		#define XLOG_TO_PF(X) ld_from_xlog(X)
 		#define TO_XLOG(X)    ld_from_linear(X) // explicitly convert double to PFPRECISION (e.g. log_double)
-		#define ZERO log_double::zero()
-		#define ONE log_double::one()
+		constexpr auto ZERO = log_double::zero();
+		constexpr auto ONE = log_double::one();
 	#else
 		// Convert log value to PFPRECISION (i.e.  linear double) -- So take exp.
 		#define XLOG_TO_PF(X) xexp(X)
 		// For initializing PFPRECISION with a linear-scale value
 		#define TO_XLOG(X)  (PFPRECISION)(X) //static_cast<PFPRECISION>(X)
-		#define ZERO 0.0
-		#define ONE 1.0
+		constexpr PFPRECISION ZERO = 0.0;
+		constexpr PFPRECISION ONE = 1.0;
 	#endif
 #endif //PF_LOG_CALC
 

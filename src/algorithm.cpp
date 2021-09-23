@@ -2792,7 +2792,7 @@ int traceback(structure *ct, datatable *data, DynProgArray<integersize> *v, DynP
 	//quickenergy indicates whether to find the lowest free energy for the sequence without a structure
 #ifndef INSTRUMENTED
 	int dynamic(structure* ct,datatable* data,int cntrl6, int cntrl8,int cntrl9,
-			ProgressHandler* update, bool quickenergy, char* save, int maxinter, bool quickstructure, bool simple_iloops, bool disablecoax)
+			ProgressHandler* update, bool quickenergy, char* save, int maxinter, bool quickstructure, bool simple_iloops, bool disablecoax, dp_state_t* dp_state)
 
 
 #else //INSTRUMENTED IS DEFINED
@@ -3182,6 +3182,12 @@ int traceback(structure *ct, datatable *data, DynProgArray<integersize> *v, DynP
 			timeout << time(NULL) - seconds;
 			timeout.close();
 #endif
+
+	if (dp_state != nullptr) {
+		dp_state->v = std::move(v);
+		dp_state->w = std::move(w);
+		dp_state->wmb = std::move(wmb);
+	}
 
 #ifndef INSTRUMENTED // if INSTRUMENTED is not defined
 			return tracebackerror;

@@ -51,7 +51,7 @@ string getDirName(const char * const path);
 string createSafeFilename(const string& label, const string& extension="", bool replaceSpaceChar=false);
 
 // Utility function that creates a string and fills it by sprintf-formatting the arguments. 
-string sfmt(const char* const format, ...);
+string SFMT(const char* const format, ...);
 
 
 // The following string functions operate in-place on their subjects

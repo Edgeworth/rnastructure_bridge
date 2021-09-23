@@ -94,7 +94,7 @@ string createSafeFilename(const string& label, const string& extension, bool rep
 }
 
 // Creates string and fills it by sprintf-formatting the arguments.
-string sfmt(const char* const format, ...) {
+string SFMT(const char* const format, ...) {
     va_list args;
 	int size = strlen(format) + 256;
 	char* buf = new char[size];
