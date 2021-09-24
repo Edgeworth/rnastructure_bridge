@@ -2766,11 +2766,12 @@ integersize erg2(int i,int j,int ip,int jp,structure *ct, datatable *data,
 				}
 				//apply a correction for the number of equivalent states because
 					//the bulge can move to adjacent sites
-				energy-= (int) (data->RT*conversionfactor* log ((double) count));
+				// ADDED(E): Rounding here instead of truncating.
+				energy-= (int) round(data->RT*conversionfactor* log ((double) count));
 			}
 			else if (size>30) {
-
-				loginc = int((data->prelog)*log(double ((size)/30.0)));
+				// ADDED(E): Round here instead of truncate.
+				loginc = round((data->prelog)*log(double ((size)/30.0)));
 				energy = data->bulge[30] + loginc + data->eparam[2];
 				energy = energy + penalty(i,j,ct,data) + penalty(jp,ip,ct,data);
 
@@ -2786,7 +2787,8 @@ integersize erg2(int i,int j,int ip,int jp,structure *ct, datatable *data,
 
 			if (size>30) {
 
-				loginc = int((data->prelog)*log((double ((size))/30.0)));
+				// ADDED(E): Round here instead of truncate.
+				loginc = round((data->prelog)*log((double ((size))/30.0)));
 				if (size1==1||size2==1) {
             		energy = data->tstki1n[ct->numseq[i]][ct->numseq[j]]
 						[ct->numseq[i+1]][ct->numseq[j-1]] +
@@ -2926,7 +2928,8 @@ integersize erg2ex(int i,int j,int size,structure *ct, datatable *data)
 	*/
    			if (size>30) {
 
-				loginc = int((data->prelog)*log((double ((size))/30.0)));
+				// ADDED(E): Round here instead of truncate.
+				loginc = round((data->prelog)*log((double ((size))/30.0)));
 				energy = data->tstki[ct->numseq[i]][ct->numseq[j]]
 						[ct->numseq[i+1]][ct->numseq[j-1]] +
 						data->inter[30] + loginc;
@@ -3262,7 +3265,8 @@ integersize erg3(int i,int j,structure *ct, datatable *data,char dbl)
 
 		if (size>30) {
 
-			loginc = int((data->prelog)*log((double ((size))/30.0)));
+			// ADDED(E): Round here instead of truncate.
+			loginc = round((data->prelog)*log((double ((size))/30.0)));
 
 
 
@@ -3343,8 +3347,8 @@ integersize erg3(int i,int j,structure *ct, datatable *data,char dbl)
 
 
 		//check for GU closeure preceded by GG
-
-		if (ct->IsNuc(i,'G')||ct->IsNuc(i,'g')) {
+		// ADDED(E): Special GU closure should only be applied for length > 3.
+		if ((size) > 3 && (ct->IsNuc(i,'G')||ct->IsNuc(i,'g'))) {
 			if (ct->IsNuc(j,'U')||ct->IsNuc(j,'u')) {
 
 		 
@@ -3452,8 +3456,9 @@ integersize ergcoax(int i, int j, int ip, int jp, int k, structure *ct, datatabl
 	else if (k>0) {
 		//coaxial stacking with an intervening mismatch
 		if (k==i-1) {
+			// ADDED(E): Fixed order of CTD lookup.
 			return data->tstackcoax[ct->numseq[j]][ct->numseq[i]][ct->numseq[j+1]][ct->numseq[i-1]] +
-				data->coaxstack[ct->numseq[j+1]][ct->numseq[k]][ct->numseq[ip]][ct->numseq[jp]];
+				data->coaxstack[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[k]][ct->numseq[j+1]];
 
 		}
 		else { //if (k==jp+1) {
@@ -3486,8 +3491,9 @@ integersize ergcoaxflushbases(int i, int j, int ip, int jp, structure *ct, datat
 }
 integersize ergcoaxinterbases1(int i, int j, int ip, int jp, structure *ct, datatable *data) {
 	//k==i-1
+	// ADDED(E): Fixed order of CTD lookup.
 	return data->tstackcoax[ct->numseq[j]][ct->numseq[i]][ct->numseq[j+1]][ct->numseq[i-1]] +
-				data->coaxstack[ct->numseq[j+1]][ct->numseq[i-1]][ct->numseq[ip]][ct->numseq[jp]] +
+				data->coaxstack[ct->numseq[jp]][ct->numseq[ip]][ct->numseq[i-1]][ct->numseq[j+1]] +
 				ct->SHAPEss_give_value(j+1) + ct->SHAPEss_give_value(i-1);
 
 }
@@ -3541,9 +3547,9 @@ integersize ergcoaxflushbases(int i, int j, int ip, int jp, datatable *data) {
 integersize ergcoaxinterbases1(int i, int j, int ip, int jp, int k, int l, datatable *data) {
 
 		//coaxial stacking with an intervening mismatch
-
+		// ADDED(E): Fixed order of CTD lookup.
 			return data->tstackcoax[j][i][l][k] +
-				data->coaxstack[l][k][ip][jp];
+				data->coaxstack[jp][ip][k][l];
 
 
 
