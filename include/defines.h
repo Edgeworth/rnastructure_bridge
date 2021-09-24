@@ -23,8 +23,8 @@
 #define maxsequencelinelength 4000
 #define RT_37C 0.61633 //gas constant times 37 deg. C  (previously named "rt", but this could easily cause problems e.g. "int rt = 3;" would be an error.)
 #define TEMP_37C 310.15 // The temperature 37 degrees celsius converted to units Kelvin
-#define Rgas 1.987213//gas constant (to correct for the energy units)
-#define RKC 1.987213e-3 //gas constant in Kcal/mol
+#define Rgas 1.98720425864083//gas constant (to correct for the energy units). ADDED(E): Fixed value.
+#define RKC 1.98720425864083e-3 //gas constant in Kcal/mol. ADDED(E): Fixed value.
 #define SINGLE 1
 #define PAIR 2
 #define NOPAIR 4

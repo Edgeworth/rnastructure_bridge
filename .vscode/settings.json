@@ -4,5 +4,6 @@
   "editor.formatOnType": false,
   "files.trimTrailingWhitespace": false,
   "files.insertFinalNewline": false,
-  "files.trimFinalNewlines": false
+  "files.trimFinalNewlines": false,
+  "rewrap.autoWrap.enabled": false
 }
