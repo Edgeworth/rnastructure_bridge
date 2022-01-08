@@ -1,16 +1,20 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.12)
 
-project(miles_rnastructure)
+project(miles_rnastructure VERSION 0.1 LANGUAGES CXX)
 
-include(CheckCCompilerFlag)
-check_c_compiler_flag("-fsched-spec-load" HAVE_RNASTRUCTURE_FLAG)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+include(CheckCXXCompilerFlag)
+check_cxx_compiler_flag("-fsched-spec-load" HAVE_RNASTRUCTURE_FLAG)
 if(HAVE_RNASTRUCTURE_FLAG)
   set(RNASTRUCTURE_FLAGS "-fsched-spec-load")
 endif()
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${RNASTRUCTURE_FLAGS} -w -std=c++14 -march=native \
-  -O3 -Wno-write-strings -D NDEBUG")
 file(GLOB_RECURSE SOURCE src "*.cpp")
 file(GLOB_RECURSE HEADERS src "*.h")
-include_directories(include)
+
 add_library(miles_rnastructure ${SOURCE} ${HEADERS})
+target_include_directories(miles_rnastructure PUBLIC include)
+target_compile_options(miles_rnastructure PRIVATE
+  ${RNASTRUCTURE_FLAGS} -w -march=native -O3 -Wno-write-strings -DNDEBUG)
