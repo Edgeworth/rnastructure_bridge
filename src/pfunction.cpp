@@ -2698,7 +2698,8 @@ PFPRECISION energy,loginc;
 		//check for GU closeure preceded by GG
 		
 	  //if ((ct->IsNuc(i,'G')||ct->IsNuc(i,'g'))&&(ct->IsNuc(j,'U')||ct->IsNuc(j,'u'))) {
-      if ((ct->IsNuc(i,'G'))&&(ct->IsNuc(j,'U'))) {
+		  // ADDED(E): Special GU closure should only be applied for length > 3.
+      if ((size) > 3 && (ct->IsNuc(i,'G'))&&(ct->IsNuc(j,'U'))) {
       //if (ct->numseq[i]==3&&ct->numseq[j]==4) {
       	if ((i>2&&i<ct->GetSequenceLength())||(i>ct->GetSequenceLength()+2))
 			//if ((ct->IsNuc(i-1,'G')||ct->IsNuc(i-1,'g'))&&(ct->IsNuc(i-2,'G')||ct->IsNuc(i-2,'g'))) {
