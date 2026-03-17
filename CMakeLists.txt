@@ -11,8 +11,8 @@ if(HAVE_RNASTRUCTURE_FLAG)
   set(RNASTRUCTURE_FLAGS "-fsched-spec-load")
 endif()
 
-file(GLOB_RECURSE SOURCE src "*.cpp")
-file(GLOB_RECURSE HEADERS src "*.h")
+file(GLOB_RECURSE SOURCE "*.cpp")
+file(GLOB_RECURSE HEADERS "*.h")
 
 add_library(rnastructure_bridge ${SOURCE} ${HEADERS})
 target_include_directories(rnastructure_bridge PUBLIC include)
