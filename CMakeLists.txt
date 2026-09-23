@@ -5,6 +5,8 @@ project(rnastructure_bridge VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+option(USE_NATIVE_ARCH "Whether to optimise for the build machine's CPU" ON)
+
 include(CheckCXXCompilerFlag)
 check_cxx_compiler_flag("-fsched-spec-load" HAVE_RNASTRUCTURE_FLAG)
 if(HAVE_RNASTRUCTURE_FLAG)
@@ -17,4 +19,7 @@ file(GLOB_RECURSE HEADERS "*.h")
 add_library(rnastructure_bridge ${SOURCE} ${HEADERS})
 target_include_directories(rnastructure_bridge PUBLIC include)
 target_compile_options(rnastructure_bridge PRIVATE
-  ${RNASTRUCTURE_FLAGS} -w -march=native -O3 -Wno-write-strings -DNDEBUG)
+  ${RNASTRUCTURE_FLAGS} -w -O3 -Wno-write-strings -DNDEBUG)
+if(USE_NATIVE_ARCH)
+  target_compile_options(rnastructure_bridge PRIVATE -march=native)
+endif()
